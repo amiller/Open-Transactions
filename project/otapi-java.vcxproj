@@ -16,12 +16,12 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
@@ -36,7 +36,14 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(SolutionDir)..\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\library\Debug;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(SolutionDir)..\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\library\Release;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -60,6 +67,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\otapi\main.h" />
+    <ClInclude Include="..\src\otapi\OpenTransactions.h" />
+    <ClInclude Include="..\src\otapi\OTAPI_java.h" />
+    <ClInclude Include="..\src\otapi\OTClient.h" />
+    <ClInclude Include="..\src\otapi\OTServerConnection.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\otapi\OpenTransactions.cpp" />
+    <ClCompile Include="..\src\otapi\OTAPI_java.cpp" />
+    <ClCompile Include="..\src\otapi\OTClient.cpp" />
+    <ClCompile Include="..\src\otapi\OTServerConnection.cpp" />
+    <ClCompile Include="..\src\otapi\xmlrpcxx_client.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

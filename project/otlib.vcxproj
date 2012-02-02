@@ -16,12 +16,12 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
@@ -36,7 +36,14 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(SolutionDir)..\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\library\Debug;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(SolutionDir)..\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\library\Release;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -60,6 +67,113 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\otlib\anyoption.cpp" />
+    <ClCompile Include="..\src\otlib\Bitcoin.pb.cpp" />
+    <ClCompile Include="..\src\otlib\easyzlib.c" />
+    <ClCompile Include="..\src\otlib\Generics.pb.cpp" />
+    <ClCompile Include="..\src\otlib\Markets.pb.cpp" />
+    <ClCompile Include="..\src\otlib\mkcert.c" />
+    <ClCompile Include="..\src\otlib\Moneychanger.pb.cpp" />
+    <ClCompile Include="..\src\otlib\OTAccount.cpp" />
+    <ClCompile Include="..\src\otlib\OTAgreement.cpp" />
+    <ClCompile Include="..\src\otlib\OTASCIIArmor.cpp" />
+    <ClCompile Include="..\src\otlib\OTAssetContract.cpp" />
+    <ClCompile Include="..\src\otlib\OTAsymmetricKey.cpp" />
+    <ClCompile Include="..\src\otlib\OTBasket.cpp" />
+    <ClCompile Include="..\src\otlib\OTBylaw.cpp" />
+    <ClCompile Include="..\src\otlib\OTCheque.cpp" />
+    <ClCompile Include="..\src\otlib\OTContract.cpp" />
+    <ClCompile Include="..\src\otlib\OTCron.cpp" />
+    <ClCompile Include="..\src\otlib\OTCronItem.cpp" />
+    <ClCompile Include="..\src\otlib\OTData.cpp" />
+    <ClCompile Include="..\src\otlib\OTDataCheck.cpp" />
+    <ClCompile Include="..\src\otlib\OTEnvelope.cpp" />
+    <ClCompile Include="..\src\otlib\OTIdentifier.cpp" />
+    <ClCompile Include="..\src\otlib\OTInstrument.cpp" />
+    <ClCompile Include="..\src\otlib\OTItem.cpp" />
+    <ClCompile Include="..\src\otlib\OTLedger.cpp" />
+    <ClCompile Include="..\src\otlib\OTLog.cpp" />
+    <ClCompile Include="..\src\otlib\OTMarket.cpp" />
+    <ClCompile Include="..\src\otlib\OTMessage.cpp" />
+    <ClCompile Include="..\src\otlib\OTMessageBuffer.cpp" />
+    <ClCompile Include="..\src\otlib\OTMint.cpp" />
+    <ClCompile Include="..\src\otlib\OTOffer.cpp" />
+    <ClCompile Include="..\src\otlib\OTPayload.cpp" />
+    <ClCompile Include="..\src\otlib\OTPaymentPlan.cpp" />
+    <ClCompile Include="..\src\otlib\OTPseudonym.cpp" />
+    <ClCompile Include="..\src\otlib\OTPurse.cpp" />
+    <ClCompile Include="..\src\otlib\OTScript.cpp" />
+    <ClCompile Include="..\src\otlib\OTScriptable.cpp" />
+    <ClCompile Include="..\src\otlib\OTServerContract.cpp" />
+    <ClCompile Include="..\src\otlib\OTSignature.cpp" />
+    <ClCompile Include="..\src\otlib\OTSignedFile.cpp" />
+    <ClCompile Include="..\src\otlib\OTSmartContract.cpp" />
+    <ClCompile Include="..\src\otlib\OTStorage.cpp" />
+    <ClCompile Include="..\src\otlib\OTString.cpp" />
+    <ClCompile Include="..\src\otlib\OTStringXML.cpp" />
+    <ClCompile Include="..\src\otlib\OTToken.cpp" />
+    <ClCompile Include="..\src\otlib\OTTrackable.cpp" />
+    <ClCompile Include="..\src\otlib\OTTrade.cpp" />
+    <ClCompile Include="..\src\otlib\OTTransaction.cpp" />
+    <ClCompile Include="..\src\otlib\OTTransactionType.cpp" />
+    <ClCompile Include="..\src\otlib\OTWallet.cpp" />
+    <ClCompile Include="..\src\otlib\Timer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\otlib\anyoption.h" />
+    <ClInclude Include="..\src\otlib\Bitcoin.pb.h" />
+    <ClInclude Include="..\src\otlib\easyzlib.h" />
+    <ClInclude Include="..\src\otlib\Generics.pb.h" />
+    <ClInclude Include="..\src\otlib\Markets.pb.h" />
+    <ClInclude Include="..\src\otlib\Moneychanger.pb.h" />
+    <ClInclude Include="..\src\otlib\OTAccount.h" />
+    <ClInclude Include="..\src\otlib\OTAgreement.h" />
+    <ClInclude Include="..\src\otlib\OTASCIIArmor.h" />
+    <ClInclude Include="..\src\otlib\OTAssetContract.h" />
+    <ClInclude Include="..\src\otlib\OTAsymmetricKey.h" />
+    <ClInclude Include="..\src\otlib\OTBasket.h" />
+    <ClInclude Include="..\src\otlib\OTBylaw.h" />
+    <ClInclude Include="..\src\otlib\OTCheque.h" />
+    <ClInclude Include="..\src\otlib\OTContract.h" />
+    <ClInclude Include="..\src\otlib\OTCron.h" />
+    <ClInclude Include="..\src\otlib\OTCronItem.h" />
+    <ClInclude Include="..\src\otlib\OTData.h" />
+    <ClInclude Include="..\src\otlib\OTDataCheck.h" />
+    <ClInclude Include="..\src\otlib\OTEnvelope.h" />
+    <ClInclude Include="..\src\otlib\OTglobal.h" />
+    <ClInclude Include="..\src\otlib\OTIdentifier.h" />
+    <ClInclude Include="..\src\otlib\OTInstrument.h" />
+    <ClInclude Include="..\src\otlib\OTItem.h" />
+    <ClInclude Include="..\src\otlib\OTLedger.h" />
+    <ClInclude Include="..\src\otlib\OTLib.h" />
+    <ClInclude Include="..\src\otlib\OTLibPriv.h" />
+    <ClInclude Include="..\src\otlib\OTLog.h" />
+    <ClInclude Include="..\src\otlib\OTMarket.h" />
+    <ClInclude Include="..\src\otlib\OTMessage.h" />
+    <ClInclude Include="..\src\otlib\OTMessageBuffer.h" />
+    <ClInclude Include="..\src\otlib\OTMint.h" />
+    <ClInclude Include="..\src\otlib\OTOffer.h" />
+    <ClInclude Include="..\src\otlib\OTPayload.h" />
+    <ClInclude Include="..\src\otlib\OTPaymentPlan.h" />
+    <ClInclude Include="..\src\otlib\OTPseudonym.h" />
+    <ClInclude Include="..\src\otlib\OTPurse.h" />
+    <ClInclude Include="..\src\otlib\OTScript.h" />
+    <ClInclude Include="..\src\otlib\OTScriptable.h" />
+    <ClInclude Include="..\src\otlib\OTServerContract.h" />
+    <ClInclude Include="..\src\otlib\OTSignature.h" />
+    <ClInclude Include="..\src\otlib\OTSignedFile.h" />
+    <ClInclude Include="..\src\otlib\OTSmartContract.h" />
+    <ClInclude Include="..\src\otlib\OTStorage.h" />
+    <ClInclude Include="..\src\otlib\OTString.h" />
+    <ClInclude Include="..\src\otlib\OTStringXML.h" />
+    <ClInclude Include="..\src\otlib\OTToken.h" />
+    <ClInclude Include="..\src\otlib\OTTrackable.h" />
+    <ClInclude Include="..\src\otlib\OTTrade.h" />
+    <ClInclude Include="..\src\otlib\OTTransaction.h" />
+    <ClInclude Include="..\src\otlib\OTTransactionType.h" />
+    <ClInclude Include="..\src\otlib\OTWallet.h" />
+    <ClInclude Include="..\src\otlib\stacktrace.h" />
+    <ClInclude Include="..\src\otlib\Timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

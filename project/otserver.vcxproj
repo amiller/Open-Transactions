@@ -36,7 +36,14 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(SolutionDir)..\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\library\Debug;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(SolutionDir)..\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\library\Release;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -60,6 +67,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\otserver\main.h" />
+    <ClInclude Include="..\src\otserver\OTClientConnection.h" />
+    <ClInclude Include="..\src\otserver\OTServer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\otserver\OTClientConnection.cpp" />
+    <ClCompile Include="..\src\otserver\OTServer.cpp" />
+    <ClCompile Include="..\src\otserver\testserver.cpp" />
+    <ClCompile Include="..\src\otserver\xmlrpcxx_server.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
