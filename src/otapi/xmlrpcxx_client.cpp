@@ -138,6 +138,10 @@
 // ---------------------------------------------------------------------------
 
 #ifdef _WIN32
+
+#define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
+#define _WINSOCKAPI_    // stops windows.h including winsock.h
+
 #define OT_FOLDER_DEFAULT   "C:\\~\\Open-Transactions"
 #define MAIN_PATH_DEFAULT	"C:\\~\\Open-Transactions\\client_data"
 
@@ -183,7 +187,7 @@ extern "C"
 
 
 
-#include "SimpleIni.h"
+#include <simpleini/SimpleIni.h>
 
 
 
@@ -191,7 +195,7 @@ extern "C"
 
 #if defined(OT_ZMQ_MODE)
 
-#include <zmq.hpp>
+#include <zeromq\zmq.hpp>
 
 
 // If you build in tcp/ssl mode, this file will build even if you don't have this library.

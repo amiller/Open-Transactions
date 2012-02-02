@@ -19,12 +19,14 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>Windows7.1SDK</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>Windows7.1SDK</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -37,12 +39,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)..\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)..\library\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\include;$(SystemDrive)\boost_1_48_0;$(SystemDrive)\OpenSSL-Win32\include;$(ProgramFiles)\chaiscript 3.1.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SystemDrive)\boost_1_48_0\stage\lib;$(SystemDrive)\OpenSSL-Win32\lib\VC;$(SolutionDir)..\library\$(Configuration);$(LibraryPath)</LibraryPath>
+    <IntDir>$(Configuration)\otlib\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)..\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)..\library\Release;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\include;$(SystemDrive)\boost_1_48_0;$(SystemDrive)\OpenSSL-Win32\include;$(ProgramFiles)\chaiscript 3.1.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SystemDrive)\boost_1_48_0\stage\lib;$(SystemDrive)\OpenSSL-Win32\lib\VC;$(SolutionDir)..\library\$(Configuration);$(LibraryPath)</LibraryPath>
+    <IntDir>$(Configuration)\otlib\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

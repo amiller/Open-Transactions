@@ -142,12 +142,12 @@ extern "C"
 #include <wordexp.h>
 #endif
 
-#include "SSL-Example/SFSocket.h"
+#include <ssl-example/SFSocket.h>
 }
 
 
 
-#include "SimpleIni.h"
+#include <simpleini/SimpleIni.h>
 
 
 

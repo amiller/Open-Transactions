@@ -132,7 +132,7 @@
 #include <iostream>
 
 #if defined (OT_ZMQ_MODE)
-#include <zmq.hpp>
+#include <zeromq/zmq.hpp>
 #endif
 
 extern "C" 
@@ -147,7 +147,7 @@ extern "C"
 }
 
 
-#include "SimpleIni.h"
+#include <simpleini/SimpleIni.h>
 
 
 // -----------------------

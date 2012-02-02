@@ -135,7 +135,7 @@
 #include <string>
 
 #if defined (OT_ZMQ_MODE)
-#include <zmq.hpp>
+#include <zeromq/zmq.hpp>
 #endif
 
 #include "OTStorage.h"

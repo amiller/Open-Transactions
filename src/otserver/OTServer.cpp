@@ -137,7 +137,7 @@
 #include <string>
 
 
-#include "irrxml/irrXML.h"
+#include <irrxml/irrXML.h>
 
 using namespace irr;
 using namespace io;
@@ -145,7 +145,7 @@ using namespace std;
 
 
 
-#include "SimpleIni.h"
+#include <simpleini/SimpleIni.h>
 
 
 // ------------------------

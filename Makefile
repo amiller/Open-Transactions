@@ -21,8 +21,9 @@ VERSION := $(shell cat VERSION)
 
 OT_PLATFORM := ___OT_UNKNOWN_PLATFORM___
 
-OT_SERVER_DIR := $(PWD)/transaction
-TESTWALLET_DIR := $(PWD)/testwallet
+OT_LIB_DIR := $(PWD)/src/otlib
+OT_SERVER_DIR := $(PWD)/src/otserver
+OT_API_DIR := $(PWD)/src/otapi
 
 
 # ---------------------------------------------------------------------
@@ -194,11 +195,11 @@ extra_tools:
 
 otlib:
 	@$(ECHO) '$(INFO_COLOR)Making OTLib...$(NO_COLOR)'
-	cd OTLib && $(OT_MAKE_PLATFORM_INC_LIBS)
+	cd $(OT_LIB_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)
 
 otlib_dynamic:
 	@$(ECHO) '$(INFO_COLOR)Making OTLib...$(NO_COLOR)'
-	cd OTLib && $(OT_MAKE_PLATFORM_INC_LIBS)  $(DYNAMIC_FLAG)
+	cd $(OT_LIB_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  $(DYNAMIC_FLAG)
 
 server_alone:
 	@$(ECHO) '$(INFO_COLOR)Make OT Server$(NO_COLOR)'
@@ -206,7 +207,7 @@ server_alone:
 
 server:
 	@$(ECHO) '$(INFO_COLOR)Making OTLib...$(NO_COLOR)'
-	cd OTLib && $(OT_MAKE_PLATFORM_INC_LIBS)
+	cd $(OT_LIB_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)
 	@$(ECHO) '$(INFO_COLOR)Make OT Server$(NO_COLOR)'
 	cd $(OT_SERVER_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  TRANSPORT=ZMQ
 	@$(ECHO) '$(INFO_COLOR)Making OT Tools...$(NO_COLOR)'
@@ -215,18 +216,18 @@ server:
 
 test_wallet:
 	@$(ECHO) '$(INFO_COLOR)Making OTLib...$(NO_COLOR)'
-	cd OTLib && $(OT_MAKE_PLATFORM_INC_LIBS)
+	cd $(OT_LIB_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)
 	@$(ECHO) '$(INFO_COLOR)Make OT Server$(NO_COLOR)'
 	cd $(OT_SERVER_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  TRANSPORT=ZMQ
 	@$(ECHO) '$(INFO_COLOR)Make TestWallet with ZMQ$(NO_COLOR)'
-	cd $(TESTWALLET_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  TRANSPORT=ZMQ
+	cd $(OT_API_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  TRANSPORT=ZMQ
 	@$(ECHO) '$(INFO_COLOR)Making OT Tools...$(NO_COLOR)'
 	$(EXTRA_RPC_TARGETS1)
 	$(EXTRA_RPC_TARGETS2)
 
 lisp:
 	@$(ECHO) '$(INFO_COLOR)Making OTLib...$(NO_COLOR)'
-	cd OTLib && $(OT_MAKE_PLATFORM_INC_LIBS)  $(DYNAMIC_FLAG)
+	cd $(OT_LIB_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  $(DYNAMIC_FLAG)
 	@$(ECHO) '$(INFO_COLOR)Make OT Server$(NO_COLOR)'
 	cd $(OT_SERVER_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  TRANSPORT=ZMQ
 	@$(ECHO) '$(ERROR_COLOR)Not Making Lisp API... Not-Implemented$(NO_COLOR)'
@@ -234,26 +235,26 @@ lisp:
 	$(EXTRA_RPC_TARGETS1)
 	$(EXTRA_RPC_TARGETS2)
 #	@$(ECHO) '$(INFO_COLOR)Making Lisp API...$(NO_COLOR)'
-#	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=lisp clean
-#	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=lisp
+#	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=lisp clean
+#	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=lisp
 
 csharp:
 	@$(ECHO) '$(INFO_COLOR)Making OTLib...$(NO_COLOR)'
-	cd OTLib && $(OT_MAKE_PLATFORM_INC_LIBS)  $(DYNAMIC_FLAG)
+	cd $(OT_LIB_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  $(DYNAMIC_FLAG)
 	@$(ECHO) '$(INFO_COLOR)Make OT Server$(NO_COLOR)'
 	cd $(OT_SERVER_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  TRANSPORT=ZMQ
 	@$(ECHO) '$(INFO_COLOR)Making C-Sharp API...$(NO_COLOR)'
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=c clean
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=java clean
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=csharp clean
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=csharp
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=c clean
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=java clean
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=csharp clean
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=csharp
 	@$(ECHO) '$(INFO_COLOR)Making OT Tools...$(NO_COLOR)'
 	$(EXTRA_RPC_TARGETS1)
 	$(EXTRA_RPC_TARGETS2)
 
 d:
 	@$(ECHO) '$(INFO_COLOR)Making OTLib...$(NO_COLOR)'
-	cd OTLib && $(OT_MAKE_PLATFORM_INC_LIBS)  $(DYNAMIC_FLAG)
+	cd $(OT_LIB_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  $(DYNAMIC_FLAG)
 	@$(ECHO) '$(INFO_COLOR)Make OT Server$(NO_COLOR)'
 	cd $(OT_SERVER_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  TRANSPORT=ZMQ
 	@$(ECHO) '$(ERROR_COLOR)Not Making D API... Not-Implemented$(NO_COLOR)'
@@ -261,86 +262,86 @@ d:
 	$(EXTRA_RPC_TARGETS1)
 	$(EXTRA_RPC_TARGETS2)
 #	@$(ECHO) '$(INFO_COLOR)Making D API...$(NO_COLOR)'
-#	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=d clean
-#	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=d
+#	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=d clean
+#	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=d
 
 java:
 	@$(ECHO) '$(INFO_COLOR)Making OTLib...$(NO_COLOR)'
-	cd OTLib && $(OT_MAKE_PLATFORM_INC_LIBS)  $(DYNAMIC_FLAG)
+	cd $(OT_LIB_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  $(DYNAMIC_FLAG)
 	@$(ECHO) '$(INFO_COLOR)Make OT Server$(NO_COLOR)'
 	cd $(OT_SERVER_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  TRANSPORT=ZMQ
 	@$(ECHO) '$(INFO_COLOR)Making Java API...$(NO_COLOR)'
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=c clean
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=java clean
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=java
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=java installjava
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=c clean
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=java clean
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=java
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=java installjava
 	@$(ECHO) '$(INFO_COLOR)Making OT Tools...$(NO_COLOR)'
 	$(EXTRA_RPC_TARGETS1)
 	$(EXTRA_RPC_TARGETS2)
 
 perl5:
 	@$(ECHO) '$(INFO_COLOR)Making OTLib...$(NO_COLOR)'
-	cd OTLib && $(OT_MAKE_PLATFORM_INC_LIBS)  $(DYNAMIC_FLAG)
+	cd $(OT_LIB_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  $(DYNAMIC_FLAG)
 	@$(ECHO) '$(INFO_COLOR)Make OT Server$(NO_COLOR)'
 	cd $(OT_SERVER_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  TRANSPORT=ZMQ
 	@$(ECHO) '$(INFO_COLOR)Making Perl API...$(NO_COLOR)'
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=c clean
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=java clean
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=perl5 clean
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=perl5
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=c clean
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=java clean
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=perl5 clean
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=perl5
 	@$(ECHO) '$(INFO_COLOR)Making OT Tools...$(NO_COLOR)'
 	$(EXTRA_RPC_TARGETS1)
 	$(EXTRA_RPC_TARGETS2)
 
 python:
 	@$(ECHO) '$(INFO_COLOR)Making OTLib...$(NO_COLOR)'
-	cd OTLib && $(OT_MAKE_PLATFORM_INC_LIBS)  $(DYNAMIC_FLAG)
+	cd $(OT_LIB_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  $(DYNAMIC_FLAG)
 	@$(ECHO) '$(INFO_COLOR)Make OT Server$(NO_COLOR)'
 	cd $(OT_SERVER_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  TRANSPORT=ZMQ
 	@$(ECHO) '$(INFO_COLOR)Making Python API...$(NO_COLOR)'
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=c clean
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=ruby clean
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=java clean
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=python clean
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=python
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=c clean
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=ruby clean
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=java clean
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=python clean
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=python
 	@$(ECHO) '$(INFO_COLOR)Making OT Tools...$(NO_COLOR)'
 	$(EXTRA_RPC_TARGETS1)
 	$(EXTRA_RPC_TARGETS2)
 
 php5:
 	@$(ECHO) '$(INFO_COLOR)Making OTLib...$(NO_COLOR)'
-	cd OTLib && $(OT_MAKE_PLATFORM_INC_LIBS)  $(DYNAMIC_FLAG)
+	cd $(OT_LIB_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  $(DYNAMIC_FLAG)
 	@$(ECHO) '$(INFO_COLOR)Make OT Server$(NO_COLOR)'
 	cd $(OT_SERVER_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  TRANSPORT=ZMQ
 	@$(ECHO) '$(INFO_COLOR)Making PHP API...$(NO_COLOR)'
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=c clean
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=php5 clean
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=python clean
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=ruby clean
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=java clean
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=php5
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=c clean
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=php5 clean
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=python clean
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=ruby clean
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=java clean
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=php5
 	@$(ECHO) '$(INFO_COLOR)Making OT Tools...$(NO_COLOR)'
 	$(EXTRA_RPC_TARGETS1)
 	$(EXTRA_RPC_TARGETS2)
 
 ruby:
 	@$(ECHO) '$(INFO_COLOR)Making OTLib...$(NO_COLOR)'
-	cd OTLib && $(OT_MAKE_PLATFORM_INC_LIBS)  $(DYNAMIC_FLAG)
+	cd $(OT_LIB_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  $(DYNAMIC_FLAG)
 	@$(ECHO) '$(INFO_COLOR)Make OT Server$(NO_COLOR)'
 	cd $(OT_SERVER_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  TRANSPORT=ZMQ
 	@$(ECHO) '$(INFO_COLOR)Making Ruby API...$(NO_COLOR)'
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=c clean
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=python clean
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=java clean
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=ruby clean
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=ruby
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=c clean
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=python clean
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=java clean
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=ruby clean
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=ruby
 	@$(ECHO) '$(INFO_COLOR)Making OT Tools...$(NO_COLOR)'
 	$(EXTRA_RPC_TARGETS1)
 	$(EXTRA_RPC_TARGETS2)
 
 tcl:
 	@$(ECHO) '$(INFO_COLOR)Making OTLib...$(NO_COLOR)'
-	cd OTLib && $(OT_MAKE_PLATFORM_INC_LIBS)  $(DYNAMIC_FLAG)
+	cd $(OT_LIB_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  $(DYNAMIC_FLAG)
 	@$(ECHO) '$(INFO_COLOR)Make OT Server$(NO_COLOR)'
 	cd $(OT_SERVER_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  TRANSPORT=ZMQ
 	@$(ECHO) '$(INFO_COLOR)Making OT Tools...$(NO_COLOR)'
@@ -348,59 +349,59 @@ tcl:
 	$(EXTRA_RPC_TARGETS2)
 	@$(ECHO) '$(ERROR_COLOR)Not Making TCL API... Not-Implemented$(NO_COLOR)'
 #	@$(ECHO) '$(INFO_COLOR)Making TCL API...$(NO_COLOR)'
-#	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=tcl clean
-#	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=tcl
+#	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=tcl clean
+#	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=tcl
 
 c:
 	@$(ECHO) '$(INFO_COLOR)Making OTLib...$(NO_COLOR)'
-	cd OTLib && $(OT_MAKE_PLATFORM_INC_LIBS)  $(DYNAMIC_FLAG)
+	cd $(OT_LIB_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  $(DYNAMIC_FLAG)
 	@$(ECHO) '$(INFO_COLOR)Make OT Server$(NO_COLOR)'
 	cd $(OT_SERVER_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  TRANSPORT=ZMQ
 	@$(ECHO) '$(INFO_COLOR)Making C API...$(NO_COLOR)'
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=c clean
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=java clean
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=c
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=c clean
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=java clean
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=c
 	@$(ECHO) '$(INFO_COLOR)Making OT Tools...$(NO_COLOR)'
 	$(EXTRA_RPC_TARGETS1)
 	$(EXTRA_RPC_TARGETS2)
 
 debug:
-	cd OTLib && $(OT_MAKE_PLATFORM_INC_LIBS)  debug
+	cd $(OT_LIB_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  debug
 	cd $(OT_SERVER_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  TRANSPORT=ZMQ debug
-	cd $(TESTWALLET_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)   TRANSPORT=ZMQ debug
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=c debug
+	cd $(OT_API_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)   TRANSPORT=ZMQ debug
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=c debug
 	$(EXTRA_DEBUGRPC_TARGETS1)
 	$(EXTRA_DEBUGRPC_TARGETS2)
 
 javadebug:
-	cd OTLib && $(OT_MAKE_PLATFORM_INC_LIBS) $(DYNAMIC_FLAG) debug
+	cd $(OT_LIB_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS) $(DYNAMIC_FLAG) debug
 	cd $(OT_SERVER_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  TRANSPORT=ZMQ debug
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=c clean
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API $(DYNAMIC_FLAG) PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=java clean
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API $(DYNAMIC_FLAG) PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=java debug
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=c clean
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API $(DYNAMIC_FLAG) PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=java clean
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API $(DYNAMIC_FLAG) PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=java debug
 	$(EXTRA_DEBUG_TARGETS1)
 	$(EXTRA_DEBUG_TARGETS1)
 
 tcp:
-	cd OTLib && $(OT_MAKE_PLATFORM_INC_LIBS)   
+	cd $(OT_LIB_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)   
 	cd $(OT_SERVER_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS) 
-	cd $(TESTWALLET_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS) 
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) LANGUAGE=c
+	cd $(OT_API_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS) 
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) LANGUAGE=c
 	$(EXTRA_TARGETS1)
 	$(EXTRA_TARGETS2)
 
 debugtcp:
-	cd OTLib && $(OT_MAKE_PLATFORM_INC_LIBS)  debug
+	cd $(OT_LIB_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  debug
 	cd $(OT_SERVER_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  debug
-	cd $(TESTWALLET_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  debug
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) LANGUAGE=c debug
+	cd $(OT_API_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  debug
+	cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) LANGUAGE=c debug
 	$(EXTRA_DEBUG_TARGETS1)
 	$(EXTRA_DEBUG_TARGETS2)
 
 install:
 	mkdir -p $(EXECUTABLE_INSTALL_FOLDER)
-	rm -f $(EXECUTABLE_INSTALL_FOLDER)/ot_server && cp ./transaction/transaction.exe $(EXECUTABLE_INSTALL_FOLDER)/ot_server
-	rm -f $(EXECUTABLE_INSTALL_FOLDER)/ot &&  cp ./testwallet/testwallet.exe $(EXECUTABLE_INSTALL_FOLDER)/ot
+	rm -f $(EXECUTABLE_INSTALL_FOLDER)/ot_server && cp $(OT_SERVER_DIR)/transaction.exe $(EXECUTABLE_INSTALL_FOLDER)/ot_server
+	rm -f $(EXECUTABLE_INSTALL_FOLDER)/ot &&  cp $(OT_API_DIR)/testwallet.exe $(EXECUTABLE_INSTALL_FOLDER)/ot
 	mkdir ~$(SUDO_USER)/.ot && cp -r ./ot-sample-data/* ~$(SUDO_USER)/.ot && chown -R $(SUDO_USER):$(SUDO_GROUP) ~$(SUDO_USER)/.ot
 #
 #	@$(ECHO) '$(OK_COLOR)Installing...$(NO_COLOR)'
@@ -415,24 +416,24 @@ install:
 #	@find $(OT_SERVER_DIR) -type f -wholename "*\transaction.exe" | sed 's~.*~chmod 775 "$(EXECUTABLE_INSTALL_FOLDER)/ot_server"~'
 #	@find $(OT_SERVER_DIR) -type f -wholename "*\transaction.exe" | sed 's~.*~chmod 775 "$(EXECUTABLE_INSTALL_FOLDER)/ot_server"~' | sh
 #	@$(ECHO) '$(INFO_COLOR)...OT TestWallet  (if compiled)$(NO_COLOR)'
-#	@find $(TESTWALLET_DIR) -type f -wholename "*\testwallet.exe" | sed 's~.*~rm -f "$(EXECUTABLE_INSTALL_FOLDER)/ot"~' 
-#	@find $(TESTWALLET_DIR) -type f -wholename "*\testwallet.exe" | sed 's~.*~rm -f "$(EXECUTABLE_INSTALL_FOLDER)/ot"~' | sh
-#	@find $(TESTWALLET_DIR) -type f -wholename "*\testwallet.exe" | sed 's~.*~cp "&" "$(EXECUTABLE_INSTALL_FOLDER)/ot"~'
-#	@find $(TESTWALLET_DIR) -type f -wholename "*\testwallet.exe" | sed 's~.*~cp "&" "$(EXECUTABLE_INSTALL_FOLDER)/ot"~' | sh
-#	@find $(TESTWALLET_DIR) -type f -wholename "*\testwallet.exe" | sed 's~.*~chown root:staff "$(EXECUTABLE_INSTALL_FOLDER)/ot"~'
-#	@find $(TESTWALLET_DIR) -type f -wholename "*\testwallet.exe" | sed 's~.*~chown root:staff "$(EXECUTABLE_INSTALL_FOLDER)/ot"~' | sh
-#	@find $(TESTWALLET_DIR) -type f -wholename "*\testwallet.exe" | sed 's~.*~chmod 775 "$(EXECUTABLE_INSTALL_FOLDER)/ot"~'
-#	@find $(TESTWALLET_DIR) -type f -wholename "*\testwallet.exe" | sed 's~.*~chmod 775 "$(EXECUTABLE_INSTALL_FOLDER)/ot"~' | sh
+#	@find $(OT_API_DIR) -type f -wholename "*\testwallet.exe" | sed 's~.*~rm -f "$(EXECUTABLE_INSTALL_FOLDER)/ot"~' 
+#	@find $(OT_API_DIR) -type f -wholename "*\testwallet.exe" | sed 's~.*~rm -f "$(EXECUTABLE_INSTALL_FOLDER)/ot"~' | sh
+#	@find $(OT_API_DIR) -type f -wholename "*\testwallet.exe" | sed 's~.*~cp "&" "$(EXECUTABLE_INSTALL_FOLDER)/ot"~'
+#	@find $(OT_API_DIR) -type f -wholename "*\testwallet.exe" | sed 's~.*~cp "&" "$(EXECUTABLE_INSTALL_FOLDER)/ot"~' | sh
+#	@find $(OT_API_DIR) -type f -wholename "*\testwallet.exe" | sed 's~.*~chown root:staff "$(EXECUTABLE_INSTALL_FOLDER)/ot"~'
+#	@find $(OT_API_DIR) -type f -wholename "*\testwallet.exe" | sed 's~.*~chown root:staff "$(EXECUTABLE_INSTALL_FOLDER)/ot"~' | sh
+#	@find $(OT_API_DIR) -type f -wholename "*\testwallet.exe" | sed 's~.*~chmod 775 "$(EXECUTABLE_INSTALL_FOLDER)/ot"~'
+#	@find $(OT_API_DIR) -type f -wholename "*\testwallet.exe" | sed 's~.*~chmod 775 "$(EXECUTABLE_INSTALL_FOLDER)/ot"~' | sh
 #	@$(ECHO) '$(INFO_COLOR)...libOTAPI (if compiled)$(NO_COLOR)'
 #	@mkdir -p $(LIBRARY_INSTALL_FOLDER)
-#	@cd $(TESTWALLET_DIR) && rm -f libotapi*.so.$(VERSION)
-#	@cd $(TESTWALLET_DIR) && find ./ -type f -name "*\libotapi*.so" | sed 's~.*/~~' | sed 's~.*~rm -f "$(LIBRARY_INSTALL_FOLDER)/&" "$(LIBRARY_INSTALL_FOLDER)/&.$(MAJOR_VERSION)" "$(LIBRARY_INSTALL_FOLDER)/&.$(VERSION)"~'| sh
-#	@cd $(TESTWALLET_DIR) && find ./ -type f -name "*\libotapi*.so" | sed 's~.*/~~' | sed 's~.*~cp "&" "&.$(VERSION)"~' | sh
-#	@cd $(TESTWALLET_DIR) && find ./ -type f -name "*\libotapi*.so.$(VERSION)" | sed 's~.*/~~' | sed 's~.*~mv "&" "$(LIBRARY_INSTALL_FOLDER)/&"~'| sh
-#	@cd $(LIBRARY_INSTALL_FOLDER) && find $(TESTWALLET_DIR) -type f -name "*\libotapi*.so" | sed 's~.*/~~' | sed -E 's~^([^\.]+)\..*~ln -s "&.$(VERSION)" "\1.so.$(MAJOR_VERSION)"~' | sh
-#	@cd $(LIBRARY_INSTALL_FOLDER) && find $(TESTWALLET_DIR) -type f -name "*\libotapi*.so" | sed 's~.*/~~' | sed -E 's~^([^\.]+)\..*~ln -s "&.$(MAJOR_VERSION)" "\1.so"~' | sh
-#	@cd $(LIBRARY_INSTALL_FOLDER) && find $(TESTWALLET_DIR) -type f -name "*\libotapi*.so" | sed 's~.*/~~' | sed 's~.*~chown root:staff "&" "&.$(MAJOR_VERSION)" "&.$(VERSION)"~' | sh
-#	@cd $(LIBRARY_INSTALL_FOLDER) && find $(TESTWALLET_DIR) -type f -name "*\libotapi*.so" | sed 's~.*/~~' | sed 's~.*~chmod 664 "&" "&.$(MAJOR_VERSION)" "&.$(VERSION)"~' | sh
+#	@cd $(OT_API_DIR) && rm -f libotapi*.so.$(VERSION)
+#	@cd $(OT_API_DIR) && find ./ -type f -name "*\libotapi*.so" | sed 's~.*/~~' | sed 's~.*~rm -f "$(LIBRARY_INSTALL_FOLDER)/&" "$(LIBRARY_INSTALL_FOLDER)/&.$(MAJOR_VERSION)" "$(LIBRARY_INSTALL_FOLDER)/&.$(VERSION)"~'| sh
+#	@cd $(OT_API_DIR) && find ./ -type f -name "*\libotapi*.so" | sed 's~.*/~~' | sed 's~.*~cp "&" "&.$(VERSION)"~' | sh
+#	@cd $(OT_API_DIR) && find ./ -type f -name "*\libotapi*.so.$(VERSION)" | sed 's~.*/~~' | sed 's~.*~mv "&" "$(LIBRARY_INSTALL_FOLDER)/&"~'| sh
+#	@cd $(LIBRARY_INSTALL_FOLDER) && find $(OT_API_DIR) -type f -name "*\libotapi*.so" | sed 's~.*/~~' | sed -E 's~^([^\.]+)\..*~ln -s "&.$(VERSION)" "\1.so.$(MAJOR_VERSION)"~' | sh
+#	@cd $(LIBRARY_INSTALL_FOLDER) && find $(OT_API_DIR) -type f -name "*\libotapi*.so" | sed 's~.*/~~' | sed -E 's~^([^\.]+)\..*~ln -s "&.$(MAJOR_VERSION)" "\1.so"~' | sh
+#	@cd $(LIBRARY_INSTALL_FOLDER) && find $(OT_API_DIR) -type f -name "*\libotapi*.so" | sed 's~.*/~~' | sed 's~.*~chown root:staff "&" "&.$(MAJOR_VERSION)" "&.$(VERSION)"~' | sh
+#	@cd $(LIBRARY_INSTALL_FOLDER) && find $(OT_API_DIR) -type f -name "*\libotapi*.so" | sed 's~.*/~~' | sed 's~.*~chmod 664 "&" "&.$(MAJOR_VERSION)" "&.$(VERSION)"~' | sh
 #	@ldconfig -n -v $(LIBRARY_INSTALL_FOLDER)
 #	@$(ECHO) '$(OK_COLOR)Done!$(NO_COLOR)'
 
@@ -465,22 +466,22 @@ remove_local:
 
 clean:
 	@$(ECHO) '$(INFO_COLOR)Cleaning OT Source...$(NO_COLOR)'
-	@cd OTLib && $(OT_MAKE_PLATFORM_INC_LIBS)  clean
+	@cd $(OT_LIB_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  clean
 	@cd $(OT_SERVER_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  clean
 	@cd $(OT_SERVER_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  TRANSPORT=ZMQ clean
-	@cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) LANGUAGE=lisp clean
-	@cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) LANGUAGE=csharp clean
-	@cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) LANGUAGE=d clean
-	@cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) LANGUAGE=java clean
-	@cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) LANGUAGE=perl5 clean
-	@cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) LANGUAGE=python clean
-	@cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) LANGUAGE=php5 clean
-	@cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) LANGUAGE=ruby clean
-	@cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) LANGUAGE=tlc clean
-	@cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) LANGUAGE=c clean
-	@cd $(TESTWALLET_DIR) && rm -f *.so*
-	@cd $(TESTWALLET_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  clean
-	@cd $(TESTWALLET_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  TRANSPORT=ZMQ clean
+	@cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) LANGUAGE=lisp clean
+	@cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) LANGUAGE=csharp clean
+	@cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) LANGUAGE=d clean
+	@cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) LANGUAGE=java clean
+	@cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) LANGUAGE=perl5 clean
+	@cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) LANGUAGE=python clean
+	@cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) LANGUAGE=php5 clean
+	@cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) LANGUAGE=ruby clean
+	@cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) LANGUAGE=tlc clean
+	@cd $(OT_API_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) LANGUAGE=c clean
+	@cd $(OT_API_DIR) && rm -f *.so*
+	@cd $(OT_API_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  clean
+	@cd $(OT_API_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  TRANSPORT=ZMQ clean
 	@$(EXTRA_CLEAN_TARGETS1)
 	@$(EXTRA_CLEAN_TARGETS2)
 	@$(ECHO) '$(INFO_COLOR)Done!$(NO_COLOR)'

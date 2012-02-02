@@ -157,7 +157,7 @@ class OTLedger;
 // (If you compile it in rpc mode using "make rpc"
 //
 #if defined(OT_ZMQ_MODE)
-#include <zmq.hpp>
+#include <zeromq\zmq.hpp>
 #endif
 
 

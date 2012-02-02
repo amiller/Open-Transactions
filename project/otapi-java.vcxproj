@@ -19,12 +19,14 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>Windows7.1SDK</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>Windows7.1SDK</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -37,21 +39,31 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)..\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)..\library\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\include;$(SolutionDir)..\src\otlib;$(SystemDrive)\boost_1_48_0;$(SystemDrive)\OpenSSL-Win32\include;$(ProgramFiles)\chaiscript 3.1.0\include;$(ProgramFiles)\Java\jdk1.6.0_30\include;$(ProgramFiles)\Java\jdk1.6.0_30\include\win32;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SystemDrive)\boost_1_48_0\stage\lib;$(SystemDrive)\OpenSSL-Win32\lib\VC;$(ProgramFiles)\Java\jdk1.6.0_30\lib;$(SolutionDir)..\library\$(Configuration);$(SolutionDir)..\project\$(Configuration);$(LibraryPath)</LibraryPath>
+    <IntDir>$(Configuration)\otapi-java\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)..\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)..\library\Release;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\include;$(SolutionDir)..\src\otlib;$(SystemDrive)\boost_1_48_0;$(SystemDrive)\OpenSSL-Win32\include;$(ProgramFiles)\chaiscript 3.1.0\include;$(ProgramFiles)\Java\jdk1.6.0_30\include;$(ProgramFiles)\Java\jdk1.6.0_30\include\win32;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SystemDrive)\boost_1_48_0\stage\lib;$(SystemDrive)\OpenSSL-Win32\lib\VC;$(ProgramFiles)\Java\jdk1.6.0_30\lib;$(SolutionDir)..\library\$(Configuration);$(SolutionDir)..\project\$(Configuration);$(LibraryPath)</LibraryPath>
+    <IntDir>$(Configuration)\otapi-java\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_WINDLL;OT_ZMQ_MODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>bigint.lib;irrxml.lib;lucre.lib;simpleini.lib;ssl-example.lib;libzmq.lib;libprotobuf.lib;otapi.lib;otlib.lib;ws2_32.lib;winmm.lib;libeay32MDd.lib;ssleay32MDd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>copy /Y "$(SolutionDir)..\src\otapi\OTAPI_java.h" "$(SolutionDir)..\src\otapi\OTAPI_wrap.h"</Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>del "$(SolutionDir)..\src\otapi\OTAPI_wrap.h"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -59,12 +71,20 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>_WINDLL;OT_ZMQ_MODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>bigint.lib;irrxml.lib;lucre.lib;simpleini.lib;ssl-example.lib;libprotobuf.lib;otapi.lib;otlib.lib;ws2_32.lib;winmm.lib;libzmq.lib;libeay32MD.lib;ssleay32MD.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>copy /Y "$(SolutionDir)..\src\otapi\OTAPI_java.h" "$(SolutionDir)..\src\otapi\OTAPI_wrap.h"</Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>del "$(SolutionDir)..\src\otapi\OTAPI_wrap.h"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\src\otapi\main.h" />

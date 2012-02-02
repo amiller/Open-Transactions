@@ -1,0 +1,40 @@
+This document discribes how to compile and setup Open Transactions on Windows using Visual Studio.
+
+Basic Infranstructure:
+
+Windows 7
+Visual Studio C++ 2010 Express
+Microsoft Windows SDK for Windows 7 and .NET Framework 4
+
+
+There are two Solution Files:
+
+1. Containing the 2nd party library's
+
+library\library.sln
+
+2. Containing the OT Projects:
+
+project\open-transactions.sln
+
+
+Install the following dependancies to their default locations:
+
+Win32 OpenSSL v1.0.0g (or latest version)
+http://www.slproweb.com/products/Win32OpenSSL.html
+
+ChaiScript 3.1.0 (or latest version)
+http://www.chaiscript.com/
+
+Java SE Development Kit 6 (latest 6.xx version)
+http://www.oracle.com/technetwork/java/javase/downloads/jdk-6u30-download-1377139.html
+
+
+Setup Boost:
+
+Follow guide here with latest boost:
+http://stackoverflow.com/questions/2629421/how-to-use-boost-in-visual-studio-2010
+
+The project has been setup to expect that boost 1.48.0 is in the root folder of your system drive.
+
+Download Google Proticol Buffers:

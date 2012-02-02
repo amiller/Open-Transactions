@@ -32,9 +32,6 @@
     <ClCompile Include="..\src\otserver\OTServer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\otserver\testserver.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\otserver\xmlrpcxx_server.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
