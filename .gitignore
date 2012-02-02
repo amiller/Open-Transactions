@@ -13,6 +13,9 @@ build/*
 *.perspectivev3
 *.jnilib
 *.exe
+*.user
+*.suo
+*.sdf
 
 *.jar
 
@@ -101,3 +104,16 @@ testwallet/_OTAPI.so
 testwallet/OTAPI.so
 testwallet/OTAPI.pyc
 testwallet/OTAPI.bundle
+project/Release
+project/Debug
+project/ipch
+project/Test
+project/Open\ Transactions.sdf
+project/Open\ Transactions.vcxproj.user
+project/OT_Server.vcxproj.user
+project/OTAPI.vcxproj.user
+project/OTAPI_java.vcxproj.user
+project/OTLib.vcxproj.user
+lib/Debug/*
+lib/Release/*
+include/google
