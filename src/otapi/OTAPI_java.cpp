@@ -408,9 +408,9 @@ namespace Swig {
 
 #include <string>
 #include <map>
-#include "../OTLib/OTAsymmetricKey.h"
+#include "../otlib/OTAsymmetricKey.h"
 #include "OTAPI_funcdef.h"
-#include "../OTLib/OTStorage.h"
+#include "../otlib/OTStorage.h"
 
 
 #include <string>

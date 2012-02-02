@@ -103,13 +103,14 @@ endif
 
 PLATFORM = $(OT_PLATFORM)
 
-
+OT_INCLUDE_DIR = ../../include
 
 OT_INCLUDEDIRS = \
-	-I../OTLib/irrxml \
-	-I../OTLib \
-	-I./SSL-Example \
-	-I../OTLib/simpleini \
+	-I$(OT_INCLUDE_DIR) \
+	-I$(OT_INCLUDE_DIR)/irrxml \
+	-I../otlib \
+	-I$(OT_INCLUDE_DIR)\ssl-example \
+	-I$(OT_INCLUDE_DIR)\simpleini \
 	-I.
 
 
@@ -117,10 +118,10 @@ OT_INCLUDEDIRS = \
 # to pass to the linker so it can find necessary libraries.
 #
 OT_LIBDIRS = \
-	-L../OTLib
+	-L../otlib
 
 
-API_CSOURCES = ./SSL-Example/SFSocket.c
+API_CSOURCES = $(OT_INCLUDE_DIR)/ssl-example/SFSocket.c
 API_CPPSOURCES = #empty
 API_CFLAGS = #empty
 API_LDFLAGS = #empty

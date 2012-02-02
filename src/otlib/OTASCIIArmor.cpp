@@ -132,7 +132,10 @@
 
 extern "C"
 {
+#ifdef _WIN32
 #include <inttypes.h>  //uint8_t
+#else
+#endif
 
 #include <openssl/evp.h>
 #include <openssl/bio.h>

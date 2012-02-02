@@ -140,7 +140,7 @@ extern "C"
 #endif
 }
 
-#include "irrxml/irrXML.h"
+#include <irrxml/irrXML.h>
 
 using namespace irr;
 using namespace io;
@@ -158,7 +158,7 @@ using namespace io;
 
 
 
-#include "Lucre/bank.h"  // Lucre
+#include <lucre/bank.h>  // Lucre
 
 
 // The current implementation for withdrawals (using Lucre) requires only a single proto-token

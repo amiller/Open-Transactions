@@ -132,7 +132,11 @@
 #include <iostream>
 
 #if defined (OT_ZMQ_MODE)
+#ifdef _WIN32
 #include <zeromq/zmq.hpp>
+#else
+#include <zmq.hpp>
+#endif
 #endif
 
 extern "C" 
@@ -143,7 +147,7 @@ extern "C"
 #include <netinet/in.h>
 #endif
 	
-#include "SSL-Example/SFSocket.h"
+#include <ssl-example/SFSocket.h>
 }
 
 

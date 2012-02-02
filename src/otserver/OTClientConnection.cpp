@@ -140,7 +140,7 @@ extern "C"
 #include <netinet/in.h>
 #endif
 
-#include "SSL-Example/SFSocket.h"
+#include <ssl-example/SFSocket.h>
 }
 
 #include "OTStorage.h"

@@ -59,17 +59,18 @@ endif
 
 PLATFORM = $(OT_PLATFORM)
 
-
+OT_INCLUDE_DIR = ../../include
 
 OT_INCLUDEDIRS = \
-	-I../../OTLib/irrxml \
-	-I../../OTLib/simpleini \
-	-I../../OTLib \
+	-I$(OT_INCLUDE_DIR) \
+	-I$(OT_INCLUDE_DIR)/irrxml \
+	-I$(OT_INCLUDE_DIR)/simpleini \
+	-I../../src/otlib \
 	-I./
 
 
 OT_LIBDIRS = \
-	-L../../OTLib
+	-L../../src/otlib
 
 
 API_CXXSOURCES = # empty

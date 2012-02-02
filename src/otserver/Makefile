@@ -64,20 +64,24 @@ endif
 PLATFORM = $(OT_PLATFORM)
 # ---------------------------------------------------------------------
 
+OT_INCLUDE_DIR = ../../include
+
 
 OT_INCLUDEDIRS = \
-	-I../OTLib/irrxml \
-	-I../OTLib \
-	-I./SSL-Example \
-	-I../OTLib/simpleini \
+	-I$(OT_INCLUDE_DIR) \
+	-I$(OT_INCLUDE_DIR)/irrxml \
+	-I../otlib \
+	-I$(OT_INCLUDE_DIR)/ssl-example \
+	-I$(OT_INCLUDE_DIR)/simpleini \
 	-I.
 
 
 OT_LIBDIRS = \
-	-L../OTLib
+	-L$(OT_INCLUDE_DIR) \
+	-L../otlib
 
 
-API_CSOURCES = SSL-Example/SFSocket.c
+API_CSOURCES = $(OT_INCLUDE_DIR)/ssl-example/SFSocket.c
 API_CXXSOURCES = # empty
 API_CFLAGS = # empty
 API_LDFLAGS = # empty
@@ -286,8 +290,8 @@ debug: $(CXXOBJECTS) $(COBJECTS)
 #
 
 
-SSL-Example/SFSocket.o: ./SSL-Example/SFSocket.c ./SSL-Example/SFSocket.h
-	$(CC) $(CFLAGS) -o ./SSL-Example/SFSocket.o ./SSL-Example/SFSocket.c
+ssl-example/SFSocket.o: $(OT_INCLUDE_DIR)/ssl-example/SFSocket.c $(OT_INCLUDE_DIR)/ssl-example/SFSocket.h
+	$(CC) $(CFLAGS) -o $(OT_INCLUDE_DIR)/ssl-example/SFSocket.o $(OT_INCLUDE_DIR)/ssl-example/SFSocket.c
 
 OTServer.o: OTServer.cpp OTServer.h
 	$(CXX) $(CFLAGS) -o OTServer.o OTServer.cpp

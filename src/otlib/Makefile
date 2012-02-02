@@ -60,13 +60,14 @@ ifeq ($(UNAME), FreeBSD)
 OT_PLATFORM := freebsd
 endif
 
-
+OT_INCLUDE_DIR = ../../include
 
 OT_INCLUDEDIRS = \
-	-I./irrxml \
-	-I./Lucre \
-	-I./bigint \
-	-I./simpleini \
+	-I$(OT_INCLUDE_DIR) \
+	-I$(OT_INCLUDE_DIR)/irrxml \
+	-I$(OT_INCLUDE_DIR)/lucre \
+	-I$(OT_INCLUDE_DIR)/bigint \
+	-I$(OT_INCLUDE_DIR)/simpleini \
 	-I./
 
 
@@ -149,18 +150,18 @@ DEBUG_LIBS = -lssl -lcrypto -lprotobuf -lmsgpack -llibboost_thread-mt
 # directory information to be passed to the linker.
 #
 
-BIGINTSOURCES = bigint/BigUnsigned.o \
-        bigint/BigInteger.o \
-        bigint/BigIntegerAlgorithms.o \
-        bigint/BigUnsignedInABase.o \
-        bigint/BigIntegerUtils.o
+BIGINTSOURCES = $(OT_INCLUDE_DIR)/bigint/BigUnsigned.o \
+        $(OT_INCLUDE_DIR)/bigint/BigInteger.o \
+        $(OT_INCLUDE_DIR)/bigint/BigIntegerAlgorithms.o \
+        $(OT_INCLUDE_DIR)/bigint/BigUnsignedInABase.o \
+        $(OT_INCLUDE_DIR)/bigint/BigIntegerUtils.o
 
 
-LUCRESOURCES = Lucre/bankimp.cpp
+LUCRESOURCES = $(OT_INCLUDE_DIR)/lucre/bankimp.cpp
 
-IRRXMLSOURCES = irrxml/irrXML.cpp      
+IRRXMLSOURCES = $(OT_INCLUDE_DIR)/irrxml/irrXML.cpp      
 
-CSOURCES = easyzlib.c mkcert.c simpleini/ConvertUTF.c
+CSOURCES = easyzlib.c mkcert.c $(OT_INCLUDE_DIR)/simpleini/ConvertUTF.c
 
 CXXSOURCES = $(BIGINTSOURCES) $(LUCRESOURCES) $(IRRXMLSOURCES) \
 			 OTData.cpp \
@@ -266,8 +267,8 @@ easyzlib.o: easyzlib.c easyzlib.h
 irrxml/irrXML.o: irrxml/irrXML.cpp irrxml/irrXML.h
 	$(CXX) $(CXXFLAGS) -c -o irrxml/irrXML.o irrxml/irrXML.cpp
 
-Lucre/bankimp.o: Lucre/bankimp.cpp Lucre/bank.h
-	$(CXX) $(CXXFLAGS) -c -o Lucre/bankimp.o Lucre/bankimp.cpp
+Lucre/bankimp.o: lucre/bankimp.cpp lucre/bank.h
+	$(CXX) $(CXXFLAGS) -c -o lucre/bankimp.o lucre/bankimp.cpp
 
 bigint/BigUnsigned.o: bigint/BigUnsigned.cc bigint/BigUnsigned.hh
 	$(CXX) $(CXXFLAGS) -c -o bigint/BigUnsigned.o bigint/BigUnsigned.cc 

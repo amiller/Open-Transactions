@@ -25,6 +25,8 @@ OT_LIB_DIR := $(PWD)/src/otlib
 OT_SERVER_DIR := $(PWD)/src/otserver
 OT_API_DIR := $(PWD)/src/otapi
 
+OT_SAMPLE_DATA_DIR := $(PWD)/sample-data/ot-sample-data
+
 
 # ---------------------------------------------------------------------
 
@@ -171,16 +173,16 @@ endif
 OT_MAKE_PLATFORM_INC_LIBS = $(OT_MAKE) PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS)
 
 
-EXTRA_TARGETS1 += cd util/otcreatemint && $(OT_MAKE_PLATFORM_INC_LIBS)  && cp ./createmint.exe ../../ot-sample-data/server_data/createmint.exe
-EXTRA_TARGETS2 += cd util/signcontract && $(OT_MAKE_PLATFORM_INC_LIBS)  && cp ./signcontract.exe ../../ot-sample-data/client_data/signcontract.exe
-EXTRA_DEBUG_TARGETS1 += cd util/otcreatemint && $(OT_MAKE_PLATFORM_INC_LIBS)  debug && cp ./createmint.debug ../../ot-sample-data/server_data/createmint.debug
-EXTRA_DEBUG_TARGETS2 += cd util/signcontract && $(OT_MAKE_PLATFORM_INC_LIBS)  debug && cp ./signcontract.debug ../../ot-sample-data/client_data/signcontract.debug
-EXTRA_RPC_TARGETS1 += cd util/otcreatemint && $(OT_MAKE_PLATFORM_INC_LIBS)  && cp ./createmint.exe ../../ot-sample-data/server_data/createmint.exe
-EXTRA_RPC_TARGETS2 += cd util/signcontract && $(OT_MAKE_PLATFORM_INC_LIBS)  && cp ./signcontract.exe ../../ot-sample-data/client_data/signcontract.exe
-EXTRA_DEBUGRPC_TARGETS1 += cd util/otcreatemint && $(OT_MAKE_PLATFORM_INC_LIBS)  debug && cp ./createmint.debug ../../ot-sample-data/server_data/createmint.debug
-EXTRA_DEBUGRPC_TARGETS2 += cd util/signcontract && $(OT_MAKE_PLATFORM_INC_LIBS)  debug && cp ./signcontract.debug ../../ot-sample-data/client_data/signcontract.debug
-EXTRA_CLEAN_TARGETS1 += cd util/otcreatemint && $(OT_MAKE_PLATFORM_INC_LIBS)  clean && rm -f ../../ot-sample-data/server_data/createmint.*
-EXTRA_CLEAN_TARGETS2 += cd util/signcontract && $(OT_MAKE_PLATFORM_INC_LIBS)  clean && rm -f ../../ot-sample-data/client_data/signcontract.*
+EXTRA_TARGETS1 += cd util/otcreatemint && $(OT_MAKE_PLATFORM_INC_LIBS)  && cp ./createmint.exe $(OT_SAMPLE_DATA_DIR)/server_data/createmint.exe
+EXTRA_TARGETS2 += cd util/signcontract && $(OT_MAKE_PLATFORM_INC_LIBS)  && cp ./signcontract.exe $(OT_SAMPLE_DATA_DIR)/client_data/signcontract.exe
+EXTRA_DEBUG_TARGETS1 += cd util/otcreatemint && $(OT_MAKE_PLATFORM_INC_LIBS)  debug && cp ./createmint.debug $(OT_SAMPLE_DATA_DIR)/server_data/createmint.debug
+EXTRA_DEBUG_TARGETS2 += cd util/signcontract && $(OT_MAKE_PLATFORM_INC_LIBS)  debug && cp ./signcontract.debug $(OT_SAMPLE_DATA_DIR)/client_data/signcontract.debug
+EXTRA_RPC_TARGETS1 += cd util/otcreatemint && $(OT_MAKE_PLATFORM_INC_LIBS)  && cp ./createmint.exe $(OT_SAMPLE_DATA_DIR)/server_data/createmint.exe
+EXTRA_RPC_TARGETS2 += cd util/signcontract && $(OT_MAKE_PLATFORM_INC_LIBS)  && cp ./signcontract.exe $(OT_SAMPLE_DATA_DIR)/client_data/signcontract.exe
+EXTRA_DEBUGRPC_TARGETS1 += cd util/otcreatemint && $(OT_MAKE_PLATFORM_INC_LIBS)  debug && cp ./createmint.debug $(OT_SAMPLE_DATA_DIR)/server_data/createmint.debug
+EXTRA_DEBUGRPC_TARGETS2 += cd util/signcontract && $(OT_MAKE_PLATFORM_INC_LIBS)  debug && cp ./signcontract.debug $(OT_SAMPLE_DATA_DIR)/client_data/signcontract.debug
+EXTRA_CLEAN_TARGETS1 += cd util/otcreatemint && $(OT_MAKE_PLATFORM_INC_LIBS)  clean && rm -f $(OT_SAMPLE_DATA_DIR)/server_data/createmint.*
+EXTRA_CLEAN_TARGETS2 += cd util/signcontract && $(OT_MAKE_PLATFORM_INC_LIBS)  clean && rm -f $(OT_SAMPLE_DATA_DIR)/client_data/signcontract.*
 
 
 # -------------------------------------
