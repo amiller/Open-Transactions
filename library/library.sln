@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C++ Express 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bigint", "bigint.vcxproj", "{90A577A8-A237-4A1C-9EB4-7D78FEBC8B51}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "irrxml", "irrxml\irrxml.vcxproj", "{FF4E2F12-89AF-42AF-9630-66931CAE610A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "irrxml", "irrxml.vcxproj", "{FF4E2F12-89AF-42AF-9630-66931CAE610A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lucre", "lucre.vcxproj", "{07476ED4-1047-4BD1-BBF2-CC396FCAECEB}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "simpleini", "simpleini.vcxproj", "{7D7A0B54-E2A9-40CD-81C1-5539218DE60C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +23,14 @@ Global
 		{FF4E2F12-89AF-42AF-9630-66931CAE610A}.Debug|Win32.Build.0 = Debug|Win32
 		{FF4E2F12-89AF-42AF-9630-66931CAE610A}.Release|Win32.ActiveCfg = Release|Win32
 		{FF4E2F12-89AF-42AF-9630-66931CAE610A}.Release|Win32.Build.0 = Release|Win32
+		{07476ED4-1047-4BD1-BBF2-CC396FCAECEB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{07476ED4-1047-4BD1-BBF2-CC396FCAECEB}.Debug|Win32.Build.0 = Debug|Win32
+		{07476ED4-1047-4BD1-BBF2-CC396FCAECEB}.Release|Win32.ActiveCfg = Release|Win32
+		{07476ED4-1047-4BD1-BBF2-CC396FCAECEB}.Release|Win32.Build.0 = Release|Win32
+		{7D7A0B54-E2A9-40CD-81C1-5539218DE60C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7D7A0B54-E2A9-40CD-81C1-5539218DE60C}.Debug|Win32.Build.0 = Debug|Win32
+		{7D7A0B54-E2A9-40CD-81C1-5539218DE60C}.Release|Win32.ActiveCfg = Release|Win32
+		{7D7A0B54-E2A9-40CD-81C1-5539218DE60C}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

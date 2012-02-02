@@ -16,6 +16,7 @@ build/*
 *.user
 *.suo
 *.sdf
+*.opensdf
 
 *.jar
 
@@ -104,6 +105,9 @@ testwallet/_OTAPI.so
 testwallet/OTAPI.so
 testwallet/OTAPI.pyc
 testwallet/OTAPI.bundle
+library/ipch
+library/Release
+library/Debug
 project/Release
 project/Debug
 project/ipch

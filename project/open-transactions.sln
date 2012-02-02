@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C++ Express 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "otapi", "otapi.vcxproj", "{BC1D1DC1-6AF7-4C38-A270-7F79A2888054}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "otlib", "otlib.vcxproj", "{0455E434-A635-448A-996E-448583FD3A37}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "otserver", "otserver.vcxproj", "{08AA6BAC-B23F-4C79-B122-C83C91AE1809}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "otapi-java", "otapi-java.vcxproj", "{8AB24704-FE72-4943-9D5D-369919BF3ED8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BC1D1DC1-6AF7-4C38-A270-7F79A2888054}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BC1D1DC1-6AF7-4C38-A270-7F79A2888054}.Debug|Win32.Build.0 = Debug|Win32
+		{BC1D1DC1-6AF7-4C38-A270-7F79A2888054}.Release|Win32.ActiveCfg = Release|Win32
+		{BC1D1DC1-6AF7-4C38-A270-7F79A2888054}.Release|Win32.Build.0 = Release|Win32
+		{0455E434-A635-448A-996E-448583FD3A37}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0455E434-A635-448A-996E-448583FD3A37}.Debug|Win32.Build.0 = Debug|Win32
+		{0455E434-A635-448A-996E-448583FD3A37}.Release|Win32.ActiveCfg = Release|Win32
+		{0455E434-A635-448A-996E-448583FD3A37}.Release|Win32.Build.0 = Release|Win32
+		{08AA6BAC-B23F-4C79-B122-C83C91AE1809}.Debug|Win32.ActiveCfg = Debug|Win32
+		{08AA6BAC-B23F-4C79-B122-C83C91AE1809}.Debug|Win32.Build.0 = Debug|Win32
+		{08AA6BAC-B23F-4C79-B122-C83C91AE1809}.Release|Win32.ActiveCfg = Release|Win32
+		{08AA6BAC-B23F-4C79-B122-C83C91AE1809}.Release|Win32.Build.0 = Release|Win32
+		{8AB24704-FE72-4943-9D5D-369919BF3ED8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8AB24704-FE72-4943-9D5D-369919BF3ED8}.Debug|Win32.Build.0 = Debug|Win32
+		{8AB24704-FE72-4943-9D5D-369919BF3ED8}.Release|Win32.ActiveCfg = Release|Win32
+		{8AB24704-FE72-4943-9D5D-369919BF3ED8}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
