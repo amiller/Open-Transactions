@@ -35,8 +35,6 @@ project\open-transactions.sln
 Win32 OpenSSL v1.0.0g (or latest version)
 http://www.slproweb.com/products/Win32OpenSSL.html
 
-ChaiScript 3.1.0 (or latest version)
-http://www.chaiscript.com/
 
 Java SE Development Kit 6 (latest 6.xx version)
 http://www.oracle.com/technetwork/java/javase/downloads/jdk-6u30-download-1377139.html
@@ -76,25 +74,48 @@ The project has been setup to expect that boost 1.48.0 is in the root folder of 
 ------------  Download Google Proticol Buffers protobuf-2.4.1.zip: ------------
 https://code.google.com/p/protobuf/downloads/list
 
-extract and compile with visual studio:
+
+I have updated solution and project files in the Open-Transactions\library\3rdparty folder... replace the stock ones with these.
+
+extract:
 
 run extract_includes.bat
 
-copy the contence of the include dir to Open-Transactions\include
+copy the contence of the built dir to Open-Transactions\include
 
 compile the libprotobuf.vcproj project
-copy the release and debug libprotobuf.lib into Open-Transactions\library\Release and Open-Transactions\library\Debug respectably
 
+copy the release and debug libprotobuf.lib into Open-Transactions\library\Release and Open-Transactions\library\Debug respectably
 
 
 
 ------------  Download ZMQ Stable release 2.1  ------------
 http://www.zeromq.org/intro:get-the-software
 
+
+I have updated solution and project files in the Open-Transactions\library\3rdparty folder... replace the stock ones with these.
+
 get the Windows sources archive;
 open up the \builds\msvc\msvc.sln project and compile libzmq (and again for debug)
 
-copy the compiled \lib\libzmq.dll (and libzmq.ilk for debug), into the Open-Transactions\project\Release and Open-Transactions\project\Debug directories respectably.
+complie and copy the assioated *.lib files into the Open-Transactions\library\  also copy the assioated *.dll files into project build folder assioated with each release.
+
+
+
+------------  Download ChaiScript from git  ------------
+
+in you lib dir go:
+
+git clone git://github.com/ChaiScript/ChaiScript.git
+
+get the solution and project files in the Open-Transactions\library\3rdparty folder... and place in the root of the ChaiScript.
+
+copy the contence of the include dir to Open-Transactions\include
+
+compile
+
+copy the assioated *.lib and *.dll files to the Open-Transactions\library folder.
+
 
 
 
@@ -104,10 +125,14 @@ open library\library.sln  and compile the project once for Debug and again for R
 
 
 
+
 ------------  Compile the main project solution ------------
 
 open project\open-transactions.sln and compile for release or debug... the output will be in the project\Release or project\Debug directory.
 
 
-Hope it all works and is 
+Hope it all works.... any issues!!! Come to #opentransactions and chat to da2ce7;  he will (hopefully) be able to help you with any of your compileing needs...
 
+
+
+Please note.... while otserver will compile, it will not (atm) be successfull in running... we are debuging it now.

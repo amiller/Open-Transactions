@@ -1,0 +1,3 @@
+these files are project and solutions for the vairous 3rd party libaries that are needed to compile OT
+
+I have inclued them as I have done modifcations so that they compile correcly for both 32bit and 64bit
