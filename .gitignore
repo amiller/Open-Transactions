@@ -106,18 +106,25 @@ testwallet/OTAPI.so
 testwallet/OTAPI.pyc
 testwallet/OTAPI.bundle
 library/ipch
+library/Win32
+library/x64
+library/obj
 library/Release
 library/Debug
 project/Release
 project/Debug
 project/ipch
 project/Test
+project/Win32
+project/obj
+project/x64
 project/Open\ Transactions.sdf
 project/Open\ Transactions.vcxproj.user
 project/OT_Server.vcxproj.user
 project/OTAPI.vcxproj.user
 project/OTAPI_java.vcxproj.user
 project/OTLib.vcxproj.user
+include/chaiscript
 lib/Debug/*
 lib/Release/*
 include/google

@@ -1,10 +1,21 @@
 This document discribes how to compile and setup Open Transactions on Windows using Visual Studio.
 
-Basic Infranstructure:
+
+------------  Basic Infranstructure: ------------
 
 Windows 7
 Visual Studio C++ 2010 Express
-Microsoft Windows SDK for Windows 7 and .NET Framework 4
+Microsoft Windows SDK for Windows 7 and .NET Framework 4 (full install)
+
+After you have installed Windows SDK7.1 you need to do a few simple changes to the registry to make it the default.
+load up regeit (as an adminstrator) and change:
+
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\MSBuild\ToolsVersions\4.0\FrameworkSDKRoot  	(v7.0A > v7.1)
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\MSBuild\ToolsVersions\4.0\SDK35ToolsPath    	(v7.0A > v7.1)
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\MSBuild\ToolsVersions\4.0\SDK40ToolsPath    	(v7.0A > v7.1)
+
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SDKs\Windows\CurrentInstallFolder	(v7.0A > v7.1)
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SDKs\Windows\CurrentVersion		(7.0.30319 > 7.1.7600.0.30514)
 
 
 There are two Solution Files:
@@ -18,7 +29,8 @@ library\library.sln
 project\open-transactions.sln
 
 
-Install the following dependancies to their default locations:
+
+------------  Install the following dependancies to their default locations: ------------  
 
 Win32 OpenSSL v1.0.0g (or latest version)
 http://www.slproweb.com/products/Win32OpenSSL.html
@@ -30,11 +42,72 @@ Java SE Development Kit 6 (latest 6.xx version)
 http://www.oracle.com/technetwork/java/javase/downloads/jdk-6u30-download-1377139.html
 
 
-Setup Boost:
+
+------------  Setup Boost: ------------
 
 Follow guide here with latest boost:
-http://stackoverflow.com/questions/2629421/how-to-use-boost-in-visual-studio-2010
+Download and place boost into the \boost_1_48_0 folder.
+
+Load up the Windows SDK 7.1 Command Prompt.
+
+navigate to the \boost_1_48_0 folder and run:
+
+bootstrap.bat
+b2 --clean-all
+
+(please note the following operations will take HOURS to complete...)
+
+b2 -d0 --toolset=msvc-10.0 --without-mpi --without-python --build-type=complete architecture=x86 address-model=32 stage
+mkdir stage\lib\Win32
+move stage\lib\*.dll stage\lib\Win32
+move stage\lib\*.lib stage\lib\Win32
+
+(for 64bt only)
+b2 -d0 --toolset=msvc-10.0 --without-mpi --without-python --build-type=complete architecture=x86 address-model=64 stage
+mkdir stage\lib\x64
+move stage\lib\*.dll stage\lib\x64
+move stage\lib\*.lib stage\lib\x64
+
 
 The project has been setup to expect that boost 1.48.0 is in the root folder of your system drive.
 
-Download Google Proticol Buffers:
+
+
+------------  Download Google Proticol Buffers protobuf-2.4.1.zip: ------------
+https://code.google.com/p/protobuf/downloads/list
+
+extract and compile with visual studio:
+
+run extract_includes.bat
+
+copy the contence of the include dir to Open-Transactions\include
+
+compile the libprotobuf.vcproj project
+copy the release and debug libprotobuf.lib into Open-Transactions\library\Release and Open-Transactions\library\Debug respectably
+
+
+
+
+------------  Download ZMQ Stable release 2.1  ------------
+http://www.zeromq.org/intro:get-the-software
+
+get the Windows sources archive;
+open up the \builds\msvc\msvc.sln project and compile libzmq (and again for debug)
+
+copy the compiled \lib\libzmq.dll (and libzmq.ilk for debug), into the Open-Transactions\project\Release and Open-Transactions\project\Debug directories respectably.
+
+
+
+------------  Compile the library solution  ------------
+
+open library\library.sln  and compile the project once for Debug and again for Release
+
+
+
+------------  Compile the main project solution ------------
+
+open project\open-transactions.sln and compile for release or debug... the output will be in the project\Release or project\Debug directory.
+
+
+Hope it all works and is 
+
