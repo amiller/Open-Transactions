@@ -192,8 +192,11 @@ yIh+Yp/KBzySU3inzclaAfv102/t5xi1l+GTyWHiwZxlyt5PBVglKWx/Ust9CIvN
 #include <string>
 //#include <unistd.h>
 
-
+#ifdef _WIN32
 #include <zeromq/zmq.hpp>
+#else
+#include <zmq.hpp>
+#endif
 
 //#include "zhelpers.hpp"
 

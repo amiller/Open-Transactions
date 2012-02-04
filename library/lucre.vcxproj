@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -149,30 +149,30 @@
     <ClInclude Include="..\include\lucre\bank.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\include\lucre\bank-new.cpp" />
-    <ClCompile Include="..\include\lucre\bank-sign.cpp" />
-    <ClCompile Include="..\include\lucre\bank-verify.cpp" />
-    <ClCompile Include="..\include\lucre\bankdemo.cpp">
+    <ClCompile Include="..\src\lucre\bank-new.cpp" />
+    <ClCompile Include="..\src\lucre\bank-sign.cpp" />
+    <ClCompile Include="..\src\lucre\bank-verify.cpp" />
+    <ClCompile Include="..\src\lucre\bankdemo.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\include\lucre\bankimp.cpp" />
-    <ClCompile Include="..\include\lucre\banktest.cpp">
+    <ClCompile Include="..\src\lucre\bankimp.cpp" />
+    <ClCompile Include="..\src\lucre\banktest.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\include\lucre\banktest2.cpp">
+    <ClCompile Include="..\src\lucre\banktest2.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\include\lucre\coin-request.cpp" />
-    <ClCompile Include="..\include\lucre\coin-unblind.cpp" />
+    <ClCompile Include="..\src\lucre\coin-request.cpp" />
+    <ClCompile Include="..\src\lucre\coin-unblind.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

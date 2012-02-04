@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -126,12 +126,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\include\bigint\BigInteger.cc" />
-    <ClCompile Include="..\include\bigint\BigIntegerAlgorithms.cc" />
-    <ClCompile Include="..\include\bigint\BigIntegerUtils.cc" />
-    <ClCompile Include="..\include\bigint\BigUnsigned.cc" />
-    <ClCompile Include="..\include\bigint\BigUnsignedInABase.cc" />
-    <ClCompile Include="..\include\bigint\sample.cc">
+    <ClCompile Include="..\src\bigint\BigInteger.cc" />
+    <ClCompile Include="..\src\bigint\BigIntegerAlgorithms.cc" />
+    <ClCompile Include="..\src\bigint\BigIntegerUtils.cc" />
+    <ClCompile Include="..\src\bigint\BigUnsigned.cc" />
+    <ClCompile Include="..\src\bigint\BigUnsignedInABase.cc" />
+    <ClCompile Include="..\src\bigint\sample.cc">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>

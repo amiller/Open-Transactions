@@ -135,7 +135,11 @@
 #include <string>
 
 #if defined (OT_ZMQ_MODE)
+#ifdef _WIN32
 #include <zeromq/zmq.hpp>
+#else
+#include <zmq.hpp>
+#endif
 #endif
 
 #include "OTStorage.h"

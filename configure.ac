@@ -33,7 +33,7 @@ AS_IF([test "$with_transport" == zmq],
    [PKG_CHECK_MODULES([DEPS], [protobuf >= 2.4.0 openssl >= 1.0.0
                                chaiscript >= 3.1.0])])
 
-AC_CONFIG_SRCDIR([OTLib/OTPurse.cpp])
+AC_CONFIG_SRCDIR([src/otlib])
 
 AC_CHECK_HEADERS([msgpack.h], [],
                 [AC_MSG_ERROR([No header files for libmsgpack found.])])

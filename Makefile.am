@@ -1,122 +1,157 @@
 # -*- fill-column: 72 -*-
 AUTOMAKE_OPTIONS = subdir-objects
 ACLOCAL_AMFLAGS = -I build-aux/m4
-EXTRA_DIST = GETTING-STARTED.txt INSTALL-Android.txt			\
-             INSTALL-DebianStable.txt INSTALL-Mac-Linux-FreeBSD.txt	\
-             INSTALL-Windows.txt LICENSE-AND-CREDITS.txt		\
-             PUBKEY-FellowTraveler.asc README.md VERSION
-
+EXTRA_DIST = docs/GETTING-STARTED.txt docs/INSTALL-Android.txt		\
+             docs/INSTALL-DebianStable.txt				\
+             docs/INSTALL-Mac-Linux-FreeBSD.txt				\
+             docs/INSTALL-Windows.txt docs/LICENSE-AND-CREDITS.txt	\
+             docs/PUBKEY-FellowTraveler.asc docs/README.md docs/VERSION	\
+             docs/SSL-NOTES.txt docs/WIPE-USERS-ACCOUNTS.txt
+otincdir = $(top_srcdir)/include
+common_includes = -I$(otincdir) -I$(otincdir)/otlib -I$(otincdir)/simpleini
 lib_LTLIBRARIES = libOTLib.la
 bin_PROGRAMS = ot ot_server otcreatemint signcontract
 AM_CPPFLAGS = $(DEPS_CFLAGS) $(BOOST_CPPFLAGS)
-libOTLib_la_CPPFLAGS = -I$(top_srcdir)/OTLib/bigint -I$(top_srcdir)/OTLib/Lucre -I$(top_scdir)/irrxml
+libOTLib_la_CPPFLAGS = $(common_includes) -I$(otincdir)/bigint	\
+                       -I$(otincdir)/lucre -I$(otincdir)/irrxml
 libOTLib_la_LIBADD = $(DEPS_LIBS) $(BOOST_LDFLAGS) $(BOOST_THREAD_LIB)
 client_ldadd = $(DEPS_LIBS) libOTLib.la $(BOOST_LDFLAGS) $(BOOST_THREAD_LIB)
-ot_CPPFLAGS = -I$(top_srcdir)/OTLib -I$(top_srcdir)/OTLib/simpleini
+ot_CPPFLAGS = $(common_includes) -I$(otincdir)/otapi -I$(otincdir)/ssl-example
 ot_LDADD = $(client_ldadd)
-ot_server_CPPFLAGS = -I$(top_srcdir)/OTLib -I$(top_srcdir)/OTLib/simpleini
+ot_server_CPPFLAGS = $(common_includes) -I$(otincdir)/otserver	\
+                     -I$(otincdir)/ssl-example
 ot_server_LDADD = $(client_ldadd)
-otcreatemint_CPPFLAGS = -I$(top_srcdir)/OTLib
-signcontract_CPPFLAGS = -I$(top_srcdir)/OTLib
+otcreatemint_CPPFLAGS = $(common_includes)
 otcreatemint_LDADD = $(client_ldadd)
+signcontract_CPPFLAGS = $(common_includes)
 signcontract_LDADD = $(client_ldadd)
 if TRANSPORT_ZMQ
-transport_client_api = testwallet/xmlrpcxx_client.cpp
-transport_server_api = transaction/xmlrpcxx_server.cpp
+transport_client_api = src/otapi/xmlrpcxx_client.cpp
+transport_server_api = src/otserver/xmlrpcxx_server.cpp
 ot_CXXFLAGS = -DOT_ZMQ_MODE
 endif
 
 if TRANSPORT_TESTCLIENT
-transport_client_api = testwallet/testclient.cpp
-transport_server_api = transaction/testserver.cpp
+transport_client_api = src/otapi/testclient.cpp
+transport_server_api = src/otapi/testserver.cpp
 endif
 
-ot_SOURCES = testwallet/OpenTransactions.cpp			\
-                     testwallet/OTAPI.cpp testwallet/OTAPI_Wrapper.cpp	\
-                     testwallet/OTServerConnection.cpp			\
-                     testwallet/OTClient.cpp				\
-                     testwallet/SSL-Example/SFSocket.c			\
-                     $(transport_client_api)
+ot_SOURCES = src/otapi/OpenTransactions.cpp src/otapi/OTAPI.cpp		\
+             src/otapi/OTAPI_Wrapper.cpp				\
+             src/otapi/OTServerConnection.cpp src/otapi/OTClient.cpp	\
+             src/otapi/SFSocket.c $(transport_client_api)
 
-EXTRA_ot_SOURCES = testwallet/xmlrpcxx_client.cpp	\
-                           testwallet/testclient.cpp
+EXTRA_ot_SOURCES = src/otapi/xmlrpcxx_client.cpp	\
+                   src/otapi/testclient.cpp
 
-ot_server_SOURCES = transaction/OTClientConnection.cpp	\
-                          transaction/OTServer.cpp		\
-                          transaction/SSL-Example/SFSocket.c	\
-                          $(transport_server_api)
+ot_server_SOURCES = src/otserver/OTClientConnection.cpp			\
+                    src/otserver/OTServer.cpp src/otapi/SFSocket.c	\
+                    $(transport_server_api)
 
-EXTRA_ot_server_SOURCES = testwallet/xmlrpcxx_client.cpp	\
-                            testwallet/testclient.cpp
+EXTRA_ot_server_SOURCES = src/otserver/xmlrpcxx_server.cpp	\
+                          src/otserver/testserver.cpp
 
 otcreatemint_SOURCES = util/otcreatemint/main.cpp
 signcontract_SOURCES = util/signcontract/main.cpp
 
-bigintsources = OTLib/bigint/BigUnsigned.cc OTLib/bigint/BigInteger.cc	\
-                OTLib/bigint/BigIntegerAlgorithms.cc			\
-                OTLib/bigint/BigUnsignedInABase.cc			\
-                OTLib/bigint/BigIntegerUtils.cc
+bigintsources = src/bigint/BigUnsigned.cc src/bigint/BigInteger.cc	\
+                src/bigint/BigIntegerAlgorithms.cc			\
+                src/bigint/BigUnsignedInABase.cc			\
+                src/bigint/BigIntegerUtils.cc
 
-bigintheaders = OTLib/bigint/BigUnsigned.hh OTLib/bigint/BigInteger.hh	\
-		OTLib/bigint/BigUnsignedInABase.hh			\
-		OTLib/bigint/BigIntegerUtils.hh				\
-		OTLib/bigint/BigIntegerLibrary.hh
+bigintheaders = include/bigint/BigUnsigned.hh		\
+		include/bigint/BigInteger.hh		\
+		include/bigint/BigUnsignedInABase.hh	\
+		include/bigint/BigIntegerUtils.hh	\
+		include/bigint/BigIntegerLibrary.hh
 
-lucresources = OTLib/Lucre/bankimp.cpp
-lucreheaders = OTLib/Lucre/bank.h
-irrxmlsources = OTLib/irrxml/irrXML.cpp
-irrxmlheaders = OTLib/irrxml/irrXML.h
+lucresources = src/lucre/bankimp.cpp
+lucreheaders = include/lucre/bank.h
+irrxmlsources = src/irrxml/irrXML.cpp
+irrxmlheaders = include/irrxml/irrXML.h
 
 libOTLib_la_SOURCES = $(bigintsources) $(lucresources) $(irrxmlsources)	\
-                      OTLib/OTData.cpp OTLib/OTString.cpp		\
-                      OTLib/OTStringXML.cpp OTLib/OTASCIIArmor.cpp	\
-                      OTLib/OTContract.cpp OTLib/OTSmartContract.cpp	\
-                      OTLib/OTWallet.cpp OTLib/OTSignedFile.cpp		\
-                      OTLib/OTPseudonym.cpp OTLib/OTMint.cpp		\
-                      OTLib/OTInstrument.cpp OTLib/OTCheque.cpp		\
-                      OTLib/OTPurse.cpp OTLib/OTLog.cpp			\
-                      OTLib/OTToken.cpp OTLib/OTTransactionType.cpp	\
-                      OTLib/OTItem.cpp OTLib/OTBasket.cpp		\
-                      OTLib/OTTransaction.cpp OTLib/OTLedger.cpp	\
-                      OTLib/OTAccount.cpp OTLib/OTEnvelope.cpp		\
-                      OTLib/OTAssetContract.cpp				\
-                      OTLib/OTServerContract.cpp OTLib/OTOffer.cpp	\
-                      OTLib/OTAgreement.cpp OTLib/OTTrackable.cpp	\
-                      OTLib/OTCron.cpp OTLib/OTCronItem.cpp		\
-                      OTLib/OTTrade.cpp OTLib/OTPaymentPlan.cpp		\
-                      OTLib/OTMarket.cpp OTLib/OTPayload.cpp		\
-                      OTLib/OTMessage.cpp OTLib/OTMessageBuffer.cpp	\
-                      OTLib/OTIdentifier.cpp OTLib/OTAsymmetricKey.cpp	\
-                      OTLib/OTSignature.cpp OTLib/OTScript.cpp		\
-                      OTLib/OTScriptable.cpp OTLib/OTBylaw.cpp		\
-                      OTLib/OTStorage.cpp OTLib/OTDataCheck.cpp		\
-                      OTLib/Generics.pb.cpp OTLib/Markets.pb.cpp	\
-                      OTLib/Bitcoin.pb.cpp OTLib/Moneychanger.pb.cpp	\
-                      OTLib/anyoption.cpp OTLib/Timer.cpp		\
-                      OTLib/easyzlib.c OTLib/mkcert.c			\
-                      OTLib/simpleini/ConvertUTF.c
+                      src/otlib/OTData.cpp src/otlib/OTString.cpp		\
+                      src/otlib/OTStringXML.cpp src/otlib/OTASCIIArmor.cpp	\
+                      src/otlib/OTContract.cpp src/otlib/OTSmartContract.cpp	\
+                      src/otlib/OTWallet.cpp src/otlib/OTSignedFile.cpp		\
+                      src/otlib/OTPseudonym.cpp src/otlib/OTMint.cpp		\
+                      src/otlib/OTInstrument.cpp src/otlib/OTCheque.cpp		\
+                      src/otlib/OTPurse.cpp src/otlib/OTLog.cpp			\
+                      src/otlib/OTToken.cpp src/otlib/OTTransactionType.cpp	\
+                      src/otlib/OTItem.cpp src/otlib/OTBasket.cpp		\
+                      src/otlib/OTTransaction.cpp src/otlib/OTLedger.cpp	\
+                      src/otlib/OTAccount.cpp src/otlib/OTEnvelope.cpp		\
+                      src/otlib/OTAssetContract.cpp				\
+                      src/otlib/OTServerContract.cpp src/otlib/OTOffer.cpp	\
+                      src/otlib/OTAgreement.cpp src/otlib/OTTrackable.cpp	\
+                      src/otlib/OTCron.cpp src/otlib/OTCronItem.cpp		\
+                      src/otlib/OTTrade.cpp src/otlib/OTPaymentPlan.cpp		\
+                      src/otlib/OTMarket.cpp src/otlib/OTPayload.cpp		\
+                      src/otlib/OTMessage.cpp src/otlib/OTMessageBuffer.cpp	\
+                      src/otlib/OTIdentifier.cpp src/otlib/OTAsymmetricKey.cpp	\
+                      src/otlib/OTSignature.cpp src/otlib/OTScript.cpp		\
+                      src/otlib/OTScriptable.cpp src/otlib/OTBylaw.cpp		\
+                      src/otlib/OTStorage.cpp src/otlib/OTDataCheck.cpp		\
+                      src/otlib/Generics.pb.cpp src/otlib/Markets.pb.cpp	\
+                      src/otlib/Bitcoin.pb.cpp src/otlib/Moneychanger.pb.cpp	\
+                      src/otlib/anyoption.cpp src/otlib/Timer.cpp		\
+                      src/otlib/easyzlib.c src/otlib/mkcert.c			\
+                      src/simpleini/ConvertUTF.c
 
-include_HEADERS = $(bigintheaders) $(lucreheaders) $(irrxmlheaders)	\
-                  OTLib/anyoption.h OTLib/Bitcoin.pb.h OTLib/easyzlib.h	\
-                  OTLib/Generics.pb.h OTLib/Markets.pb.h		\
-                  OTLib/Moneychanger.pb.h OTLib/OTAccount.h		\
-                  OTLib/OTAgreement.h OTLib/OTASCIIArmor.h		\
-                  OTLib/OTAssetContract.h OTLib/OTAsymmetricKey.h	\
-                  OTLib/OTBasket.h OTLib/OTBylaw.h OTLib/OTCheque.h	\
-                  OTLib/OTContract.h OTLib/OTCron.h OTLib/OTCronItem.h	\
-                  OTLib/OTDataCheck.h OTLib/OTData.h OTLib/OTEnvelope.h	\
-                  OTLib/OTglobal.h OTLib/OTIdentifier.h			\
-                  OTLib/OTInstrument.h OTLib/OTItem.h OTLib/OTLedger.h	\
-                  OTLib/OTLib.h OTLib/OTLibPriv.h OTLib/OTLog.h		\
-                  OTLib/OTMarket.h OTLib/OTMessageBuffer.h		\
-                  OTLib/OTMessage.h OTLib/OTMint.h OTLib/OTOffer.h	\
-                  OTLib/OTPayload.h OTLib/OTPaymentPlan.h		\
-                  OTLib/OTPseudonym.h OTLib/OTPurse.h			\
-                  OTLib/OTScriptable.h OTLib/OTScript.h			\
-                  OTLib/OTServerContract.h OTLib/OTSignature.h		\
-                  OTLib/OTSignedFile.h OTLib/OTSmartContract.h		\
-                  OTLib/OTStorage.h OTLib/OTString.h			\
-                  OTLib/OTStringXML.h OTLib/OTToken.h			\
-                  OTLib/OTTrackable.h OTLib/OTTrade.h			\
-                  OTLib/OTTransaction.h OTLib/OTTransactionType.h	\
-                  OTLib/OTWallet.h OTLib/stacktrace.h OTLib/Timer.h
+include_HEADERS = include/irrxml/CXMLReaderImpl.h			\
+                  include/irrxml/fast_atof.h include/irrxml/heapsort.h	\
+                  include/irrxml/irrArray.h include/irrxml/irrString.h	\
+                  include/irrxml/irrTypes.h include/irrxml/irrXML.h	\
+                  include/lucre/bank.h include/otapi/main.h		\
+                  include/otapi/OpenTransactions.h			\
+                  include/otapi/OTAPI_csharp.h include/otapi/OTAPI_d.h	\
+                  include/otapi/OTAPI_funcdef.h include/otapi/OTAPI.h	\
+                  include/otapi/OTAPI_java.h				\
+                  include/otapi/OTAPI_perl5.h include/otapi/OTAPI_php.h	\
+                  include/otapi/OTAPI_python.h				\
+                  include/otapi/OTAPI_ruby.h include/otapi/OTAPI_tcl.h	\
+                  include/otapi/OTAPI_Wrapper.h				\
+                  include/otapi/OTClient.h				\
+                  include/otapi/OTServerConnection.h			\
+                  include/otapi/php_otapi.h include/otlib/anyoption.h	\
+                  include/otlib/inttypes.h include/otlib/Bitcoin.pb.h	\
+                  include/otlib/easyzlib.h include/otlib/Generics.pb.h	\
+                  include/otlib/Markets.pb.h				\
+                  include/otlib/Moneychanger.pb.h			\
+                  include/otlib/OTAccount.h include/otlib/OTAgreement.h	\
+                  include/otlib/OTASCIIArmor.h				\
+                  include/otlib/OTAssetContract.h			\
+                  include/otlib/OTAsymmetricKey.h			\
+                  include/otlib/OTBasket.h include/otlib/OTBylaw.h	\
+                  include/otlib/OTCheque.h include/otlib/OTContract.h	\
+                  include/otlib/OTCron.h include/otlib/OTCronItem.h	\
+                  include/otlib/OTDataCheck.h include/otlib/OTData.h	\
+                  include/otlib/OTEnvelope.h include/otlib/OTglobal.h	\
+                  include/otlib/OTIdentifier.h				\
+                  include/otlib/OTInstrument.h include/otlib/OTItem.h	\
+                  include/otlib/OTLedger.h include/otlib/OTLib.h	\
+                  include/otlib/OTLibPriv.h include/otlib/OTLog.h	\
+                  include/otlib/OTMarket.h				\
+                  include/otlib/OTMessageBuffer.h			\
+                  include/otlib/OTMessage.h include/otlib/OTMint.h	\
+                  include/otlib/OTOffer.h include/otlib/OTPayload.h	\
+                  include/otlib/OTPaymentPlan.h				\
+                  include/otlib/OTPseudonym.h include/otlib/OTPurse.h	\
+                  include/otlib/OTScriptable.h include/otlib/OTScript.h	\
+                  include/otlib/OTServerContract.h			\
+                  include/otlib/OTSignature.h				\
+                  include/otlib/OTSignedFile.h				\
+                  include/otlib/OTSmartContract.h			\
+                  include/otlib/OTStorage.h include/otlib/OTString.h	\
+                  include/otlib/OTStringXML.h include/otlib/OTToken.h	\
+                  include/otlib/OTTrackable.h include/otlib/OTTrade.h	\
+                  include/otlib/OTTransaction.h				\
+                  include/otlib/OTTransactionType.h			\
+                  include/otlib/OTWallet.h include/otlib/stacktrace.h	\
+                  include/otlib/Timer.h include/otserver/main.h		\
+                  include/otserver/OTClientConnection.h			\
+                  include/otserver/OTServer.h				\
+                  include/simpleini/ConvertUTF.h			\
+                  include/simpleini/SimpleIni.h				\
+                  include/ssl-example/SFSocket.h
