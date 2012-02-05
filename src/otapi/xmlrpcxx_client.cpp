@@ -194,12 +194,7 @@ extern "C"
 // ---------------------------------------------------------------------------
 
 #if defined(OT_ZMQ_MODE)
-
-#ifdef _WIN32
-#include <zeromq/zmq.hpp>
-#else
 #include <zmq.hpp>
-#endif
 
 
 // If you build in tcp/ssl mode, this file will build even if you don't have this library.

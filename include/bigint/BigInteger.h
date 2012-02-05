@@ -17,7 +17,7 @@
 #ifndef BIGINTEGER_H
 #define BIGINTEGER_H
 
-#include "BigUnsigned.hh"
+#include "BigUnsigned.h"
 
 /* A BigInteger object represents a signed integer of size limited only by
  * available memory.  BigUnsigneds support most mathematical operators and can
@@ -119,7 +119,7 @@ public:
 	bool operator >=(const BigInteger &x) const { return compareTo(x) != less   ; }
 	bool operator > (const BigInteger &x) const { return compareTo(x) == greater; }
 
-	// OPERATORS -- See the discussion in BigUnsigned.hh.
+	// OPERATORS -- See the discussion in BigUnsigned.h.
 	void add     (const BigInteger &a, const BigInteger &b);
 	void subtract(const BigInteger &a, const BigInteger &b);
 	void multiply(const BigInteger &a, const BigInteger &b);
@@ -197,7 +197,7 @@ inline BigInteger BigInteger::operator -() const {
  * 
  * Now the responsibility for making a temporary copy if necessary
  * belongs to the put-here operations.  See Assignment Operators in
- * BigUnsigned.hh.
+ * BigUnsigned.h.
  */
 inline void BigInteger::operator +=(const BigInteger &x) {
 	add(*this, x);

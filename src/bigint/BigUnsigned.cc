@@ -14,12 +14,12 @@
  
  */
 
-#include "BigUnsigned.hh"
+#include "BigUnsigned.h"
 
-// Memory management definitions have moved to the bottom of NumberlikeArray.hh.
+// Memory management definitions have moved to the bottom of NumberlikeArray.h.
 
 // The templates used by these constructors and converters are at the bottom of
-// BigUnsigned.hh.
+// BigUnsigned.h.
 
 BigUnsigned::BigUnsigned(unsigned long  x) { initFromPrimitive      (x); }
 BigUnsigned::BigUnsigned(unsigned int   x) { initFromPrimitive      (x); }
@@ -118,7 +118,7 @@ BigUnsigned::CmpRes BigUnsigned::compareTo(const BigUnsigned &x) const {
  * aliased calls) to generate code for this check.
  * 
  * I adopted this approach on 2007.02.13 (see Assignment Operators in
- * BigUnsigned.hh).  Before then, put-here operations rejected aliased calls
+ * BigUnsigned.h).  Before then, put-here operations rejected aliased calls
  * with an exception.  I think doing the right thing is better.
  * 
  * Some of the put-here operations can probably handle aliased calls safely

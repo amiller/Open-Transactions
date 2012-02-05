@@ -127,6 +127,9 @@ project/OTLib.vcxproj.user
 include/chaiscript/
 include/zeromq/
 include/otapi/OTAPI_wrap.h
+include/zmq.h
+include/zmq.hpp
+include/zmq_utils.h
 lib/Debug/*
 lib/Release/*
 lib/

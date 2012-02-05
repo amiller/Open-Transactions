@@ -4,8 +4,9 @@ This document discribes how to compile and setup Open Transactions on Windows us
 ------------  Basic Infranstructure: ------------
 
 Windows 7
-Visual Studio C++ 2010 Express
+Visual Studio C++ 2010 Express + SP1
 Microsoft Windows SDK for Windows 7 and .NET Framework 4 (full install)
+Microsoft Visual C++ 2010 Service Pack 1 Compiler Update for the Windows SDK 7.1  (https://www.microsoft.com/download/en/details.aspx?id=4422)
 
 After you have installed Windows SDK7.1 you need to do a few simple changes to the registry to make it the default.
 load up regeit (as an adminstrator) and change:

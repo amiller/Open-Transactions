@@ -17,7 +17,7 @@
 #ifndef BIGINTEGERUTILS_H
 #define BIGINTEGERUTILS_H
 
-#include "BigInteger.hh"
+#include "BigInteger.h"
 #include <string>
 #include <iostream>
 

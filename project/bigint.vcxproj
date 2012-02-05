@@ -66,28 +66,28 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IntDir>$(SolutionDir)..\obj\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir>$(SolutionDir)..\obj\$(PlatformName)\$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)..\lib\$(PlatformName)\$(Configuration)\</OutDir>
     <LibraryPath>$(SolutionDir)..\lib\$(PlatformName)\$(Configuration)\;$(SystemDrive)\boost_1_48_0\stage\lib\$(PlatformName);$(SystemDrive)\OpenSSL-Win$(PlatformArchitecture)\lib\VC;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)..\include\;$(SolutionDir)..\include\$(ProjectName)\;$(SolutionDir)..\include\otlib\;$(SystemDrive)\boost_1_48_0;$(SystemDrive)\OpenSSL-Win$(PlatformArchitecture)\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\include;$(SolutionDir)..\include\$(ProjectName);$(SolutionDir)..\include\otlib;$(SystemDrive)\boost_1_48_0;$(SystemDrive)\OpenSSL-Win$(PlatformArchitecture)\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IntDir>$(SolutionDir)..\obj\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir>$(SolutionDir)..\obj\$(PlatformName)\$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)..\lib\$(PlatformName)\$(Configuration)\</OutDir>
     <LibraryPath>$(SolutionDir)..\lib\$(PlatformName)\$(Configuration)\;$(SystemDrive)\boost_1_48_0\stage\lib\$(PlatformName);$(SystemDrive)\OpenSSL-Win$(PlatformArchitecture)\lib\VC;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)..\include\;$(SolutionDir)..\include\$(ProjectName)\;$(SolutionDir)..\include\otlib\;$(SystemDrive)\boost_1_48_0;$(SystemDrive)\OpenSSL-Win$(PlatformArchitecture)\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\include;$(SolutionDir)..\include\$(ProjectName);$(SolutionDir)..\include\otlib;$(SystemDrive)\boost_1_48_0;$(SystemDrive)\OpenSSL-Win$(PlatformArchitecture)\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IntDir>$(SolutionDir)..\obj\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir>$(SolutionDir)..\obj\$(PlatformName)\$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)..\lib\$(PlatformName)\$(Configuration)\</OutDir>
     <LibraryPath>$(SolutionDir)..\lib\$(PlatformName)\$(Configuration)\;$(SystemDrive)\boost_1_48_0\stage\lib\$(PlatformName);$(SystemDrive)\OpenSSL-Win$(PlatformArchitecture)\lib\VC;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)..\include\;$(SolutionDir)..\include\$(ProjectName)\;$(SolutionDir)..\include\otlib\;$(SystemDrive)\boost_1_48_0;$(SystemDrive)\OpenSSL-Win$(PlatformArchitecture)\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\include;$(SolutionDir)..\include\$(ProjectName);$(SolutionDir)..\include\otlib;$(SystemDrive)\boost_1_48_0;$(SystemDrive)\OpenSSL-Win$(PlatformArchitecture)\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IntDir>$(SolutionDir)..\obj\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir>$(SolutionDir)..\obj\$(PlatformName)\$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)..\lib\$(PlatformName)\$(Configuration)\</OutDir>
     <LibraryPath>$(SolutionDir)..\lib\$(PlatformName)\$(Configuration)\;$(SystemDrive)\boost_1_48_0\stage\lib\$(PlatformName);$(SystemDrive)\OpenSSL-Win$(PlatformArchitecture)\lib\VC;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)..\include\;$(SolutionDir)..\include\$(ProjectName)\;$(SolutionDir)..\include\otlib\;$(SystemDrive)\boost_1_48_0;$(SystemDrive)\OpenSSL-Win$(PlatformArchitecture)\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\include;$(SolutionDir)..\include\$(ProjectName);$(SolutionDir)..\include\otlib;$(SystemDrive)\boost_1_48_0;$(SystemDrive)\OpenSSL-Win$(PlatformArchitecture)\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -139,18 +139,15 @@
     <ClCompile Include="..\src\bigint\BigIntegerUtils.cc" />
     <ClCompile Include="..\src\bigint\BigUnsigned.cc" />
     <ClCompile Include="..\src\bigint\BigUnsignedInABase.cc" />
-    <ClCompile Include="..\src\bigint\sample.cc">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\include\bigint\testsuite.cc">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\bigint\BigInteger.h" />
+    <ClInclude Include="..\include\bigint\BigIntegerAlgorithms.h" />
+    <ClInclude Include="..\include\bigint\BigIntegerLibrary.h" />
+    <ClInclude Include="..\include\bigint\BigIntegerUtils.h" />
+    <ClInclude Include="..\include\bigint\BigUnsigned.h" />
+    <ClInclude Include="..\include\bigint\BigUnsignedInABase.h" />
+    <ClInclude Include="..\include\bigint\NumberlikeArray.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
