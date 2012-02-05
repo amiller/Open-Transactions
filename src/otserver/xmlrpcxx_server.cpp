@@ -180,7 +180,7 @@ yIh+Yp/KBzySU3inzclaAfv102/t5xi1l+GTyWHiwZxlyt5PBVglKWx/Ust9CIvN
 // ----------------------------------------------------------------
 
 #ifdef _WIN32
-#include "OTLib/stdafx.h"
+//#include "OTLib/stdafx.h"
 #endif
 
 #include <cstdio>

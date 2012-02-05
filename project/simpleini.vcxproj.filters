@@ -15,24 +15,24 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\include\simpleini\ConvertUTF.c">
+    <ClCompile Include="..\src\simpleini\ConvertUTF.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\include\simpleini\snippets.cpp">
+    <ClCompile Include="..\src\simpleini\snippets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\include\simpleini\test1.cpp">
+    <ClCompile Include="..\src\simpleini\test1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\include\simpleini\testsi.cpp">
+    <ClCompile Include="..\src\simpleini\testsi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\simpleini\ConvertUTF.h">
+    <ClInclude Include="..\src\simpleini\ConvertUTF.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\simpleini\SimpleIni.h">
+    <ClInclude Include="..\src\simpleini\SimpleIni.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

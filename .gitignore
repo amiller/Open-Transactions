@@ -124,7 +124,11 @@ project/OT_Server.vcxproj.user
 project/OTAPI.vcxproj.user
 project/OTAPI_java.vcxproj.user
 project/OTLib.vcxproj.user
-include/chaiscript
+include/chaiscript/
+include/zeromq/
+include/otapi/OTAPI_wrap.h
 lib/Debug/*
 lib/Release/*
+lib/
+obj/
 include/google

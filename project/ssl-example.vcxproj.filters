@@ -15,26 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\include\bigint\BigInteger.cc">
+    <ClCompile Include="..\src\otapi\SFSocket.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\include\bigint\BigIntegerAlgorithms.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\include\bigint\BigIntegerUtils.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\include\bigint\BigUnsigned.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\include\bigint\BigUnsignedInABase.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\include\bigint\sample.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\include\bigint\testsuite.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\ssl-example\SFSocket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
