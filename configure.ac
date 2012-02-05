@@ -1,14 +1,14 @@
-AC_PREREQ(2.64)
-LT_PREREQ([2.2.6])
 AC_INIT([Open-Transactions], [0.77.0], [Fellow-Traveler], [Open-Transactions], [https://github.com/FellowTraveler/Open-Transactions])
+AC_PREREQ(2.61)
+LT_PREREQ([2.2.4])
 AC_CONFIG_AUX_DIR(build-aux)
-AM_INIT_AUTOMAKE([1.11 foreign])
-AM_SILENT_RULES([yes])
+AM_INIT_AUTOMAKE([1.10 foreign])
+dnl AM_SILENT_RULES([yes])
 LT_INIT([dlopen])
 AC_CONFIG_MACRO_DIR([build-aux/m4])
 AC_CONFIG_HEADERS([config.h])
 
-PKG_PROG_PKG_CONFIG([0.26])
+PKG_PROG_PKG_CONFIG([0.25])
 AC_PROG_CC
 AM_PROG_CC_C_O
 AC_PROG_CXX
