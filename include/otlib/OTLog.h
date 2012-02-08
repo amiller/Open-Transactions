@@ -163,6 +163,9 @@ private:
 	static OTString __OTNymboxFolder;	// Just the folder name
 	static OTString __OTInboxFolder;	// Just the folder name
 	static OTString __OTOutboxFolder;	// Just the folder name
+	static OTString __OTPaymentInboxFolder;	
+	static OTString __OTPaymentOutboxFolder;
+	static OTString __OTRecordBoxFolder;
 	static OTString __OTCertFolder;		// Just the folder name
 	static OTString __OTPubkeyFolder;	// Just the folder name
 	static OTString __OTContractFolder;	// Just the folder name
@@ -171,6 +174,9 @@ private:
 	static OTString __OTPurseFolder;	// Just the folder name
 	static OTString __OTMarketFolder;	// Just the folder name
 	
+	static OTString __OTScriptFolder;
+	static OTString __OTSmartContractsFolder;
+
 	static OTString __OTLogfile;		// Optional, logfile (full path.)
 	
 	static dequeOfStrings __logDeque; // Stores the last 1024 logs in memory.
@@ -264,6 +270,15 @@ public:
 	static const char *	OutboxFolder()				{ return __OTOutboxFolder.Get(); }
 	static void SetOutboxFolder(const char * szPath)	{ __OTOutboxFolder.Set(szPath); }
 	
+	static const char *	PaymentInboxFolder()		{ return __OTPaymentInboxFolder.Get(); }
+	static void SetPaymentInboxFolder(const char * szPath)	{ __OTPaymentInboxFolder.Set(szPath); }
+	
+	static const char *	PaymentOutboxFolder()		{ return __OTPaymentOutboxFolder.Get(); }
+	static void SetPaymentOutboxFolder(const char * szPath)	{ __OTPaymentOutboxFolder.Set(szPath); }
+	
+	static const char *	RecordBoxFolder()			{ return __OTRecordBoxFolder.Get(); }
+	static void SetRecordBoxFolder(const char * szPath)	{ __OTRecordBoxFolder.Set(szPath); }
+	
 	static const char *	CertFolder()				{ return __OTCertFolder.Get(); }
 	static void SetCertFolder(const char * szPath)	{ __OTCertFolder.Set(szPath); }
 	
@@ -285,15 +300,22 @@ public:
 	static const char *	MarketFolder()				{ return __OTMarketFolder.Get(); }
 	static void SetMarketFolder(const char * szPath){ __OTMarketFolder.Set(szPath); }
 	
+	static const char *	ScriptFolder()				{ return __OTScriptFolder.Get(); }
+	static void SetScriptFolder(const char * szPath){ __OTScriptFolder.Set(szPath); }
+	
+	static const char *	SmartContractsFolder()		{ return __OTSmartContractsFolder.Get(); }
+	static void SetSmartContractsFolder(const char * szPath)	{ __OTSmartContractsFolder.Set(szPath); }
+	
 	static const char *	Logfile()				{ return __OTLogfile.Get(); }
 	static void SetLogfile(const char * szPath)	{ __OTLogfile.Set(szPath); }
 	
 	// ------------------------------------------------------------
 	
-	static const char * Version() { return __Version.Get(); }
+	static 
+	const char *	Version() { return __Version.Get(); }
 	
-	static int			GetLogLevel() { return __CurrentLogLevel; }
-	static void			SetLogLevel(int nLevel) { __CurrentLogLevel = nLevel; }
+	static int		GetLogLevel() { return __CurrentLogLevel; }
+	static void		SetLogLevel(int nLevel) { __CurrentLogLevel = nLevel; }
 	
 	// --------------------------------------------------------
 	

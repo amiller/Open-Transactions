@@ -16,6 +16,8 @@
 
 %include "java/enumtypeunsafe.swg";
 
+%typemap("javapackage") OTPassword, OTPassword *, OTPassword & "com.wrapper.core.jni";
+
 %typemap("javapackage") OTCallback, OTCallback *, OTCallback & "com.wrapper.core.jni";
 %typemap("javapackage") OTCaller, OTCaller *, OTCaller & "com.wrapper.core.jni";
 
@@ -113,35 +115,10 @@ JAVA_TYPEMAP(size_t, long, jlong)
 // that THEY apply to.
 //
 
-class OTCallback 
-{
-public:
-	OTCallback() {}
-	virtual ~OTCallback();
-	virtual std::string runOne();
-	virtual std::string runTwo();
-};
+
+%include "../OTLib/OTPassword.h"
 
 
-class OTCaller 
-{
-protected:
-	std::string m_strPW;
-	OTCallback *_callback;
-	
-public:
-	OTCaller() : _callback(NULL) { }
-	~OTCaller();
-	
-	const char * GetPassword();
-	
-	void delCallback();
-	void setCallback(OTCallback *cb);
-	bool isCallbackSet();
-	
-	void callOne();
-	void callTwo();
-};
 
 bool OT_API_Set_PasswordCallback(OTCaller & theCaller);
 
