@@ -43,9 +43,23 @@ public class OTCaller : IDisposable {
   public OTCaller() : this(otapiPINVOKE.new_OTCaller(), true) {
   }
 
-  public string GetPassword() {
-    string ret = otapiPINVOKE.OTCaller_GetPassword(swigCPtr);
+  public bool GetPassword(OTPassword theOutput) {
+    bool ret = otapiPINVOKE.OTCaller_GetPassword(swigCPtr, OTPassword.getCPtr(theOutput));
+    if (otapiPINVOKE.SWIGPendingException.Pending) throw otapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
+  }
+
+  public void ZeroOutPassword() {
+    otapiPINVOKE.OTCaller_ZeroOutPassword(swigCPtr);
+  }
+
+  public string GetDisplay() {
+    string ret = otapiPINVOKE.OTCaller_GetDisplay(swigCPtr);
+    return ret;
+  }
+
+  public void SetDisplay(string szDisplay, int nLength) {
+    otapiPINVOKE.OTCaller_SetDisplay(swigCPtr, szDisplay, nLength);
   }
 
   public void delCallback() {

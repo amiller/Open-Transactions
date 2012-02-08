@@ -132,46 +132,15 @@
 
 #include <string>
 
-;
 
 extern "C"
 {
 #include <openssl/evp.h>	
 }
 
+#include "OTPassword.h"
+
 // ------------------------------------------------
-
-
-class OTCallback 
-{
-public:
-	OTCallback() {}
-	virtual ~OTCallback();
-	virtual std::string runOne(); // Asks for password once.
-	virtual std::string runTwo(); // Asks for password twice. (For verification.)
-};
-
-
-class OTCaller 
-{
-protected:
-	std::string m_strPW;
-	OTCallback *_callback;
-	
-public:
-	OTCaller() : _callback(NULL) { }
-	~OTCaller();
-	
-	const char * GetPassword();
-	
-	void delCallback();
-	void setCallback(OTCallback *cb);
-	bool isCallbackSet();
-	
-	void callOne(); // Asks for password once.
-	void callTwo(); // Asks for password twice. (For verification.)
-};
-
 
 // This is the only part of the API that actually accepts objects as parameters,
 // since the above objects have SWIG C++ wrappers. 
@@ -180,19 +149,19 @@ bool OT_API_Set_PasswordCallback(OTCaller & theCaller); // Caller must have Call
 
 
 // ------------------------------------------------
-
 // For getting the password from the user, for using his private key.
 //
 extern "C"
 {
-typedef int OT_OPENSSL_CALLBACK(char *buf, int size, int rwflag, void *u); // <== Callback type, used for declaring.
+typedef int OT_OPENSSL_CALLBACK(char *buf, int size, int rwflag, void *userdata); // <== Callback type, used for declaring.
 	
 	OT_OPENSSL_CALLBACK default_pass_cb;
 	OT_OPENSSL_CALLBACK souped_up_pass_cb;
 }
-
+// ------------------------------------------------
 // Used for the actual function definition (in the .cpp file).
-#define OPENSSL_CALLBACK_FUNC(name) extern "C" int (name)(char *buf, int size, int rwflag, void *u)
+//
+#define OPENSSL_CALLBACK_FUNC(name) extern "C" int (name)(char *buf, int size, int rwflag, void *userdata)
 
 // ------------------------------------------------
 
