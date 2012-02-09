@@ -168,6 +168,9 @@
     <ClCompile Include="..\src\otlib\Timer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\otlib\OTPassword.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\otlib\anyoption.h">
@@ -330,6 +333,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\otlib\Timer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\otlib\OTPassword.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

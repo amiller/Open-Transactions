@@ -166,6 +166,7 @@
     <ClCompile Include="..\src\otlib\OTMessageBuffer.cpp" />
     <ClCompile Include="..\src\otlib\OTMint.cpp" />
     <ClCompile Include="..\src\otlib\OTOffer.cpp" />
+    <ClCompile Include="..\src\otlib\OTPassword.cpp" />
     <ClCompile Include="..\src\otlib\OTPayload.cpp" />
     <ClCompile Include="..\src\otlib\OTPaymentPlan.cpp" />
     <ClCompile Include="..\src\otlib\OTPseudonym.cpp" />
@@ -188,6 +189,7 @@
     <ClCompile Include="..\src\otlib\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\otlib\OTPassword.h" />
     <ClInclude Include="..\src\otlib\anyoption.h" />
     <ClInclude Include="..\src\otlib\Bitcoin.pb.h" />
     <ClInclude Include="..\src\otlib\easyzlib.h" />
