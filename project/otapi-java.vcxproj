@@ -70,30 +70,35 @@
     <LibraryPath>$(SolutionDir)..\lib\$(PlatformName)\$(Configuration)\;$(SystemDrive)\boost_1_48_0\stage\lib\$(PlatformName);$(SystemDrive)\OpenSSL-Win$(PlatformArchitecture)\lib\VC;$(ProgramFiles)\Java\jdk1.6.0_30\lib;$(LibraryPath)</LibraryPath>
     <IntDir>$(SolutionDir)..\obj\$(PlatformName)\$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)..\lib\$(PlatformName)\$(Configuration)\</OutDir>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)..\include;$(SolutionDir)..\include\$(ProjectName);$(SolutionDir)..\include\otlib;$(SystemDrive)\boost_1_48_0;$(SystemDrive)\OpenSSL-Win$(PlatformArchitecture)\include;$(SolutionDir)..\include\otapi\;$(ProgramW6432)\Java\jdk1.6.0_30\include;$(ProgramW6432)\Java\jdk1.6.0_30\include\win32;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)..\lib\$(PlatformName)\$(Configuration)\;$(SystemDrive)\boost_1_48_0\stage\lib\$(PlatformName);$(SystemDrive)\OpenSSL-Win$(PlatformArchitecture)\lib\VC;$(ProgramW6432)\Java\jdk1.6.0_30\lib;$(LibraryPath)</LibraryPath>
     <IntDir>$(SolutionDir)..\obj\$(PlatformName)\$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)..\lib\$(PlatformName)\$(Configuration)\</OutDir>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(SolutionDir)..\include;$(SolutionDir)..\include\$(ProjectName);$(SolutionDir)..\include\otlib;$(SystemDrive)\boost_1_48_0;$(SystemDrive)\OpenSSL-Win$(PlatformArchitecture)\include;$(SolutionDir)..\include\otapi\;$(ProgramFiles)\Java\jdk1.6.0_30\include;$(ProgramFiles)\Java\jdk1.6.0_30\include\win32;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)..\lib\$(PlatformName)\$(Configuration)\;$(SystemDrive)\boost_1_48_0\stage\lib\$(PlatformName);$(SystemDrive)\OpenSSL-Win$(PlatformArchitecture)\lib\VC;$(ProgramFiles)\Java\jdk1.6.0_30\lib;$(LibraryPath)</LibraryPath>
     <IntDir>$(SolutionDir)..\obj\$(PlatformName)\$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)..\lib\$(PlatformName)\$(Configuration)\</OutDir>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(SolutionDir)..\include;$(SolutionDir)..\include\$(ProjectName);$(SolutionDir)..\include\otlib;$(SystemDrive)\boost_1_48_0;$(SystemDrive)\OpenSSL-Win$(PlatformArchitecture)\include;$(SolutionDir)..\include\otapi\;$(ProgramW6432)\Java\jdk1.6.0_30\include;$(ProgramW6432)\Java\jdk1.6.0_30\include\win32;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)..\lib\$(PlatformName)\$(Configuration)\;$(SystemDrive)\boost_1_48_0\stage\lib\$(PlatformName);$(SystemDrive)\OpenSSL-Win$(PlatformArchitecture)\lib\VC;$(ProgramW6432)\Java\jdk1.6.0_30\lib;$(LibraryPath)</LibraryPath>
     <IntDir>$(SolutionDir)..\obj\$(PlatformName)\$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)..\lib\$(PlatformName)\$(Configuration)\</OutDir>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_WINDLL;OT_ZMQ_MODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/bigobj /wd4244 /wd4267 /wd4018 /wd4355 /wd4800 /wd4251 /wd4996 /wd4146 /wd4305 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -113,7 +118,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_WINDLL;OT_ZMQ_MODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/bigobj /wd4244 /wd4267 /wd4018 /wd4355 /wd4800 /wd4251 /wd4996 /wd4146 /wd4305 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -135,6 +140,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_WINDLL;OT_ZMQ_MODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/bigobj /wd4244 /wd4267 /wd4018 /wd4355 /wd4800 /wd4251 /wd4996 /wd4146 /wd4305 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -158,6 +164,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_WINDLL;OT_ZMQ_MODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/bigobj /wd4244 /wd4267 /wd4018 /wd4355 /wd4800 /wd4251 /wd4996 /wd4146 /wd4305 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -175,18 +182,10 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\otapi\main.h" />
-    <ClInclude Include="..\src\otapi\OpenTransactions.h" />
-    <ClInclude Include="..\src\otapi\OTAPI_java.h" />
-    <ClInclude Include="..\src\otapi\OTClient.h" />
-    <ClInclude Include="..\src\otapi\OTServerConnection.h" />
+    <ClInclude Include="..\include\otapi\OTAPI_java.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\otapi\OpenTransactions.cpp" />
-    <ClCompile Include="..\src\otapi\OTAPI_java.cpp" />
-    <ClCompile Include="..\src\otapi\OTClient.cpp" />
-    <ClCompile Include="..\src\otapi\OTServerConnection.cpp" />
-    <ClCompile Include="..\src\otapi\xmlrpcxx_client.cpp" />
+    <ClCompile Include="..\src\otapi\OTAPI_java.cxx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
