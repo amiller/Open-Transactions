@@ -39,14 +39,14 @@ endif
 ot_SOURCES = src/otapi/OpenTransactions.cpp src/otapi/OTAPI.cpp		\
              src/otapi/OTAPI_Wrapper.cpp				\
              src/otapi/OTServerConnection.cpp src/otapi/OTClient.cpp	\
-             src/otapi/SFSocket.c $(transport_client_api)
+             src/ssl-example/SFSocket.c $(transport_client_api)
 
 EXTRA_ot_SOURCES = src/otapi/xmlrpcxx_client.cpp	\
                    src/otapi/testclient.cpp
 
 ot_server_SOURCES = src/otserver/OTClientConnection.cpp			\
-                    src/otserver/OTServer.cpp src/otapi/SFSocket.c	\
-                    $(transport_server_api)
+                    src/otserver/OTServer.cpp				\
+                    src/ssl-example/SFSocket.c $(transport_server_api)
 
 EXTRA_ot_server_SOURCES = src/otserver/xmlrpcxx_server.cpp	\
                           src/otserver/testserver.cpp
@@ -100,22 +100,28 @@ libOTLib_la_SOURCES = $(bigintsources) $(lucresources) $(irrxmlsources)	\
                       src/otlib/easyzlib.c src/otlib/mkcert.c			\
                       src/simpleini/ConvertUTF.c
 
+if WANT_JAVA
+lib_LTLIBRARIES += libotapi.jnilib.la
+endif
+
+libotapi_jnilib_la_SOURCES = $(ot_SOURCES) swig/otapi/OTAPI_java.cxx
+libotapi_jnilib_la_CPPFLAGS = $(common_includes) -I$(otincdir)/otapi -I$(otincdir)/ssl-example $(JNI_CPPFLAGS)
+libotapi_jnilib_la_CXXFLAGS = -DOT_ZMQ_MODE
 include_HEADERS = include/irrxml/CXMLReaderImpl.h			\
                   include/irrxml/fast_atof.h include/irrxml/heapsort.h	\
                   include/irrxml/irrArray.h include/irrxml/irrString.h	\
                   include/irrxml/irrTypes.h include/irrxml/irrXML.h	\
                   include/lucre/bank.h include/otapi/main.h		\
                   include/otapi/OpenTransactions.h			\
-                  include/otapi/OTAPI_csharp.h include/otapi/OTAPI_d.h	\
                   include/otapi/OTAPI_funcdef.h include/otapi/OTAPI.h	\
-                  include/otapi/OTAPI_java.h				\
-                  include/otapi/OTAPI_perl5.h include/otapi/OTAPI_php.h	\
-                  include/otapi/OTAPI_python.h				\
-                  include/otapi/OTAPI_ruby.h include/otapi/OTAPI_tcl.h	\
+                  swig/otapi/OTAPI_csharp.h 				\
+                  swig/otapi/OTAPI_java.h swig/otapi/OTAPI_php.h	\
+                  swig/otapi/OTAPI_python.h				\
+                  swig/otapi/OTAPI_ruby.h 				\
                   include/otapi/OTAPI_Wrapper.h				\
                   include/otapi/OTClient.h				\
                   include/otapi/OTServerConnection.h			\
-                  include/otapi/php_otapi.h include/otlib/anyoption.h	\
+                  include/otlib/anyoption.h				\
                   include/otlib/inttypes.h include/otlib/Bitcoin.pb.h	\
                   include/otlib/easyzlib.h include/otlib/Generics.pb.h	\
                   include/otlib/Markets.pb.h				\

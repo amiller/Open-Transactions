@@ -40,7 +40,19 @@ AC_CHECK_HEADERS([msgpack.h], [],
                 [AC_MSG_ERROR([No header files for libmsgpack found.])])
 AC_CHECK_LIB(msgpack, msgpack_unpack)
 
-
+AC_ARG_WITH([java],
+         [AS_HELP_STRING([--with-java],
+             [build Java JNI wrapper])], [])
+AM_CONDITIONAL([WANT_JAVA], [test "x$with_java" == "xyes"], [])
+if (test "x$with_java" == "xyes"); then
+    AX_PROG_JAVAC
+    AX_JNI_INCLUDE_DIR
+ for JNI_INCLUDE_DIR in $JNI_INCLUDE_DIRS
+    do
+        JNI_CPPFLAGS="$JNI_CPPFLAGS -I$JNI_INCLUDE_DIR"
+    done
+    AC_SUBST(JNI_CPPFLAGS, $JNI_CPPFLAGS)
+fi
 
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
