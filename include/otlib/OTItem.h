@@ -130,6 +130,13 @@
 #ifndef __OTITEM_H__
 #define __OTITEM_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
 #include <fstream>
 
 #include "OTTransactionType.h"
@@ -154,7 +161,7 @@ typedef std::list  <OTItem *>	listOfItems;
 // Items are like tracks on a CD. It is assumed there will be several of them, they
 // come in packs. You normally would deal with the transaction as a single entity,
 // not the item. A transaction contains a list of items.
-class OTItem : public OTTransactionType
+class EXPORT OTItem : public OTTransactionType
 {	
     friend OTTransactionType * OTTransactionType::TransactionFactory(const OTString & strInput);
 

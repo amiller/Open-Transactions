@@ -130,6 +130,12 @@
 #ifndef __OT_INSTRUMENT_H__
 #define __OT_INSTRUMENT_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
 
 #include <ctime>
 #include <fstream>
@@ -138,7 +144,7 @@
 #include "OTScriptable.h"
 
 
-class OTInstrument : public OTScriptable 
+class EXPORT OTInstrument : public OTScriptable 
 {	
 protected:	
 	OTIdentifier		m_AssetTypeID;	// Every cheque or cash note has an Asset Type

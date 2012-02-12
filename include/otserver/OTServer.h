@@ -131,6 +131,13 @@
 #ifndef __OTSERVER_H__
 #define __OTSERVER_H__
 
+#undef IMPORT
+#ifdef _WINDLL
+  #define IMPORT __declspec(dllimport)
+#else
+  #define IMPORT
+#endif
+
 #include <map>
 
 #include "OTString.h"
@@ -142,13 +149,13 @@
 
 #include "OTCron.h"
 
-class OTMessage;
+class IMPORT OTMessage;
 class OTClientConnection;
 //class OTAccount;
-class OTTransaction;
-class OTMint;
-class OTTrade;
-class OTServerContract;
+class IMPORT OTTransaction;
+class IMPORT OTMint;
+class IMPORT OTTrade;
+class IMPORT OTServerContract;
 
 // these correspond--same IDs.
 typedef std::multimap<std::string, OTMint *>	mapOfMints;

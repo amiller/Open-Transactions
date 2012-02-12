@@ -130,6 +130,14 @@
 #ifndef __OTIDENTIFIER_H__
 #define __OTIDENTIFIER_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
+
 extern "C"
 {
 #include <openssl/evp.h>	
@@ -147,7 +155,7 @@ class OTPseudonym;
 class OTOffer;
 class OTMarket;
 
-class OTIdentifier : public OTData
+class EXPORT OTIdentifier : public OTData
 {
 protected:
 	// Some digests are handled in special ways before they can call OpenSSL. They are internal,

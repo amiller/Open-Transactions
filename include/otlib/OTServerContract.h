@@ -130,13 +130,20 @@
 #ifndef __OTSERVERCONTRACT_H__
 #define __OTSERVERCONTRACT_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
 #include <fstream>
 
 #include "OTContract.h"
 
 class OTString;
 
-class OTServerContract : public OTContract 
+class EXPORT OTServerContract : public OTContract 
 {
 protected:
 	

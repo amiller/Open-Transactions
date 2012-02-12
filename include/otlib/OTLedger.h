@@ -130,6 +130,13 @@
 #ifndef __OTLEDGER_H__
 #define __OTLEDGER_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
 #include <set>
 
 #include <fstream>
@@ -151,7 +158,7 @@ typedef std::map  <long, OTTransaction *>	mapOfTransactions;
 
 // the "inbox" and "outbox" functionality is implemented in this class
 //
-class OTLedger : public OTTransactionType 
+class EXPORT OTLedger : public OTTransactionType 
 {	
     friend OTTransactionType * OTTransactionType::TransactionFactory(const OTString & strInput);
     

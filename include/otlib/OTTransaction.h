@@ -130,6 +130,13 @@
 #ifndef __OTTRANSACTION_H__
 #define __OTTRANSACTION_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
 #include <ctime>
 
 #include <list>
@@ -351,7 +358,7 @@ Ledger is derived from contract because you must be able to save / sign it and l
 class OTLedger;
 
 
-class OTTransaction : public OTTransactionType
+class EXPORT OTTransaction : public OTTransactionType
 {	
     friend OTTransactionType * OTTransactionType::TransactionFactory(const OTString & strInput);
 

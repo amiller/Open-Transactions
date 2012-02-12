@@ -130,13 +130,19 @@
 #ifndef __OTSTRING_XML_H__
 #define __OTSTRING_XML_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
 
 #include "irrxml/irrXML.h"
 
 #include "OTString.h"
 
 
-class OTStringXML : public OTString, public irr::io::IFileReadCallBack
+class EXPORT OTStringXML : public OTString, public irr::io::IFileReadCallBack
 {
 public:
 	OTStringXML();

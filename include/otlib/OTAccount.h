@@ -134,6 +134,13 @@
 #include <fstream>
 #include <string>
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
 #ifdef _WIN32
 #include <memory>
 #else
@@ -150,7 +157,7 @@ class OTLedger;
 
 
 
-class OTAccount : public OTTransactionType 
+class EXPORT OTAccount : public OTTransactionType 
 {
     friend OTTransactionType * OTTransactionType::TransactionFactory(const OTString & strInput);
 
@@ -293,7 +300,7 @@ typedef std::map<std::string, OTAccount_WeakPtr>	mapOfWeakAccounts; // mapped by
 // Eventually will add expiration dates, possibly, to this class. (To have series, just like cash
 // already does now.)
 //
-class OTAcctList
+class EXPORT OTAcctList
 {
 	OTAccount::AccountType	m_AcctType;
 		
@@ -321,53 +328,6 @@ public:
 										   bool					& bWasAcctCreated, // this will be set to true if the acct is created here. Otherwise set to false;
 										   const long lStashTransNum=0);
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #endif // __OTACCOUNT_H__
 

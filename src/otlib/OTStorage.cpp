@@ -120,6 +120,14 @@
  -----END PGP SIGNATURE-----
  **************************************************************/
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
+
 #include <cstdio>
 
 #include <iostream>
@@ -628,7 +636,7 @@ namespace OTDB
 	}
 	
 	// Use %newobject Storage::DecodeObject();
-	Storable * DecodeObject(StoredObjectType theObjectType, std::string strInput)
+	 Storable * DecodeObject(StoredObjectType theObjectType, std::string strInput)
 	{
 		Storage * pStorage = details::s_pStorage;
 		

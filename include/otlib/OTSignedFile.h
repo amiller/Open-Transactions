@@ -129,6 +129,13 @@
 #ifndef __OT_SIGNED_FILE_H__
 #define __OT_SIGNED_FILE_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
 #include <fstream>
 
 
@@ -136,7 +143,7 @@
 #include "OTContract.h"
 
 
-class OTSignedFile : public OTContract 
+class EXPORT OTSignedFile : public OTContract 
 {	
 protected:
 	OTString		m_strSignedFilePayload;	// This class exists to wrap another and save it in signed form.

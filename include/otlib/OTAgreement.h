@@ -132,6 +132,13 @@
 #ifndef __OTAGREEMENT_H__
 #define __OTAGREEMENT_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
 #include "OTIdentifier.h"
 #include "OTString.h"
 //#include "OTPseudonym.h"
@@ -157,7 +164,7 @@
 
 class OTPseudonym;
 
-class OTAgreement : public OTCronItem
+class EXPORT OTAgreement : public OTCronItem
 {
 private:
 	OTIdentifier	m_RECIPIENT_ACCT_ID;

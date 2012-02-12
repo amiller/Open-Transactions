@@ -130,10 +130,17 @@
 #ifndef __OTSIGNATURE_H__
 #define __OTSIGNATURE_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
 #include "OTASCIIArmor.h"
 
 
-class OTSignature : public OTASCIIArmor
+class EXPORT OTSignature : public OTASCIIArmor
 {
 	
 public:

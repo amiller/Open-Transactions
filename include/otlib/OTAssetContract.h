@@ -130,6 +130,12 @@
 #ifndef __OTASSETCONTRACT_H__
 #define __OTASSETCONTRACT_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
 
 #include <map>
 #include <string>
@@ -142,7 +148,7 @@ class OTBasket;
 class OTPseudonym;
 class OTString;
 
-class OTAssetContract : public OTContract 
+class EXPORT OTAssetContract : public OTContract 
 {
 protected:
 	OTString	m_strBasketInfo;	// If this contract is for a basket currency, the OTBasket object is stored here.

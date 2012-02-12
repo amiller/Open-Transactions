@@ -15,6 +15,13 @@
 #ifndef TIMER_H_DEF
 #define TIMER_H_DEF
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
 #ifdef _WIN32   // Windows system specific
 #include <windows.h>
 #else          // Unix based system specific
@@ -22,7 +29,7 @@
 #endif
 
 
-class Timer
+class EXPORT Timer
 {
 public:
     Timer(bool bStart=false);                   // default constructor // FT: added default argument.

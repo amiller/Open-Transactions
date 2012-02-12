@@ -131,6 +131,13 @@
 #ifndef __OT_ASCII_ARMOR_H__
 #define __OT_ASCII_ARMOR_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -150,7 +157,7 @@ class OTEnvelope;
 // It is derived from OTString. The Get() method returns a base64-encoded string.
 // The Set() method assumes that you are PASSING IN a base64-encoded string.
 // The constructors assume that you are passing in a base64-encoded string.
-class OTASCIIArmor : public OTString
+class EXPORT OTASCIIArmor : public OTString
 {	
 public:
 	static OTDB::OTPacker * GetPacker();

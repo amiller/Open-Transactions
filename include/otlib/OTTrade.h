@@ -134,6 +134,13 @@
 #ifndef __OTTRADE_H__
 #define __OTTRADE_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
 //#include <ctime> // already included in parent somewhere.
 
 #include "OTString.h"
@@ -169,7 +176,7 @@ class OTIdentifier;
 class OTPseudonym;
 
 
-class OTTrade : public OTCronItem
+class EXPORT OTTrade : public OTCronItem
 {
 private:
 	OTIdentifier	m_CURRENCY_TYPE_ID;	// GOLD (Asset) is trading for DOLLARS (Currency).

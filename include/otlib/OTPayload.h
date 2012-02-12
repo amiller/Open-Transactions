@@ -129,6 +129,14 @@
 #ifndef __OTPAYLOAD_H__
 #define __OTPAYLOAD_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
+
 #include "OTData.h"
 
 class OTMessage;
@@ -137,10 +145,10 @@ class OTASCIIArmor;
 
 #ifdef _WIN32
 class OTPayload;
-bool OTPAYLOAD_GetMessage(OTPayload & thePayload, OTMessage & theMessage);
+bool EXPORT OTPAYLOAD_GetMessage(OTPayload & thePayload, OTMessage & theMessage);
 #endif
 
-class OTPayload : public OTData 
+class EXPORT OTPayload : public OTData 
 {
 public:
 	OTPayload();

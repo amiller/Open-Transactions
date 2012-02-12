@@ -132,6 +132,13 @@
 #ifndef __OT_CLIENT_CONNECTION_H__
 #define __OT_CLIENT_CONNECTION_H__
 
+#undef IMPORT
+#ifdef _WINDLL
+  #define IMPORT __declspec(dllimport)
+#else
+  #define IMPORT
+#endif
+
 extern "C"
 {
 #include <ssl-example/SFSocket.h>	
@@ -174,7 +181,7 @@ extern "C" {
 
 
 
-class OTMessage;
+class IMPORT OTMessage;
 class OTServer;
 
 
@@ -182,8 +189,8 @@ class OTServer;
 #include "OTAsymmetricKey.h"
 #include "OTData.h"
 
-class OTString;
-class OTEnvelope;
+class IMPORT OTString;
+class IMPORT OTEnvelope;
 
 class OTClientConnection
 {

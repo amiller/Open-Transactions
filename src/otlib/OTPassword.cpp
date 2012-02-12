@@ -160,7 +160,7 @@ void *ot_secure_memset(void *v, int c, size_t n)
 
 #ifndef linux
 extern "C" { 
-size_t strnlen(const char *s, size_t max) 
+size_t __declspec( dllexport ) strnlen(const char *s, size_t max) 
 {
     register const char *p;
     for(p = s; *p && max--; ++p);

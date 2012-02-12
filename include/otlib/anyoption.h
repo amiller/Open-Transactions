@@ -1,6 +1,13 @@
 #ifndef _ANYOPTION_H
 #define _ANYOPTION_H
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
 #include <iostream>
 #include <fstream>
 #include <stdlib.h>
@@ -29,7 +36,7 @@
 
 using namespace std;
 
-class AnyOption 
+class EXPORT AnyOption 
 {
 
 public: /* the public interface */

@@ -130,6 +130,13 @@
 #ifndef __OTBASKET_H__
 #define __OTBASKET_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
 #include <deque>
 #include <fstream>
 
@@ -165,7 +172,7 @@ public:
 typedef std::deque <BasketItem *> dequeOfBasketItems;
 
 
-class OTBasket : public OTContract
+class EXPORT OTBasket : public OTContract
 {
 public:
 						 

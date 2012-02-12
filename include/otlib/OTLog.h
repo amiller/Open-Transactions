@@ -132,6 +132,13 @@
 #ifndef __OTLOG_H__
 #define __OTLOG_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
 // x must be a boolean expression
 
 #define    OT_ASSERT(x)			( (false == (x)) ? OTLog::Assert(__FILE__, __LINE__)		: (1))
@@ -142,9 +149,9 @@
 
 #include "OTString.h"
 
-typedef std::deque <OTString *> dequeOfStrings;
+typedef EXPORT std::deque <OTString *> dequeOfStrings;
 
-class OTLog
+class EXPORT OTLog
 {
 private:
 	OTLog();
@@ -199,6 +206,7 @@ private:
 public:	
 	~OTLog();
 	
+
     // Changes ~/blah to /Users/au/blah
     //
     static void TransformFilePath(const char * szInput, OTString & strOutput);

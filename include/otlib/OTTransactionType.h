@@ -130,6 +130,13 @@
 #ifndef __OTTRANSACTION_TYPE_H__
 #define __OTTRANSACTION_TYPE_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
 #include <fstream>
 
 #include "OTASCIIArmor.h"
@@ -141,7 +148,7 @@ class OTIdentifier;
 
 // use as a base class for OTLedger, OTTransaction, and OTItem
 //
-class OTTransactionType : public OTContract 
+class EXPORT OTTransactionType : public OTContract 
 {	
 private:
 	

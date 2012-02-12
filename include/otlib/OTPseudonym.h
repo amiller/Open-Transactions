@@ -130,6 +130,13 @@
 #ifndef __OTPSEUDONYM_H__
 #define __OTPSEUDONYM_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
 #include <cstdio>
 
 
@@ -160,15 +167,15 @@ class OTTransaction;
 class OTLedger;
 class OTMessage;
 
-typedef std::deque<OTMessage *>		dequeOfMail;
+typedef EXPORT std::deque<OTMessage *>		dequeOfMail;
 
-typedef std::map<std::string, long>	mapOfRequestNums;
-typedef std::map<std::string, long>	mapOfHighestNums;
+typedef EXPORT std::map<std::string, long>	mapOfRequestNums;
+typedef EXPORT std::map<std::string, long>	mapOfHighestNums;
 
-typedef std::deque<long>							dequeOfTransNums;
-typedef std::map<std::string, dequeOfTransNums *>	mapOfTransNums;
+typedef EXPORT std::deque<long>							dequeOfTransNums;
+typedef EXPORT std::map<std::string, dequeOfTransNums *>	mapOfTransNums;
 
-class OTPseudonym
+class EXPORT OTPseudonym
 {
 private:
     bool        m_bMarkForDeletion; // Default FALSE. When set to true, saves a "DELETED" flag with this Nym, 

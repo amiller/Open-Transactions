@@ -129,6 +129,14 @@
 #ifndef __OTWALLET_H__
 #define __OTWALLET_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
+
 #include <string>
 #include <map>
 
@@ -146,7 +154,7 @@ class OTString;
 //typedef std::map<std::string, OTPseudonym *>		mapOfNyms; // in OTContract.h now.
 typedef std::map<std::string, OTServerContract *>	mapOfServers;
 
-class OTWallet
+class EXPORT OTWallet
 {
 private:
 	mapOfNyms		m_mapNyms;

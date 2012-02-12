@@ -130,6 +130,14 @@
 #ifndef __OT_ASYMMETRIC_KEY_H__
 #define __OT_ASYMMETRIC_KEY_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
+
 #include <string>
 
 
@@ -169,7 +177,7 @@ class OTString;
 class OTASCIIArmor;
 
 
-class OTAsymmetricKey
+class EXPORT OTAsymmetricKey
 {
 private:
 	EVP_PKEY *	m_pKey; 

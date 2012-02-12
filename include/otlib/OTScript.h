@@ -130,6 +130,14 @@
 #ifndef __OT_SCRIPT_H__
 #define __OT_SCRIPT_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
+
 #include <string>
 
 #ifdef _WIN32
@@ -160,7 +168,7 @@
 //
 
 
-class OTScript 
+class EXPORT OTScript 
 {
 protected:
     std::string     m_str_script;

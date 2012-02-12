@@ -130,13 +130,21 @@
 #ifndef __OTMESSAGEBUFFER_H__
 #define __OTMESSAGEBUFFER_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
+
 #include <list>
 
 class OTMessage;
 
 typedef std::list<OTMessage *> listOfMessages;
 
-class OTMessageBuffer
+class EXPORT OTMessageBuffer
 {
 	listOfMessages m_listMessages;
 public:

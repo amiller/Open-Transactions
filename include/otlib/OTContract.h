@@ -130,6 +130,14 @@
 #ifndef __OTCONTRACT_H__
 #define __OTCONTRACT_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
+
 #include <cstdio>	
 
 extern "C" 
@@ -142,7 +150,7 @@ extern "C"
 #include <string>
 #include <fstream>
 
-#include "irrxml/irrXML.h"
+#include <irrxml\irrXML.h>
 
 #include "OTIdentifier.h"
 
@@ -166,7 +174,7 @@ typedef std::map	<std::string, std::string>		mapOfStrings;
 
 
 
-class OTContract
+class EXPORT OTContract
 {
 	friend class OTPayload;
 	

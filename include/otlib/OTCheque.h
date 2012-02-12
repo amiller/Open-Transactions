@@ -130,6 +130,13 @@
 #ifndef __OT_CHEQUE_H__
 #define __OT_CHEQUE_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
 
 #include <fstream>
 
@@ -140,7 +147,7 @@
 
 
 
-class OTCheque : public OTTrackable
+class EXPORT OTCheque : public OTTrackable
 {
 protected:
 	virtual int ProcessXMLNode(irr::io::IrrXMLReader*& xml);

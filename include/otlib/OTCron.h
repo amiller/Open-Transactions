@@ -132,6 +132,13 @@
 #ifndef __OTCRON_H__
 #define __OTCRON_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
 #include <map>
 #include <list>
 
@@ -147,19 +154,19 @@ class OTMarket;
 
 
 // Mapped (uniquely) to transaction number.
-typedef std::map  <long, OTCronItem *>	mapOfCronItems;
+typedef EXPORT std::map  <long, OTCronItem *>	mapOfCronItems;
 
 // Mapped (uniquely) to market ID.
-typedef std::map  <std::string, OTMarket *>	mapOfMarkets;
+typedef EXPORT std::map  <std::string, OTMarket *>	mapOfMarkets;
 
 
 // Cron stores a bunch of these on this list, 
 // which the server refreshes from time to time.
-typedef std::list<long> listOfTransactionNumbers;
+typedef EXPORT std::list<long> listOfTransactionNumbers;
 
 
 
-class OTCron : public OTContract
+class EXPORT OTCron : public OTContract
 {
 private:
 	mapOfMarkets	m_mapMarkets;	// A list of all valid markets.

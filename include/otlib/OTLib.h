@@ -130,10 +130,18 @@
 #ifndef OTLib_
 #define OTLib_
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
+
 /* The classes below are exported */
 #pragma GCC visibility push(default)
 
-class OTLib
+class EXPORT OTLib
 {
 	public:
 		void HelloWorld(const char *);

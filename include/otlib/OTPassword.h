@@ -129,6 +129,13 @@
 #ifndef __OT_PASSWORD_H__
 #define __OT_PASSWORD_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
 /*
  To use:
  
@@ -157,7 +164,7 @@
 #define OTPASSWORD_MEMSIZE		129		// +1 for null terminator.
 
 
-class OTPassword
+class EXPORT OTPassword
 {
 public:
 	enum BlockSize
@@ -188,7 +195,7 @@ public:
 // ---------------------------------------------------------
 // Used for the password callback...
 
-class OTCallback 
+class EXPORT OTCallback 
 {
 public:
 	OTCallback() {}

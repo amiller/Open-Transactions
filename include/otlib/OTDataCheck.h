@@ -130,6 +130,13 @@
 #ifndef _DATA_CHECK_H_
 #define _DATA_CHECK_H_
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
 typedef unsigned char OT_BYTE;
 typedef bool OT_BOOL;
 
@@ -138,12 +145,12 @@ extern "C" {
 #include <stdint.h>	
 }
 
-void AppendChecksum( OT_BYTE* buffer, uint32_t & size );
+void EXPORT AppendChecksum( OT_BYTE* buffer, uint32_t & size );
 
-OT_BYTE CalcChecksum( OT_BYTE* buffer, uint32_t size );
+OT_BYTE EXPORT CalcChecksum( OT_BYTE* buffer, uint32_t size );
 
-OT_BYTE CalcChecksum( const OT_BYTE * const buffer, const uint32_t size );
+OT_BYTE EXPORT CalcChecksum( const OT_BYTE * const buffer, const uint32_t size );
 
-OT_BOOL IsChecksumValid( OT_BYTE* buffer, uint32_t size );
+OT_BOOL EXPORT IsChecksumValid( OT_BYTE* buffer, uint32_t size );
 
 #endif

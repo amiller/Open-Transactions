@@ -130,7 +130,12 @@
 #ifndef __OT_PAYMENT_PLAN__
 #define __OT_PAYMENT_PLAN__
 
-
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
 
 #ifndef LENGTH_OF_DAY_IN_SECONDS
 
@@ -197,7 +202,7 @@
 
 
 
-class OTPaymentPlan : public OTAgreement
+class EXPORT OTPaymentPlan : public OTAgreement
 {
 	// *************************** Methods for generating a payment plan: ***************************
 	

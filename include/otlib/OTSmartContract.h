@@ -134,6 +134,12 @@
 #ifndef __OT_SMART_CONTRACT_H__
 #define __OT_SMART_CONTRACT_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
 
 #include "OTIdentifier.h"
 #include "OTString.h"
@@ -164,7 +170,7 @@ class OTSmartContract;
 //					 const std::string str_Amount);
 
 
-class OTSmartContract : public OTCronItem
+class EXPORT OTSmartContract : public OTCronItem
 {
 private:
 	// In OTSmartContract, none of this normal crap is used.

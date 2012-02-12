@@ -5,6 +5,13 @@
 #ifndef __IRR_XML_H_INCLUDED__
 #define __IRR_XML_H_INCLUDED__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
 #include <cstdio>
 
 /** \mainpage irrXML 1.2 API documentation
@@ -209,7 +216,7 @@ namespace io
 	two methods to read your data and give a pointer to an instance of
 	your implementation when calling createIrrXMLReader(), 
 	createIrrXMLReaderUTF16() or createIrrXMLReaderUTF32() */
-	class IFileReadCallBack
+	class EXPORT IFileReadCallBack
 	{
 	public:
 
@@ -232,7 +239,7 @@ namespace io
 	The Irrlicht Engine for example needs IUnknown as base class for every object to
 	let it automaticly reference countend, hence it replaces IXMLBase with IUnknown.
 	See irrXML.cpp on how this can be done in detail. */
-	class IXMLBase
+	class EXPORT IXMLBase
 	{
 	};	
 
@@ -270,7 +277,7 @@ namespace io
 	See \ref irrxmlexample for a more detailed example.
 	*/
 	template<class char_type, class super_class>
-	class IIrrXMLReader : public super_class
+	class EXPORT IIrrXMLReader : public super_class
 	{
 	public:
 
@@ -368,12 +375,12 @@ namespace io
 	//! defines the utf-16 type.
 	/** Not using wchar_t for this because 
 	wchar_t has 16 bit on windows and 32 bit on other operating systems. */
-	typedef unsigned short char16;
+	typedef EXPORT unsigned short char16;
 
 	//! defines the utf-32 type. 
 	/** Not using wchar_t for this because 
 	wchar_t has 16 bit on windows and 32 bit on other operating systems. */
-	typedef unsigned long char32;
+	typedef EXPORT unsigned long char32;
 
 	//! A UTF-8 or ASCII character xml parser.
 	/** This means that all character data will be returned in 8 bit ASCII or UTF-8 by this parser. 
@@ -381,7 +388,7 @@ namespace io
 	in this format.
 	Create an instance of this with createIrrXMLReader(); 
 	See IIrrXMLReader for description on how to use it. */
-	typedef IIrrXMLReader<char, IXMLBase> IrrXMLReader;
+	typedef EXPORT IIrrXMLReader<char, IXMLBase> IrrXMLReader;
 
 	//! A UTF-16 xml parser. 
 	/** This means that all character data will be returned in UTF-16 by this parser. 
@@ -389,7 +396,7 @@ namespace io
 	in this format.
 	Create an instance of this with createIrrXMLReaderUTF16(); 
 	See IIrrXMLReader for description on how to use it.  */
-	typedef IIrrXMLReader<char16, IXMLBase> IrrXMLReaderUTF16;
+	typedef EXPORT IIrrXMLReader<char16, IXMLBase> IrrXMLReaderUTF16;
 
 	//! A UTF-32 xml parser. 
 	/** This means that all character data will be returned in UTF-32 by this parser. 
@@ -397,7 +404,7 @@ namespace io
 	in this format.
 	Create an instance of this with createIrrXMLReaderUTF32(); 
 	See IIrrXMLReader for description on how to use it. */
-	typedef IIrrXMLReader<char32, IXMLBase> IrrXMLReaderUTF32;
+	typedef EXPORT IIrrXMLReader<char32, IXMLBase> IrrXMLReaderUTF32;
 
 
 	//! Creates an instance of an UFT-8 or ASCII character xml parser.
@@ -409,7 +416,7 @@ namespace io
 	\return Returns a pointer to the created xml parser. This pointer should be 
 	deleted using 'delete' after no longer needed. Returns 0 if an error occured
 	and the file could not be opened. */
-	IrrXMLReader* createIrrXMLReader(const char* filename);
+	EXPORT IrrXMLReader* createIrrXMLReader(const char* filename);
 
 	//! Creates an instance of an UFT-8 or ASCII character xml parser.
 	/** This means that all character data will be returned in 8 bit ASCII or UTF-8. The file to read can 
@@ -421,7 +428,7 @@ namespace io
 	\return Returns a pointer to the created xml parser. This pointer should be 
 	deleted using 'delete' after no longer needed. Returns 0 if an error occured
 	and the file could not be opened. */
-	IrrXMLReader* createIrrXMLReader(FILE* file);
+	EXPORT IrrXMLReader* createIrrXMLReader(FILE* file);
 
 	//! Creates an instance of an UFT-8 or ASCII character xml parser. 
 	/** This means that all character data will be returned in 8 bit ASCII or UTF-8. The file to read can 
@@ -434,7 +441,7 @@ namespace io
 	 \return Returns a pointer to the created xml parser. This pointer should be 
 	 deleted using 'delete' after no longer needed. Returns 0 if an error occured
 	 and the file could not be opened. */
-	IrrXMLReader* createIrrXMLReader(IFileReadCallBack* callback);
+	EXPORT IrrXMLReader* createIrrXMLReader(IFileReadCallBack* callback);
 
 	//! Creates an instance of an UFT-16 xml parser. 
 	/** This means that
@@ -446,7 +453,7 @@ namespace io
 	\return Returns a pointer to the created xml parser. This pointer should be 
 	deleted using 'delete' after no longer needed. Returns 0 if an error occured
 	and the file could not be opened. */
-	IrrXMLReaderUTF16* createIrrXMLReaderUTF16(const char* filename);
+	EXPORT IrrXMLReaderUTF16* createIrrXMLReaderUTF16(const char* filename);
 
 	//! Creates an instance of an UFT-16 xml parser. 
 	/** This means that all character data will be returned in UTF-16. The file to read can 
@@ -458,7 +465,7 @@ namespace io
 	\return Returns a pointer to the created xml parser. This pointer should be 
 	deleted using 'delete' after no longer needed. Returns 0 if an error occured
 	and the file could not be opened. */
-	IrrXMLReaderUTF16* createIrrXMLReaderUTF16(FILE* file);
+	EXPORT IrrXMLReaderUTF16* createIrrXMLReaderUTF16(FILE* file);
 
 	//! Creates an instance of an UFT-16 xml parser. 
 	/** This means that all character data will be returned in UTF-16. The file to read can 
@@ -471,7 +478,7 @@ namespace io
 	\return Returns a pointer to the created xml parser. This pointer should be 
 	deleted using 'delete' after no longer needed. Returns 0 if an error occured
 	and the file could not be opened. */
-	IrrXMLReaderUTF16* createIrrXMLReaderUTF16(IFileReadCallBack* callback);
+	EXPORT IrrXMLReaderUTF16* createIrrXMLReaderUTF16(IFileReadCallBack* callback);
 
 
 	//! Creates an instance of an UFT-32 xml parser. 
@@ -483,7 +490,7 @@ namespace io
 	\return Returns a pointer to the created xml parser. This pointer should be 
 	deleted using 'delete' after no longer needed. Returns 0 if an error occured
 	and the file could not be opened. */
-	IrrXMLReaderUTF32* createIrrXMLReaderUTF32(const char* filename);
+	EXPORT IrrXMLReaderUTF32* createIrrXMLReaderUTF32(const char* filename);
 
 	//! Creates an instance of an UFT-32 xml parser. 
 	/** This means that all character data will be returned in UTF-32. The file to read can 
@@ -495,7 +502,7 @@ namespace io
 	\return Returns a pointer to the created xml parser. This pointer should be 
 	deleted using 'delete' after no longer needed. Returns 0 if an error occured
 	and the file could not be opened. */
-	IrrXMLReaderUTF32* createIrrXMLReaderUTF32(FILE* file);
+	EXPORT IrrXMLReaderUTF32* createIrrXMLReaderUTF32(FILE* file);
 
 	//! Creates an instance of an UFT-32 xml parser. 
 	/** This means that
@@ -509,7 +516,7 @@ namespace io
 	\return Returns a pointer to the created xml parser. This pointer should be 
 	deleted using 'delete' after no longer needed. Returns 0 if an error occured
 	and the file could not be opened. */
-	IrrXMLReaderUTF32* createIrrXMLReaderUTF32(IFileReadCallBack* callback);
+	EXPORT IrrXMLReaderUTF32* createIrrXMLReaderUTF32(IFileReadCallBack* callback);
 	
 
 	/*! \file irrxml.h

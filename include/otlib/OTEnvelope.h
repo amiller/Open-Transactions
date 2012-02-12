@@ -130,6 +130,13 @@
 #ifndef __OTENVELOPE_H__
 #define __OTENVELOPE_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
 #include "OTData.h"
 
 class OTPseudonym;
@@ -138,7 +145,7 @@ class OTASCIIArmor;
 class OTAsymmetricKey;
 class OTPayload;
 
-class OTEnvelope
+class EXPORT OTEnvelope
 {
 	friend class OTPayload;
 

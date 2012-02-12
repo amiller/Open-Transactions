@@ -130,6 +130,13 @@
 #ifndef __OTPURSE_H__
 #define __OTPURSE_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
 #include <deque>
 #include <map>
 #include <string>
@@ -158,7 +165,7 @@ class OTPurse;
 typedef std::deque <OTASCIIArmor *> dequeOfTokens;
 typedef std::map<std::string, OTToken *>	mapOfTokenPointers;
 
-class OTPurse : public OTContract 
+class EXPORT OTPurse : public OTContract 
 {
 protected:
 	virtual void UpdateContents(); // Before transmission or serialization, this is where the Purse saves its contents 

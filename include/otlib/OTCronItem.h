@@ -133,6 +133,13 @@
 #ifndef __OTCRON_ITEM_H__
 #define __OTCRON_ITEM_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
 #include <deque>
 
 
@@ -144,7 +151,7 @@ class OTCron;
 class OTString;
 
 
-class OTCronItem : public OTTrackable
+class EXPORT OTCronItem : public OTTrackable
 {
 	OTCron *	m_pCron;
 	

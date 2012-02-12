@@ -131,13 +131,20 @@
 #ifndef __OTDATA_H__
 #define __OTDATA_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
 extern "C" {
 #include <stdint.h>	
 }
 
 class OTASCIIArmor;
 
-class OTData
+class EXPORT OTData
 {
 	friend class OTASCIIArmor;
 	friend class OTIdentifier;

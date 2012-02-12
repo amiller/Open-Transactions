@@ -130,6 +130,13 @@
 #ifndef  __STRING_H__
 #define  __STRING_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
 // #include "whatever.h" -- all necessary #includes go here.
 // Be sure to use 'extern "C" {   }' as a wrapper for straight 'C' headers.
 
@@ -167,7 +174,7 @@ int len_cmp(char *s1, char *s2);
 
 
 template <class T>
-inline std::string to_string (const T& t)
+inline EXPORT std::string to_string (const T& t)
 {
     std::stringstream ss;
     ss << t;
@@ -199,7 +206,7 @@ inline std::string to_string (const T& t)
  * will be copied.  Always NUL terminates (unless siz == 0).
  * Returns strlen(src); if retval >= siz, truncation occurred.
  */
-inline size_t strlcpy(char *dst, const char *src, size_t siz)
+inline EXPORT size_t strlcpy(char *dst, const char *src, size_t siz)
 {
     char *d = dst;
     const char *s = src;
@@ -233,7 +240,7 @@ inline size_t strlcpy(char *dst, const char *src, size_t siz)
  * Returns strlen(src) + MIN(siz, strlen(initial dst)).
  * If retval >= siz, truncation occurred.
  */
-inline size_t strlcat(char *dst, const char *src, size_t siz)
+inline EXPORT size_t strlcat(char *dst, const char *src, size_t siz)
 {
     char *d = dst;
     const char *s = src;
@@ -274,7 +281,7 @@ class OTSignature;
 class OTPseudonym;
 class OTPayload;
 
-class OTString
+class EXPORT OTString
 {
    // Construction -- Destruction
 public:
@@ -379,9 +386,9 @@ protected:
    char * m_strBuffer;
 };
 
-bool operator >(const OTString& s1, const OTString& s2);
-bool operator <(const OTString& s1, const OTString& s2);
-bool operator >=(const OTString &s1, const OTString& s2);
-bool operator <=(const OTString &s1, const OTString& s2);
+bool EXPORT operator >(const OTString& s1, const OTString& s2);
+bool EXPORT operator <(const OTString& s1, const OTString& s2);
+bool EXPORT operator >=(const OTString &s1, const OTString& s2);
+bool EXPORT operator <=(const OTString &s1, const OTString& s2);
 
 #endif    // __STRING_H__

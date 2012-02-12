@@ -134,6 +134,13 @@
 #ifndef __OTMARKET_H__
 #define __OTMARKET_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
 #include "OTContract.h"
 #include "OTOffer.h"
 #include "OTStorage.h"
@@ -150,7 +157,7 @@ typedef std::multimap<long, OTOffer *>	mapOfOffers;
 typedef std::map  <long, OTOffer *>	mapOfOffersTrnsNum;
 
 
-class OTMarket : public OTContract
+class EXPORT OTMarket : public OTContract
 {
 private:
 	

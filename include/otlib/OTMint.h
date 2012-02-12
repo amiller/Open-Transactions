@@ -130,6 +130,14 @@
 #ifndef __OTMINT_H__
 #define __OTMINT_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
+
 #include <ctime>
 
 #include "OTContract.h"
@@ -139,7 +147,7 @@
 #include "OTAccount.h"
 
 
-class OTMint : public OTContract
+class EXPORT OTMint : public OTContract
 {
 protected:
 	virtual int ProcessXMLNode(irr::io::IrrXMLReader*& xml);

@@ -130,6 +130,13 @@
 #ifndef __OT_TOKEN_H__
 #define __OT_TOKEN_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
 #include <map>
 #include <stack>
 #include <string>
@@ -181,7 +188,7 @@ typedef std::map  <int, OTASCIIArmor *>	mapOfPrototokens;
 
 // This class implements the Lucre coins.
 //
-class OTToken : public OTInstrument 
+class EXPORT OTToken : public OTInstrument 
 {
 public:
 	enum tokenState {

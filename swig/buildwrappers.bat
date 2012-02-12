@@ -19,23 +19,33 @@ FOR %%x IN (csharp java perl5 php python ruby tcl) DO (
 ECHO.
 ECHO Generating for %%x ...
 
-RMDIR /S /Q "%%x"
-MKDIR "%%x"
+
+RMDIR /S /Q "glue\%%x"
+MKDIR "glue\%%x"
+
+IF EXIST otapi\OTAPI_wrap.cxx      DEL                              otapi\OTAPI_wrap.cxx
+IF EXIST otapi\OTAPI_wrap.cpp      DEL                              otapi\OTAPI_wrap.cpp
+IF EXIST otapi\OTAPI_wrap.h        DEL                              otapi\OTAPI_wrap.h
+
 
 IF NOT %%x == java (
-	ECHO ..\..\swigwin-2.0.4\swig.exe -c++ -%%x -outdir %%x OTAPI.i
-	..\..\swigwin-2.0.4\swig.exe -c++ -%%x -outdir %%x OTAPI.i
+	ECHO ..\..\swigwin-2.0.4\swig.exe -c++ -%%x -outdir glue\%%x otapi\OTAPI.i
+	..\..\swigwin-2.0.4\swig.exe -c++ -%%x -outdir glue\%%x otapi\OTAPI.i
 )
 
 IF %%x == java (
-	ECHO ..\..\swigwin-2.0.4\swig.exe -c++ -%%x -package org.ot.wrapper.jni -outdir %%x OTAPI.i
-	 ..\..\swigwin-2.0.4\swig.exe -c++ -%%x -package org.ot.wrapper.jni -outdir %%x OTAPI.i
+	ECHO ..\..\swigwin-2.0.4\swig.exe -c++ -%%x -package org.ot.wrapper.jni -outdir glue\%%x otapi\otapi.i
+	 ..\..\swigwin-2.0.4\swig.exe -c++ -%%x -package org.ot.wrapper.jni -outdir glue\%%x otapi\otapi.i
 )
 
 
-IF EXIST OTAPI_wrap.cxx    MOVE /Y OTAPI_wrap.cxx    ..\src\otapi\OTAPI_%%x.cxx
-IF EXIST OTAPI_wrap.cpp    MOVE /Y OTAPI_wrap.cpp    ..\src\otapi\OTAPI_%%x.cpp
-IF EXIST OTAPI_wrap.h      MOVE /Y OTAPI_wrap.h      ..\include\otapi\OTAPI_%%x.h
+IF EXIST otapi\OTAPI_%%x.cxx     DEL                              otapi\OTAPI_%%x.cxx
+IF EXIST otapi\OTAPI_wrap.cxx    MOVE /Y   otapi\OTAPI_wrap.cxx   otapi\OTAPI_%%x.cxx
+IF EXIST otapi\OTAPI_%%x.cpp     DEL                              otapi\OTAPI_%%x.cpp
+IF EXIST otapi\OTAPI_wrap.cpp    MOVE /Y   otapi\OTAPI_wrap.cpp   otapi\OTAPI_%%x.cpp
+IF EXIST otapi\OTAPI_%%x.h       DEL                              otapi\OTAPI_%%x.h
+IF EXIST otapi\OTAPI_wrap.h      MOVE /Y   otapi\OTAPI_wrap.h     otapi\OTAPI_%%x.h
+
 
 )
 

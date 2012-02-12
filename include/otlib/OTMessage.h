@@ -130,6 +130,13 @@
 #ifndef __OTMESSAGE_H__
 #define __OTMESSAGE_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
 #include <fstream>
 
 #include "irrxml/irrXML.h"
@@ -142,7 +149,7 @@ using namespace io;
 
 
 
-class OTMessage : public OTContract 
+class EXPORT OTMessage : public OTContract 
 {
 protected:
 	

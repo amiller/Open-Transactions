@@ -502,7 +502,7 @@ void OTString::Release(void)
 
 
 #ifndef linux
-extern "C" size_t strnlen(const char *s, size_t max); // Moved the definition of this function to OTPassword.cpp
+extern "C" size_t __declspec( dllexport ) strnlen(const char *s, size_t max); // Moved the definition of this function to OTPassword.cpp
 #endif
 
 

@@ -131,6 +131,13 @@
 #ifndef __OTSCRIPTABLE_H__
 #define __OTSCRIPTABLE_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
 #include <string>
 
 
@@ -144,7 +151,7 @@
 class OTAccount;
 
 
-class OTScriptable : public OTContract
+class EXPORT OTScriptable : public OTContract
 {
 protected:
 	mapOfParties		m_mapParties;	// The parties to the contract. Could be Nyms, or other entities. May be rep'd by an Agent.

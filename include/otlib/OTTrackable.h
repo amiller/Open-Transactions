@@ -130,6 +130,13 @@
 #ifndef __OT_TRACKABLE_H__
 #define __OT_TRACKABLE_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
 #include "OTIdentifier.h"
 
 #include "OTInstrument.h"
@@ -141,7 +148,7 @@
 
 
 
-class OTTrackable : public OTInstrument
+class EXPORT OTTrackable : public OTInstrument
 {
 protected:
 	long	m_lTransactionNum;	

@@ -133,6 +133,14 @@
 #ifndef __OTOFFER_H__
 #define __OTOFFER_H__
 
+#undef EXPORT
+#ifdef _WINDLL
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT
+#endif
+
+
 #include <fstream>
 
 //#include "OTTrade.h"
@@ -157,7 +165,7 @@ class OTTrade;
  X 6) Minimum increment for sale or purchase (if matches “total number of assets for sale”, effectively becomes a FILL OR KILL order. MUST be 1 or greater. CANNOT be zero.)
 */
 
-class OTOffer : public OTInstrument
+class EXPORT OTOffer : public OTInstrument
 {
 	// From OTInstrument (parent class of this)
 	/*
