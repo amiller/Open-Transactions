@@ -1,5 +1,5 @@
-#configure your environment
-http://stackoverflow.com/questions/3522248/how-do-i-compile-jzmq-for-zeromq-on-osx
+# configure your environment
+# http://stackoverflow.com/questions/3522248/how-do-i-compile-jzmq-for-zeromq-on-osx
 $ eval `brew --config | grep HOMEBREW_PREFIX | sed 's/: /=/'`
 $ sudo bash -c 'echo '$HOMEBREW_PREFIX/share/aclocal' >> `aclocal --print-ac-dir`/dirlist'
 (optional, for non-global brew installs)
@@ -7,43 +7,37 @@ $ export PATH=$PATH:$HOMEBREW_PREFIX/bin
 
 # install dependencies
 # homebrew ones
-$ brew install cmake protobuf msgpack zeromq boost
+$ brew install cmake protobuf msgpack zeromq boost git
 
 # homebrew doesn't pack openssl 1.0 yet
 $ mkdir -p ~/Scratch/Sources; cd ~/Scratch/Sources
-$ wget http://openssl.org/source/openssl-1.0.0g.tar.gz
+$ curl -O http://openssl.org/source/openssl-1.0.0g.tar.gz
 $ tar xf openssl-1.0.0g.tar.gz
 $ cd openssl-1.0.0g
 $ ./Configure darwin64-x86_64-cc --prefix=$HOME/.local
-$ make 
+$ make
 $ make install
 
 # now chaiscript
 $ cd ..
-$ wget https://github.com/downloads/ChaiScript/ChaiScript/chaiscript-3.1.0-Source.tar.bz2
-$ tar xf chaiscript-3.1.0-Source.tar.bz2 
-$ cd chaiscript-3.1.0-Source
+$ git clone git://github.com/ChaiScript/ChaiScript.git
+# cd ChaiScript
 $ cmake -DBOOST_ROOT=$HOMEBREW_PREFIX -DCMAKE_INSTALL_PREFIX=$HOMEBREW_PREFIX
 $ make
 $ make install
 
 #fetch O-T and prepare your copy for build
-
 $ git clone <O-T github url>
 $ cd Open-Transactions
 $ mkdir build
-$ aclocal
-$ glibtoolize
-$ automake --add-missing
-$ autoreconf
+$ autoreconf -i -f
 
 # build
-
 $ cd build
-# Did you install homebrew somewhere other than /usr/local? 
+# Did you install homebrew somewhere other than /usr/local?
 $ CPPFLAGS=-I$HOMEBREW_PREFIX/include LDFLAGS=-L$HOMEBREW_PREFIX/lib ../configure --prefix=$HOMEBREW_PREFIX --with-boost=$HOMEBREW_PREFIX
 #Otherwise
-$ ../configure 
+$ ../configure
 $ make
 $ make install
 
