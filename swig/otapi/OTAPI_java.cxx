@@ -424,7 +424,7 @@ namespace Swig {
  * C++ director class methods
  * --------------------------------------------------- */
 
-#include "otapi_wrap.h"
+#include "OTAPI_java.h"
 
 SwigDirector_OTCallback::SwigDirector_OTCallback(JNIEnv *jenv) : OTCallback(), Swig::Director(jenv) {
 }

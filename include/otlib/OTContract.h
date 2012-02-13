@@ -150,7 +150,7 @@ extern "C"
 #include <string>
 #include <fstream>
 
-#include <irrxml\irrXML.h>
+#include <irrxml/irrXML.h>
 
 #include "OTIdentifier.h"
 
