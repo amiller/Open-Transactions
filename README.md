@@ -28,6 +28,8 @@ Major changes include:
 #### Conversion from otlib static library to a dll
 #### Changed name of swig otapi-java namespace to org.ot.wrapper.jni (to make it more standard across many projects)
 
+#### Much work in porting OT to automake for linux has been merged into this branch also (thanks washort :) )
+
 
 
 Visual Studio Express Project Files
