@@ -3,7 +3,8 @@ AC_PREREQ(2.61)
 LT_PREREQ([2.2.4])
 AC_CONFIG_AUX_DIR(build-aux)
 AM_INIT_AUTOMAKE([1.10 foreign])
-dnl AM_SILENT_RULES([yes])
+m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
+
 LT_INIT([dlopen])
 AC_CONFIG_MACRO_DIR([build-aux/m4])
 AC_CONFIG_HEADERS([config.h])
@@ -29,7 +30,7 @@ AM_CONDITIONAL([TRANSPORT_ZMQ], [test "$with_transport" == zmq])
 AM_CONDITIONAL([TRANSPORT_TESTCLIENT], [test "$with_transport" == testclient])
 AS_IF([test "$with_transport" == zmq],
    [PKG_CHECK_MODULES([DEPS], [protobuf >= 2.4.0 openssl >= 1.0.0
-                               chaiscript >= 3.1.0 libzmq >= 2.1.10])],
+                               chaiscript >= 3.1.0 libzmq >= 2.1.9])],
    [PKG_CHECK_MODULES([DEPS], [protobuf >= 2.4.0 openssl >= 1.0.0
                                chaiscript >= 3.1.0])])
 

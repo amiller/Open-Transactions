@@ -96,6 +96,7 @@ libOTLib_la_SOURCES = $(bigintsources) $(lucresources) $(irrxmlsources)	\
                       src/otlib/Generics.pb.cpp src/otlib/Markets.pb.cpp	\
                       src/otlib/Bitcoin.pb.cpp src/otlib/Moneychanger.pb.cpp	\
                       src/otlib/anyoption.cpp src/otlib/Timer.cpp		\
+                      src/otlib/OTPassword.cpp					\
                       src/otlib/easyzlib.c src/otlib/mkcert.c			\
                       src/simpleini/ConvertUTF.c
 
@@ -138,6 +139,7 @@ include_HEADERS = include/irrxml/CXMLReaderImpl.h			\
                   include/otlib/OTOffer.h include/otlib/OTPayload.h	\
                   include/otlib/OTPaymentPlan.h				\
                   include/otlib/OTPseudonym.h include/otlib/OTPurse.h	\
+                  include/otlib/OTPassword.h				\
                   include/otlib/OTScriptable.h include/otlib/OTScript.h	\
                   include/otlib/OTServerContract.h			\
                   include/otlib/OTSignature.h				\
