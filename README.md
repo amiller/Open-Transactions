@@ -67,9 +67,7 @@ This will re-generate everything for you.
 
 ====================================
 
-## Running Swig
-
-Project Dependencies
+## Project Dependencies
 
 You need to install:
 Visual Studio C++ 2010 Express + SP1
