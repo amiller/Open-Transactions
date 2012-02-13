@@ -168,10 +168,13 @@ using namespace std;
 
 
 // Note: these are only code defaults -- the values are actually loaded from ~/.ot/server.cfg.
+
 int OTCron::__trans_refill_amount		= 500;		// The number of transaction numbers Cron will grab for itself, when it gets low, before each round.
 int OTCron::__cron_ms_between_process	= 10000;	// The number of milliseconds (ideally) between each "Cron Process" event.
 
-//#pragma comment(linker, "/section:SHARED,RWS")
+
+
+
 
 // Make sure Server Nym is set on this cron object before loading or saving, since it's
 // used for signing and verifying..

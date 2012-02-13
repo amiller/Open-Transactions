@@ -24,6 +24,9 @@
     <ClCompile Include="..\..\src\otserver\xmlrpcxx_server.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\otserver\OTStaticImp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\otserver\main.h">

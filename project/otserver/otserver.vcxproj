@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\otserver\OTClientConnection.cpp" />
     <ClCompile Include="..\..\src\otserver\OTServer.cpp" />
+    <ClCompile Include="..\..\src\otserver\OTStaticImp.cpp" />
     <ClCompile Include="..\..\src\otserver\xmlrpcxx_server.cpp" />
   </ItemGroup>
   <ItemGroup>

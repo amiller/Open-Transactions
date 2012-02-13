@@ -35,6 +35,11 @@
     <ClCompile Include="..\..\src\otapi\OTServerConnection.cpp" />
     <ClCompile Include="..\..\src\otapi\xmlrpcxx_client.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\otlib\otlib.vcxproj">
+      <Project>{0455e434-a635-448a-996e-448583fd3a37}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BC1D1DC1-6AF7-4C38-A270-7F79A2888054}</ProjectGuid>
     <RootNamespace>otapi</RootNamespace>

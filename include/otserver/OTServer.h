@@ -162,6 +162,7 @@ typedef std::multimap<std::string, OTMint *>	mapOfMints;
 typedef std::map<std::string, std::string>		mapOfBaskets;
 typedef std::map<std::string, OTAccount *>		mapOfAccounts; // server side these are keyed by asset type ID
 
+
 // Why does the map of mints use multimap instead of map?
 // Because there might be multiple valid mints for the same asset type.
 // Perhaps I am redeeming tokens from the previous series, which have not yet expired.
