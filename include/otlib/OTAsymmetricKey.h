@@ -153,7 +153,7 @@ extern "C"
 // This is the only part of the API that actually accepts objects as parameters,
 // since the above objects have SWIG C++ wrappers. 
 //
-bool OT_API_Set_PasswordCallback(OTCaller & theCaller); // Caller must have Callback attached already.
+bool EXPORT OT_API_Set_PasswordCallback(OTCaller & theCaller); // Caller must have Callback attached already.
 
 
 // ------------------------------------------------
@@ -161,7 +161,7 @@ bool OT_API_Set_PasswordCallback(OTCaller & theCaller); // Caller must have Call
 //
 extern "C"
 {
-typedef int OT_OPENSSL_CALLBACK(char *buf, int size, int rwflag, void *userdata); // <== Callback type, used for declaring.
+typedef EXPORT int OT_OPENSSL_CALLBACK(char *buf, int size, int rwflag, void *userdata); // <== Callback type, used for declaring.
 	
 	OT_OPENSSL_CALLBACK default_pass_cb;
 	OT_OPENSSL_CALLBACK souped_up_pass_cb;

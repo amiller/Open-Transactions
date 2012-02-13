@@ -172,7 +172,365 @@ extern "C"
 #include "OTClient.h"
 #include "OTLog.h"
 
+// Include Static Value Constructors if on windows... Will clean up later. (copied from .cpp files in otlib)
 
+#ifdef _WIN32
+
+// --------------------------------------------------------
+// static
+OT_OPENSSL_CALLBACK * OTAsymmetricKey::s_pwCallback = NULL;
+
+//static void SetPasswordCallback(p_OT_OPENSSL_CALLBACK pCallback);
+//static p_OT_OPENSSL_CALLBACK GetPasswordCallback();
+//static bool IsPasswordCallbackSet() { (NULL == s_pwCallback) ? false : true; }
+
+void OTAsymmetricKey::SetPasswordCallback(OT_OPENSSL_CALLBACK * pCallback)
+{
+	if (NULL != s_pwCallback)
+		OTLog::Output(0, "OTAsymmetricKey::SetPasswordCallback: WARNING: re-setting the password callback (one was already there)...\n");
+	else
+		OTLog::Output(0, "OTAsymmetricKey::SetPasswordCallback: FYI, setting the password callback to a non-NULL pointer (which is what we want.)\n");
+	// -----------------------------------
+	if (NULL == pCallback)
+		OTLog::Error("OTAsymmetricKey::SetPasswordCallback: WARNING, setting the password callback to NULL! (OpenSSL will thus be forced to ask for the passphase "
+					 "on the console, until this is called again and set properly.)\n");
+	// -----------------------------------
+	s_pwCallback = pCallback; // no need to delete function pointer that came before this function pointer.
+}
+
+// --------------------------------------------------------
+//static
+OTCaller * OTAsymmetricKey::s_pCaller = NULL;
+
+// Takes ownership. UPDATE: doesn't, since he assumes the Java side
+// created it and will therefore delete it when the time comes.
+// I keep a pointer, but I don't delete the thing. Let Java do it.
+//
+bool OTAsymmetricKey::SetPasswordCaller(OTCaller & theCaller)
+{
+	OTLog::Output(0, "OTAsymmetricKey::SetPasswordCaller: Attempting to set the password caller... "
+				  "(the Java code has passed us its custom password dialog object for later use if/when the "
+				  "OT 'C'-based password callback is triggered by openssl.)\n");
+	
+	if (!theCaller.isCallbackSet())
+	{
+		OTLog::Error("OTAsymmetricKey::SetPasswordCaller: ERROR: OTCaller::setCallback() "
+					 "MUST be called first, with an OTCallback-extended object passed to it,\n"
+					 "BEFORE calling this function with that OTCaller. (Returning false.)\n");
+		return false;
+	}
+	
+	if (NULL != s_pCaller)
+	{
+		OTLog::Error("OTAsymmetricKey::SetPasswordCaller: WARNING: Setting the password caller again, even though "
+					 "it was apparently ALREADY set... (Meaning Java has probably erroneously called this twice, "
+					 "possibly passing the same OTCaller both times.)\n");
+//		delete s_pCaller; // Let Java delete it.
+	}
+	
+	s_pCaller = &theCaller;
+	// ---------------------------
+	
+	OTAsymmetricKey::SetPasswordCallback(&souped_up_pass_cb);
+	
+	OTLog::Output(0, "OTAsymmetricKey::SetPasswordCaller: FYI, Successfully set the password caller object from "
+				  "Java, and set the souped_up_pass_cb in C for OpenSSL (which triggers that Java object when the time is right.) Returning true.\n");
+
+	return true;
+}
+// --------------------------------------------------------
+
+// --------------------------------------------------------
+
+
+// This is the function that OpenSSL calls when it wants to ask the user for his password.
+// If we return 0, that's bad, that means the password caller and callback failed somehow.
+//
+//typedef
+//int OT_OPENSSL_CALLBACK (char *buf, int size, int rwflag, void *userdata); // <== Callback type, used for declaring.
+OPENSSL_CALLBACK_FUNC(souped_up_pass_cb)
+{		
+	const std::string str_userdata((NULL == userdata) ? "" : static_cast<char *>(userdata));
+	
+	OTLog::vOutput(0, "OPENSSL_CALLBACK_FUNC (souped_up_pass_cb): Using OT Password Callback for \"%s\"\n", str_userdata.c_str());
+	
+	OTCaller * pCaller = OTAsymmetricKey::GetPasswordCaller();
+	
+	if (NULL == pCaller)
+	{
+		OTLog::Error("OPENSSL_CALLBACK_FUNC (souped_up_pass_cb): OTCaller is NULL. Try calling OT_API_Set_PasswordCallback() first.\n");
+		
+		OT_ASSERT(0); // This will never actually happen, since SetPasswordCaller() and souped_up_pass_cb are activated in same place.
+		
+		// get pass phrase, length 'len' into 'tmp'
+		/*
+		int len=0;
+		char *tmp=NULL;
+//		tmp = "test";
+		len = strlen(tmp);
+		
+		if (len <= 0) 
+			return 0;
+		
+		// if too long, truncate
+		if (len > size) 
+			len = size;
+		
+		memcpy(buf, tmp, len);
+		return len;		
+		 */
+	}
+	// ---------------------------------------
+	// The dialog should display this string (so the user knows what he is authorizing.)
+	//
+	pCaller->SetDisplay(str_userdata.c_str(), str_userdata.size());
+	
+	// ---------------------------------------
+	if (1 == rwflag)
+	{
+		OTLog::vOutput(0, "OPENSSL_CALLBACK_FUNC (souped_up_pass_cb): Using OT Password Callback (asks twice) for \"%s\"...\n", 
+					   str_userdata.c_str());
+		pCaller->callTwo(); // This is where Java pops up a modal dialog and asks for password twice...
+	}
+	else
+	{
+		OTLog::vOutput(0, "OPENSSL_CALLBACK_FUNC (souped_up_pass_cb): Using OT Password Callback (asks once) for \"%s\"...\n", 
+					   str_userdata.c_str());
+		pCaller->callOne(); // This is where Java pops up a modal dialog and asks for password once...
+	}
+	// ---------------------------------------
+
+	/*
+	 NOTICE: (For security...)
+	 
+	 We are using an OTPassword object to collect the password from the caller. 
+	 (We're not passing strings back and forth.) The OTPassword object is where we
+	 can centralize our efforts to scrub the memory clean as soon as we're done with
+	 the password. It's also designed to be light (no baggage) and to be passed around
+	 easily, with a set-size array for the data.
+
+	 Notice I am copying the password directly from the OTPassword object into the buffer
+	 provided to me by OpenSSL. When the OTPassword object goes out of scope, then it cleans
+	 up automatically.
+	 */
+	
+	OTPassword thePassword;
+	const bool bPassword = pCaller->GetPassword(thePassword);
+	
+	if (false == bPassword)
+	{
+		OTLog::Output(0, "OPENSSL_CALLBACK_FUNC (souped_up_pass_cb): Failure in the API password callback. (Returning 0.)\n");
+		return 0;
+	}
+	// --------------------------------------	
+	/* 
+	 http://openssl.org/docs/crypto/pem.html#
+	 "The callback must return the number of characters in the passphrase or 0 if an error occurred."
+	 */
+	int len	= thePassword.getPasswordSize();
+	
+	if (len <= 0) 
+	{
+		OTLog::Output(0, "OPENSSL_CALLBACK_FUNC (souped_up_pass_cb): 0 length (or less) password was "
+					  "returned from the API password callback :-( Returning 0.\n");
+		return 0;
+	}
+	
+	// if too long, truncate
+	if (len > size) 
+		len = size;
+	
+	memcpy(buf, thePassword.getPassword(), len);
+	return len;
+}
+
+
+
+const char * OTLedger::_TypeStrings[] = 
+{
+	"nymbox",		// the nymbox is per user account (versus per asset account) and is used to receive new transaction numbers (and messages.)
+	"inbox",		// each asset account has an inbox, with pending transfers as well as receipts inside.
+	"outbox",		// if you SEND a pending transfer, it sits in your outbox until it's accepted, rejected, or canceled.
+	"message",		// used in OTMessages, to send various lists of transactions back and forth.
+	"paymentInbox",		// Used for client-side-only storage of incoming cheques, invoices, payment plan requests, etc. (Coming in from the Nymbox.)
+	"paymentOutbox",	// Used for client-side-only storage of outgoing cheques, invoices, payment plan requests, etc. (Sent from me to other users.)
+	"recordBox",		// Used for client-side-only storage of completed items from the inbox, the paymentInbox, and the paymentOutbox.
+	"error_state"
+};
+
+
+
+
+const char * OTAccount::_TypeStrings[] = 
+{
+	"simple",	// used by users
+	"issuer",	// used by issuers	(these can only go negative.)
+	"basket",	// issuer acct used by basket currencies (these can only go negative)
+	"basketsub",// used by the server (to store backing reserves for basket sub-accounts)
+	"mint",		// used by mints (to store backing reserves for cash)
+	"voucher",	// used by the server (to store backing reserves for vouchers)
+	"stash",	// used by the server (to store backing reserves for stashes, for smart contracts.)
+	"err_acct"
+};
+
+
+
+const int OTToken::nMinimumPrototokenCount = 1;
+
+
+// Note: these are only code defaults -- the values are actually loaded from ~/.ot/server.cfg.
+// (static)
+
+//int OTCron::__trans_refill_amount		= 500;		// The number of transaction numbers Cron will grab for itself, when it gets low, before each round.
+//int OTCron::__cron_ms_between_process	= 10000;	// The number of milliseconds (ideally) between each "Cron Process" event.
+
+
+
+// If it MUST output, set the verbosity to 0. Less important logs are
+// at higher and higher levels.
+//
+// All are sent to stdout, but the 0 are the most important ones.
+// By default, only those are actually logged. If you want to see the other messages,
+// then set this log level to a higher value sometime when you start execution.
+// (Or right here.)
+
+#if defined (DSP)					   
+int OTLog::__CurrentLogLevel = 0;	// If you build with DSP=1, it assumes a special location for OpenSSL,
+#else								// and it turns off all the output.
+int OTLog::__CurrentLogLevel = 0;
+#endif
+
+
+// These are only default values. There are configurable in the config file.
+//
+bool	OTLog::__blocking = false;	// Normally false. This means we will wait FOREVER when trying to send or receive.
+
+// Delay after each message is sent (client side only.)
+int		OTLog::__latency_send_delay_after = 50;	// It's 50 here after every server request, but also there's a default sleep of 50 in the java GUI after groups of messages.
+
+int     OTLog::__latency_send_no_tries = 2; // Number of times will try to send a message.
+int     OTLog::__latency_receive_no_tries = 2; // Number of times will try to receive a reply.
+
+int     OTLog::__latency_send_ms = 5000; // number of ms to wait before retrying send.
+int     OTLog::__latency_receive_ms = 5000; // number of ms to wait before retrying receive.
+
+
+long	OTLog::__minimum_market_scale = 1;	// Server admin can configure this to any higher power-of-ten.
+
+
+OTString OTLog::__Version = "0.77e";
+
+// ---------------------------------------------------------------------------------
+// This is the "global" path to the subdirectories. The wallet file is probably also there.
+OTString OTLog::__OTPath("."); // it defaults to '.' but then it is set by the client and server.
+
+// All my paths now use the global path above, and are constructed using
+// the path separator below. So the filesystem aspect of Open Transactions
+// should be a LOT more portable to Windows, though I haven't actually tried
+// it on Windows.
+#ifdef _WIN32
+OTString OTLog::__OTPathSeparator = "\\";
+#else
+OTString OTLog::__OTPathSeparator = "/";
+#endif
+
+// ---------------------------------------------------------------------------------
+
+
+// Just a default value, since this is configurable programmatically.
+
+// these are static
+
+OTString OTLog::__OTCronFolder				= "cron";		
+OTString OTLog::__OTNymFolder				= "nyms";		
+OTString OTLog::__OTAccountFolder			= "accounts";	
+OTString OTLog::__OTUserAcctFolder			= "useraccounts";	
+OTString OTLog::__OTReceiptFolder			= "receipts";		
+OTString OTLog::__OTNymboxFolder			= "nymbox";		
+OTString OTLog::__OTInboxFolder				= "inbox";		
+OTString OTLog::__OTOutboxFolder			= "outbox";	
+OTString OTLog::__OTPaymentInboxFolder		= "paymentInbox";		
+OTString OTLog::__OTPaymentOutboxFolder		= "paymentOutbox";	
+OTString OTLog::__OTRecordBoxFolder			= "recordBox";
+OTString OTLog::__OTCertFolder				= "certs";		
+OTString OTLog::__OTPubkeyFolder			= "pubkeys";
+OTString OTLog::__OTContractFolder			= "contracts";
+OTString OTLog::__OTMintFolder				= "mints";
+OTString OTLog::__OTSpentFolder				= "spent";
+OTString OTLog::__OTPurseFolder				= "purse";
+OTString OTLog::__OTMarketFolder			= "markets";
+OTString OTLog::__OTScriptFolder			= "scripts";
+OTString OTLog::__OTSmartContractsFolder	= "smartcontracts";
+
+
+OTString OTLog::__OTLogfile;
+
+// If Logfile uninitialized, we assume NO logfile, and we log to output.
+// Otherwise, we append to the logfile, and leave output clear.
+
+// --------------------------------------------------
+
+dequeOfStrings OTLog::__logDeque; // Stores the last 1024 logs in memory.
+
+
+
+const char * OTTransaction::_TypeStrings[] = 
+{
+	"blank",			// freshly issued, not used yet  // comes from server, stored on Nym. (Nymbox.)
+	"message",			// in nymbox, message from one user to another.
+	"notice",			// in nymbox, notice from the server. Probably contains an updated smart contract.
+	"replyNotice",		// When you send a request to the server, sometimes its reply is so important, 
+						// that it drops a copy into your Nymbox to make you receive and process it.
+	"successNotice",	// A transaction # has successfully been signed out. (Nymbox.)
+	// --------------------------------------------------------------------------------------
+	"pending",			// Pending transfer, in the inbox/outbox.
+	// --------------------------------------------------------------------------------------
+	"transferReceipt",	// the server drops this into your inbox, when someone accepts your transfer.
+	// --------------------------------------------------------------------------------------
+	"chequeReceipt",	// the server drops this into your inbox, when someone cashes your cheque.
+	"marketReceipt",	// server drops this into inbox periodically, if you have an offer on the market.
+	"paymentReceipt",	// the server drops this into people's inboxes, periodically, if they have payment plans.
+	// --------------------------------------------------------------------------------------
+	"finalReceipt",     // the server drops this into your inbox(es), when a CronItem expires or is canceled.
+	"basketReceipt",    // the server drops this into your inboxes, when a basket exchange is processed.
+	// --------------------------------------------------------------------------------------
+	"instrumentNotice",		// Receive these in paymentInbox, and send in paymentOutbox. (When done, they go to recordBox to await deletion.)
+	"instrumentRejection",	// When someone rejects your invoice from his paymentInbox, you get one of these in YOUR paymentInbox.
+	// --------------------------------------------------------------------------------------
+	"processNymbox",	// process nymbox transaction	 // comes from client
+	"atProcessNymbox",	// process nymbox reply			 // comes from server
+	"processInbox",		// process inbox transaction	 // comes from client
+	"atProcessInbox",	// process inbox reply			 // comes from server
+	// --------------------------------------------------------------------------------------
+	"transfer",			// or "spend". This transaction is a transfer from one account to another
+	"atTransfer",		// reply from the server regarding a transfer request
+	// --------------------------------------------------------------------------------------
+	"deposit",			// this transaction is a deposit of bearer tokens (from client)
+	"atDeposit",		// reply from the server regarding a deposit request
+	// --------------------------------------------------------------------------------------
+	"withdrawal",		// this transaction is a withdrawal of bearer tokens
+	"atWithdrawal",		// reply from the server regarding a withdrawal request
+	// --------------------------------------------------------------------------------------
+	"marketOffer",		// this transaction is a market offer
+	"atMarketOffer",	// reply from the server regarding a market offer
+	// --------------------------------------------------------------------------------------
+	"paymentPlan",		// this transaction is a payment plan
+	"atPaymentPlan",	// reply from the server regarding a payment plan
+	// --------------------------------------------------------------------------------------
+	"smartContract",	// this transaction is a smart contract
+	"atSmartContract",	// reply from the server regarding a smart contract
+	// --------------------------------------------------------------------------------------
+	"cancelCronItem",	// this transaction is a cancellation of a cron item (payment plan etc)
+	"atCancelCronItem",	// reply from the server regarding said cancellation.
+	// --------------------------------------------------------------------------------------
+	"exchangeBasket",	// this transaction is an exchange in/out of a basket currency.
+	"atExchangeBasket",	// reply from the server regarding said exchange.
+	// --------------------------------------------------------------------------------------
+	"error_state"	
+};
+
+#else
+#endif
 
 
 void OTClient::ProcessMessageOut(char *buf, int * pnExpectReply)

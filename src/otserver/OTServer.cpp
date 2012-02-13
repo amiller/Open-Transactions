@@ -196,7 +196,9 @@ using namespace std;
 #include "OTCron.h"
 
 
+// Include Static Value Constructors if on windows... Will clean up later. (copied from .cpp files in otlib)
 
+#ifdef _WIN32
 // Note: these are only code defaults -- the values are actually loaded from ~/.ot/server.cfg.
 // (static)
 
@@ -348,7 +350,8 @@ const char * OTTransaction::_TypeStrings[] =
 	"error_state"	
 };
 
-
+#else
+#endif
 
 
 

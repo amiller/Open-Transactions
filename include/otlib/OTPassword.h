@@ -206,7 +206,7 @@ public:
 
 // ------------------------------------------------
 
-class OTCaller 
+class EXPORT OTCaller 
 {
 protected:
 	OTPassword	m_Password;	// The password will be stored here by the Java dialog, so that the C callback can retrieve it and pass it to OpenSSL

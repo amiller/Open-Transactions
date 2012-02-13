@@ -134,4 +134,5 @@ lib/Debug/*
 lib/Release/*
 lib/
 obj/
+swig/project/ipch
 include/google
