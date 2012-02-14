@@ -1,0 +1,37 @@
+# install general developer dependencies
+$ sudo yum install gcc autoconf automake libtool wget cmake
+# install Open-Transactions library dependencies
+$ sudo yum install boost-devel zeromq-devel protobuf-devel openssl-devel
+
+# fetch msgpack
+$ wget http://msgpack.org/releases/cpp/msgpack-0.5.7.tar.gz
+# build msgpack
+$ tar xf msgpack-0.5. 7.tar.gz
+$ cd msgpack-0.5.7
+$ ./configure
+$ make
+$ sudo make install
+
+# now chaiscript
+$ cd ..
+$ git clone git://github.com/ChaiScript/ChaiScript.git
+$ cd ChaiScript
+$ cmake .
+$ make
+$ sudo make install
+$ cd ..
+
+#fetch O-T and prepare your copy for build
+$ git clone git://github.com/FellowTraveler/Open-Transactions.git
+$ cd Open-Transactions
+$ mkdir build
+$ aclocal
+$ libtoolize
+$ automake --add-missing
+$ autoreconf
+
+# build
+$ cd build
+$ PKG_CONFIG_PATH=/usr/local/lib/pkgconfig ../configure
+$ make
+$ sudo make install

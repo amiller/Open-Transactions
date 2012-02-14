@@ -1,0 +1,29 @@
+# install general developer dependencies
+$ sudo apt-get install wget git build-essential libtool automake cmake
+# install Open-Transactions library dependencies
+$ sudo apt-get install libboost-dev libboost-thread-dev libzmq-dev libmsgpack-dev libprotobuf-dev libssl-dev
+
+# fetch chaiscript
+$ git clone git://github.com/ChaiScript/ChaiScript.git
+
+# build chaiscript
+$ cd ChaiScript
+$ cmake .
+$ make
+$ sudo make install
+$ cd ..
+
+#fetch O-T and prepare your copy for build
+$ git clone git://github.com/FellowTraveler/Open-Transactions.git
+$ cd Open-Transactions
+$ mkdir build
+$ aclocal
+$ libtoolize
+$ automake --add-missing
+$ autoreconf
+
+# build
+$ cd build
+$ ../configure
+$ make
+$ sudo make install
