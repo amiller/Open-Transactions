@@ -3,27 +3,35 @@ $ sudo apt-get install wget git build-essential libtool automake cmake
 # install Open-Transactions library dependencies
 $ sudo apt-get install libboost-dev libboost-thread-dev libzmq-dev libmsgpack-dev libprotobuf-dev libssl-dev
 
+# if your version of Ubuntu doesn't include OpenSSL 1.0:
+$ wget http://openssl.org/source/openssl-1.0.0g.tar.gz
+$ tar xf openssl-1.0.0g.tar.gz
+$ cd openssl-1.0.0g
+$ ./Configure linux-elf --prefix=$HOME/.local
+$ make
+$ make install
+$cd ..
+
+
 # fetch chaiscript
 $ git clone git://github.com/ChaiScript/ChaiScript.git
 
 # build chaiscript
 $ cd ChaiScript
-$ cmake .
+$ cmake . -DCMAKE_INSTALL_PREFIX=$HOME/.local
 $ make
-$ sudo make install
+$ make install
 $ cd ..
 
 #fetch O-T and prepare your copy for build
+$ export PKG_CONFIG_PATH=$HOME/.local/lib/pkgconfig:$PKG_CONFIG_PATH
 $ git clone git://github.com/FellowTraveler/Open-Transactions.git
 $ cd Open-Transactions
 $ mkdir build
-$ aclocal
-$ libtoolize
-$ automake --add-missing
-$ autoreconf
+$ autoreconf -i -f
 
 # build
 $ cd build
-$ ../configure
+$ ../configure --prefix=$HOME/.local
 $ make
 $ sudo make install

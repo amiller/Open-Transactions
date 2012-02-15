@@ -13,7 +13,7 @@ PKG_PROG_PKG_CONFIG([0.25])
 AC_PROG_CC
 AM_PROG_CC_C_O
 AC_PROG_CXX
-AX_BOOST_BASE([1.46.0])
+AX_BOOST_BASE([1.25.0])
 AX_BOOST_THREAD
 
 AC_ARG_WITH([transport],
@@ -29,10 +29,10 @@ AC_ARG_WITH([transport],
 AM_CONDITIONAL([TRANSPORT_ZMQ], [test "$with_transport" == zmq])
 AM_CONDITIONAL([TRANSPORT_TESTCLIENT], [test "$with_transport" == testclient])
 AS_IF([test "$with_transport" == zmq],
-   [PKG_CHECK_MODULES([DEPS], [protobuf >= 2.4.0 openssl >= 1.0.0
-                               chaiscript >= 3.1.0 libzmq >= 2.1.9])],
-   [PKG_CHECK_MODULES([DEPS], [protobuf >= 2.4.0 openssl >= 1.0.0
-                               chaiscript >= 3.1.0])])
+   [PKG_CHECK_MODULES([DEPS], [protobuf openssl >= 1.0.0
+                               chaiscript >= 3.1.0 libzmq])],
+   [PKG_CHECK_MODULES([DEPS], [protobuf openssl >= 1.0.0
+                               chaiscript ])])
 
 AC_CONFIG_SRCDIR([src/otlib])
 

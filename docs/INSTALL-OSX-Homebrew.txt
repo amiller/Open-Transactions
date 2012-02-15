@@ -14,8 +14,9 @@ $ mkdir -p ~/Scratch/Sources; cd ~/Scratch/Sources
 $ curl -O http://openssl.org/source/openssl-1.0.0g.tar.gz
 $ tar xf openssl-1.0.0g.tar.gz
 $ cd openssl-1.0.0g
-$ ./Configure darwin64-x86_64-cc --prefix=$HOME/.local
+$ ./Configure darwin64-x86_64-cc --prefix=$HOMEBREW_PREFIX
 $ make
+# may need root, depending on where $HOMEBREW_PREFIX points
 $ make install
 
 # now chaiscript
@@ -24,6 +25,7 @@ $ git clone git://github.com/ChaiScript/ChaiScript.git
 # cd ChaiScript
 $ cmake -DBOOST_ROOT=$HOMEBREW_PREFIX -DCMAKE_INSTALL_PREFIX=$HOMEBREW_PREFIX
 $ make
+#again, may need root
 $ make install
 
 #fetch O-T and prepare your copy for build
