@@ -284,7 +284,8 @@ void ServerInfo_InternalPB::SharedCtor() {
   _cached_size_ = 0;
   server_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   server_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 ServerInfo_InternalPB::~ServerInfo_InternalPB() {
@@ -335,7 +336,8 @@ void ServerInfo_InternalPB::Clear() {
       }
     }
   }
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
@@ -572,7 +574,8 @@ void ContactNym_InternalPB::SharedCtor() {
   nym_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   public_key_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   memo_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 ContactNym_InternalPB::~ContactNym_InternalPB() {
@@ -648,7 +651,8 @@ void ContactNym_InternalPB::Clear() {
     }
   }
   servers_.Clear();
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
@@ -1069,7 +1073,8 @@ void ContactAcct_InternalPB::SharedCtor() {
   nym_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   memo_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   public_key_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 ContactAcct_InternalPB::~ContactAcct_InternalPB() {
@@ -1168,7 +1173,8 @@ void ContactAcct_InternalPB::Clear() {
       }
     }
   }
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
@@ -1688,7 +1694,8 @@ void Contact_InternalPB::SharedCtor() {
   email_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   memo_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   public_key_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 Contact_InternalPB::~Contact_InternalPB() {
@@ -1765,7 +1772,8 @@ void Contact_InternalPB::Clear() {
   }
   nyms_.Clear();
   accounts_.Clear();
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
@@ -2209,7 +2217,8 @@ AddressBook_InternalPB::AddressBook_InternalPB(const AddressBook_InternalPB& fro
 
 void AddressBook_InternalPB::SharedCtor() {
   _cached_size_ = 0;
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 AddressBook_InternalPB::~AddressBook_InternalPB() {
@@ -2243,7 +2252,8 @@ AddressBook_InternalPB* AddressBook_InternalPB::New() const {
 
 void AddressBook_InternalPB::Clear() {
   contacts_.Clear();
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
@@ -2414,7 +2424,8 @@ WalletData_InternalPB::WalletData_InternalPB(const WalletData_InternalPB& from)
 
 void WalletData_InternalPB::SharedCtor() {
   _cached_size_ = 0;
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 WalletData_InternalPB::~WalletData_InternalPB() {
@@ -2451,7 +2462,8 @@ void WalletData_InternalPB::Clear() {
   bitcoin_acct_.Clear();
   ripple_server_.Clear();
   loom_server_.Clear();
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 

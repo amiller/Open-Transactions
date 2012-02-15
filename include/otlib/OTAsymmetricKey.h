@@ -176,6 +176,39 @@ typedef EXPORT int OT_OPENSSL_CALLBACK(char *buf, int size, int rwflag, void *us
 class OTString;
 class OTASCIIArmor;
 
+class ELGAMAL
+{
+public:
+	BIGNUM* p;
+	BIGNUM* g;
+	BIGNUM* pub_key;
+	BIGNUM* priv_key;
+};
+
+class PgpKeys
+{
+public:
+	RSA* pRsa;
+	DSA* pDsa;
+	ELGAMAL* pElgamal;
+};
+
+class ExportRsaKey : public PgpKeys
+{
+private:
+	int i;
+	int packetLength;
+	unsigned char packetTag;
+	bool FindPacketLength(unsigned char *pbData, int dataLength);
+
+	void RSA_Key(unsigned char *pbData, int dataLength);
+	void DSA_Key(unsigned char *pbData, int dataLength);
+	void Elgamal_Key(unsigned char *pbData, int dataLength);
+
+public:
+	ExportRsaKey(unsigned char *pbData, int dataLength);
+};
+
 
 class EXPORT OTAsymmetricKey
 {

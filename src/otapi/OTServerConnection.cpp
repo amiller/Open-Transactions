@@ -396,7 +396,8 @@ bool OTServerConnection::ProcessInBuffer(OTMessage & theServerReply)
 	OT_ASSERT(NULL != m_pSocket);
 	
 	// clear the header
-	memset((void *)theCMD.buf, 0, OT_CMD_HEADER_SIZE);
+	//cannot incrementing a pointer of type ‘void*’  so no fill_n
+	memset((void *)theCMD.buf, '\0', OT_CMD_HEADER_SIZE);
 	
 	for (nread = 0;  nread < OT_CMD_HEADER_SIZE;  nread += err)
 	{
@@ -709,7 +710,8 @@ void OTServerConnection::ProcessMessageOut(OTMessage & theMessage)
 	OT_ASSERT(IsConnected() || IsFocused());
 	
 	// clear the header
-	memset((void *)theCMD.buf, 0, OT_CMD_HEADER_SIZE);
+	// cannot incrementing a pointer of type ‘void*’  so no fill_n
+	memset((void *)theCMD.buf, '\0', OT_CMD_HEADER_SIZE);
 
 	// Here is where we set up the Payload (so we have the size ready before the header goes out)
 	// This is also where we have turned on the encrypted envelopes  }:-)
@@ -815,7 +817,8 @@ void OTServerConnection::ProcessMessageOut(char *buf, int * pnExpectReply)
 
 	
 	// clear the header
-	memset((void *)theCMD.buf, 0, OT_CMD_HEADER_SIZE);
+	// cannot incrementing a pointer of type ‘void*’  so no fill_n
+	memset((void *)theCMD.buf, '\0', OT_CMD_HEADER_SIZE);
 	
 	
 	// Simple rule here: In each of the below if statements,

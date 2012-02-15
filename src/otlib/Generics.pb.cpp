@@ -192,7 +192,8 @@ String_InternalPB::String_InternalPB(const String_InternalPB& from)
 void String_InternalPB::SharedCtor() {
   _cached_size_ = 0;
   value_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 String_InternalPB::~String_InternalPB() {
@@ -235,7 +236,8 @@ void String_InternalPB::Clear() {
       }
     }
   }
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
@@ -418,7 +420,8 @@ void KeyValue_InternalPB::SharedCtor() {
   _cached_size_ = 0;
   key_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   value_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 KeyValue_InternalPB::~KeyValue_InternalPB() {
@@ -469,7 +472,8 @@ void KeyValue_InternalPB::Clear() {
       }
     }
   }
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
@@ -696,7 +700,8 @@ StringMap_InternalPB::StringMap_InternalPB(const StringMap_InternalPB& from)
 
 void StringMap_InternalPB::SharedCtor() {
   _cached_size_ = 0;
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 StringMap_InternalPB::~StringMap_InternalPB() {
@@ -730,7 +735,8 @@ StringMap_InternalPB* StringMap_InternalPB::New() const {
 
 void StringMap_InternalPB::Clear() {
   node_.Clear();
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
@@ -899,7 +905,8 @@ Blob_InternalPB::Blob_InternalPB(const Blob_InternalPB& from)
 void Blob_InternalPB::SharedCtor() {
   _cached_size_ = 0;
   value_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 Blob_InternalPB::~Blob_InternalPB() {
@@ -942,7 +949,8 @@ void Blob_InternalPB::Clear() {
       }
     }
   }
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 

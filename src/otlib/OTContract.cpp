@@ -2068,6 +2068,7 @@ bool OTContract::LoadContractXML()
 				// unknown element type
 				OTLog::vError( "unknown text element type in OTContract::LoadContractXML: %s, value: %s\n", 
 							  xml->getNodeName(), xml->getNodeData());
+				printf( xml->getNodeData());
 			}
 				break;
 			case EXN_ELEMENT:

@@ -491,8 +491,10 @@ void OTString::Release(void)
 {
 	if (NULL != m_strBuffer)
 	{
-		// for security purposes. 
-		memset(m_strBuffer, 0, m_lLength); // TODO security: MAKE SURE this line doesn't get OPTIMIZED OUT. (What if a private key or password was stored here?)
+		// for security purposes.
+		std::fill_n(m_strBuffer,m_lLength,'\0');
+		//fill_n(m_strBuffer
+		//memset(m_strBuffer, 0, m_lLength); // TODO security: MAKE SURE this line doesn't get OPTIMIZED OUT. (What if a private key or password was stored here?)
 		delete [] m_strBuffer;				// TODO security: make sure all other cases where private keys and passwords are handled throughout OT, the memory is kept secure!
 	}
 	m_strBuffer = NULL;

@@ -157,22 +157,11 @@ extern "C"
 #include "OTLog.h"
 
 
+#define FALSE 0
+#define TRUE 1
 
 
-typedef struct
-{
-	BIGNUM* p;
-	BIGNUM* g;
-	BIGNUM* pub_key;
-	BIGNUM* priv_key;
-}  ELGAMAL;
 
-typedef struct
-{
-	RSA* pRsa;
-	DSA* pDsa;
-	ELGAMAL* pElgamal;
-}  PgpKeys;
 
 
 
@@ -588,7 +577,7 @@ bool OTAsymmetricKey::SetPublicKey(const OTString & strKey, bool bEscaped/*=fals
 	}
 	else
 		return false;
-}
+};
 
 
 
@@ -604,157 +593,168 @@ bool OTAsymmetricKey::SetPublicKey(const OTString & strKey, bool bEscaped/*=fals
  * 
  */
 
-PgpKeys ExportRsaKey(unsigned char *pbData, int dataLength)
+bool ExportRsaKey::FindPacketLength(unsigned char *pbData, int dataLength)
 {
-	PgpKeys pgpKeys;
-	int i;
-	
-	memset(&pgpKeys, 0, sizeof(pgpKeys));
+	packetTag = pbData[i++];
+
+	if ((packetTag & 0x80) == 0) 
+		return FALSE;
+
+	if ((packetTag & 0x40))	{
+		packetTag &= 0x3F;
+		packetLength = pbData[i++];
+
+		if( (packetLength >191) && (packetLength <224)) {
+			packetLength = ((packetLength-192) << 8) + pbData[i++];
+			return TRUE;
+		}
+		if( (packetLength > 223) && (packetLength < 255)) {
+			packetLength = (1 << (packetLength & 0x1f));
+			return TRUE;
+		}
+		if(packetLength == 255) {
+			packetLength = (pbData[i]<<24) + (pbData[i+1]<<16) + (pbData[i+2]<<8) + pbData[i+3];
+			i+=4;
+			return TRUE;
+		}
+	}
+
+	packetLength = packetTag & 3;
+	packetTag = (packetTag >> 2) & 15;
+
+	if(packetLength == 0) {
+		packetLength = pbData[i++];
+		return TRUE;
+	}
+	if(packetLength == 1) {
+		packetLength = (pbData[i]<<8) + pbData[i+1];
+		i+=2;
+		return TRUE;
+	}
+	if(packetLength == 2) {
+		packetLength = (pbData[i]<<24) + (pbData[i+1]<<16) + (pbData[i+2]<<8) + pbData[i+3];
+		i+=4;
+		return TRUE;
+	}
+	packetLength = dataLength - 1;
+	return TRUE;
+};
+
+void ExportRsaKey::RSA_Key(unsigned char *pbData, int dataLength)
+{
+	int modulusLength, exponentLength;
+	RSA* pKey = RSA_new();
+
+	// Get the modulus
+	modulusLength = ((pbData[i]*256 + pbData[i+1]+7)/8);
+	pKey->n = BN_bin2bn (pbData + i + 2, modulusLength, NULL);
+	i += modulusLength + 2;
+
+	// Get the exponent
+	exponentLength = (pbData[i]*256 + pbData[i+1]+7)/8;
+	pKey->e = BN_bin2bn(pbData + i + 2, exponentLength, NULL);
+	i += exponentLength + 2;
+
+	pRsa = pKey;
+};
+
+void ExportRsaKey::DSA_Key(unsigned char *pbData, int dataLength)
+{
+	int pLen, qLen, gLen, yLen;
+	DSA* pKey = DSA_new();
+
+	// Get Prime P
+	pLen = ((pbData[i]*256 + pbData[i+1]+7)/8);
+	pKey->p = BN_bin2bn(pbData + i + 2, pLen, NULL);
+	i += pLen + 2;
+
+	// Get Prime Q
+	qLen = ((pbData[i]*256 + pbData[i+1]+7)/8);
+	pKey->q = BN_bin2bn(pbData + i + 2, qLen, NULL);
+	i += qLen + 2;
+
+	// Get Prime G
+	gLen = ((pbData[i]*256 + pbData[i+1]+7)/8);
+	pKey->g = BN_bin2bn(pbData + i + 2, gLen, NULL);
+	i += gLen + 2;
+
+	// Get Prime Y
+	yLen = ((pbData[i]*256 + pbData[i+1]+7)/8);
+	pKey->pub_key = BN_bin2bn(pbData + i + 2, yLen, NULL);
+	i += yLen + 2;
+
+	pDsa = pKey;
+};
+
+void ExportRsaKey::Elgamal_Key(unsigned char *pbData, int dataLength)
+{
+	int pLen, gLen, yLen;
+	ELGAMAL* pKey = (ELGAMAL*) malloc(sizeof(ELGAMAL));
+
+	// Get Prime P
+	pLen = ((pbData[i]*256 + pbData[i+1]+7)/8);
+	pKey->p = BN_bin2bn(pbData + i + 2, pLen, NULL);
+	i += pLen + 2;
+
+	// Get Prime G
+	gLen = ((pbData[i]*256 + pbData[i+1]+7)/8);
+	pKey->g = BN_bin2bn(pbData + i + 2, gLen, NULL);
+	i += gLen + 2;
+
+	// Get Prime Y
+	yLen = ((pbData[i]*256 + pbData[i+1]+7)/8);       
+	pKey->pub_key = BN_bin2bn(pbData + i + 2, yLen, NULL);
+	i += yLen + 2;
+
+	pElgamal = pKey;
+};
+
+ExportRsaKey::ExportRsaKey(unsigned char *pbData, int dataLength)
+{
+	OT_ASSERT(NULL != pbData);
+	OT_ASSERT(NULL != NULL && sizeof(pbData) == dataLength);
+
+	// Memset insted of fill_n as the OpenSSL pRsa, pDsa and pElgamal do not have a implicit conversion to into or const char *
+	std::memset(&pRsa,'\0',sizeof(pRsa));
+	std::memset(&pDsa,'\0',sizeof(pDsa));
+	std::memset(&pElgamal,'\0',sizeof(pElgamal));
+
 	for (i = 0; i < dataLength; )
 	{
-		int packetLength;
-		unsigned char packetTag = pbData[i++];
-		if ((packetTag & 0x80) == 0) 
-			break;
-		if ((packetTag & 0x40))
-		{
-			packetTag &= 0x3F;
-			packetLength = pbData[i++];
-			if( (packetLength >191) && (packetLength <224)) 
-				packetLength = ((packetLength-192) << 8) + pbData[i++];
-			else if( (packetLength > 223) && (packetLength < 255))
-				packetLength = (1 << (packetLength & 0x1f)); 
-			else if(packetLength == 255) 
-			{
-				packetLength = (pbData[i]<<24) + (pbData[i+1]<<16) + (pbData[i+2]<<8) + pbData[i+3];
-				i+=4;
-			}
-		}
-		else
-		{
-			packetLength = packetTag & 3;
-			packetTag = (packetTag >> 2) & 15;
-			if(packetLength == 0) 
-				packetLength = pbData[i++];
-			else if(packetLength == 1) 
-			{
-				packetLength = (pbData[i]<<8) + pbData[i+1];
-				i+=2;
-			}
-			else if(packetLength == 2) 
-			{
-				packetLength = (pbData[i]<<24) + (pbData[i+1]<<16) + (pbData[i+2]<<8) + pbData[i+3];
-				i+=4;
-			}
-			else 
-				packetLength = dataLength - 1;
-		}
-		
+		if (FindPacketLength(pbData,dataLength) == FALSE) break;
+
 		if( (packetTag==6) || (packetTag==14) )  //  a public key
 		{
 			int algorithm;
 			int version = pbData[i++];
-			
-			// skip time over 4 bytes
-			i += 4;
-			
-			if( (version==2) || (version==3) )
-			{
-				// skip validity over 2 bytes
-				i += 2;
-			}
-			
+
+			i += 4;  // skip time over 4 bytes
+
+			if( (version==2) || (version==3) ) i += 2;  // skip validity over 2 bytes
+
 			algorithm = pbData[i++];
-			
+
 			if( (algorithm == 1) || (algorithm == 2) || (algorithm == 3) ) // an RSA key
 			{
-				int modulusLength, exponentLength;
-				RSA* pKey = RSA_new();
-				
-				// Get the modulus
-				modulusLength = ((pbData[i]*256 + pbData[i+1]+7)/8);
-				pKey->n = BN_bin2bn (pbData + i + 2, modulusLength, NULL);
-				i += modulusLength + 2;
-				
-				// Get the exponent
-				exponentLength = (pbData[i]*256 + pbData[i+1]+7)/8;
-				pKey->e = BN_bin2bn(pbData + i + 2, exponentLength, NULL);
-				i += exponentLength + 2;
-				
-				pgpKeys.pRsa = pKey;
-				
+				RSA_Key(pbData,dataLength);
 				continue;
 			}
-			else if (algorithm == 17) // a DSA key
+			if (algorithm == 17) // a DSA key
 			{
-				int pLen, qLen, gLen, yLen;
-				DSA* pKey = DSA_new();
-				
-				// Get Prime P
-				pLen = ((pbData[i]*256 + pbData[i+1]+7)/8);
-				pKey->p = BN_bin2bn(pbData + i + 2, pLen, NULL);
-				i += pLen + 2;
-				
-				// Get Prime Q
-				qLen = ((pbData[i]*256 + pbData[i+1]+7)/8);
-				pKey->q = BN_bin2bn(pbData + i + 2, qLen, NULL);
-				i += qLen + 2;
-				
-				// Get Prime G
-				gLen = ((pbData[i]*256 + pbData[i+1]+7)/8);
-				pKey->g = BN_bin2bn(pbData + i + 2, gLen, NULL);
-				i += gLen + 2;
-				
-				// Get Prime Y
-				yLen = ((pbData[i]*256 + pbData[i+1]+7)/8);
-				pKey->pub_key = BN_bin2bn(pbData + i + 2, yLen, NULL);
-				i += yLen + 2;
-				
-				pgpKeys.pDsa = pKey;
-				
+				DSA_Key(pbData,dataLength);
 				continue;
 			}
-			else if ((algorithm == 16) || (algorithm == 20)) // Elgamal key (not supported by OpenSSL
+			if ((algorithm == 16) || (algorithm == 20)) // Elgamal key (not supported by OpenSSL)
 			{
-				int pLen, gLen, yLen;
-				ELGAMAL* pKey = (ELGAMAL*) malloc(sizeof(ELGAMAL));
-				
-				// Get Prime P
-				pLen = ((pbData[i]*256 + pbData[i+1]+7)/8);
-				pKey->p = BN_bin2bn(pbData + i + 2, pLen, NULL);
-				i += pLen + 2;
-				
-				// Get Prime G
-				gLen = ((pbData[i]*256 + pbData[i+1]+7)/8);
-				pKey->g = BN_bin2bn(pbData + i + 2, gLen, NULL);
-				i += gLen + 2;
-				
-				// Get Prime Y
-				yLen = ((pbData[i]*256 + pbData[i+1]+7)/8);       
-				pKey->pub_key = BN_bin2bn(pbData + i + 2, yLen, NULL);
-				i += yLen + 2;
-				
-				pgpKeys.pElgamal = pKey;
-				
+				Elgamal_Key(pbData,dataLength);
 				continue;
 			}
-			else
-			{
-				i -= 6;
-				if (version == 2 || version == 3)
-					i -= 2;
-			}
+			i -= 6;
+			if (version == 2 || version == 3) i -= 2;
 		}
-		
 		i += packetLength;	
 	}
-	
-	return pgpKeys;
-}
-
-
-
-
+};
 
 
 // Decodes a PGP public key from ASCII armor into an actual key pointer

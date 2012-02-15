@@ -232,7 +232,8 @@ void BitcoinAcct_InternalPB::SharedCtor() {
   server_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   acct_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   bitcoin_acct_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_, sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 BitcoinAcct_InternalPB::~BitcoinAcct_InternalPB() {
@@ -299,7 +300,8 @@ void BitcoinAcct_InternalPB::Clear() {
       }
     }
   }
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
@@ -633,7 +635,8 @@ void BitcoinServer_InternalPB::SharedCtor() {
   server_port_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   bitcoin_username_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   bitcoin_password_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 BitcoinServer_InternalPB::~BitcoinServer_InternalPB() {
@@ -724,7 +727,8 @@ void BitcoinServer_InternalPB::Clear() {
       }
     }
   }
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
@@ -1203,7 +1207,8 @@ void RippleServer_InternalPB::SharedCtor() {
   ripple_password_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   namefield_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   passfield_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 RippleServer_InternalPB::~RippleServer_InternalPB() {
@@ -1312,7 +1317,8 @@ void RippleServer_InternalPB::Clear() {
       }
     }
   }
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
@@ -1885,7 +1891,8 @@ void LoomServer_InternalPB::SharedCtor() {
   server_port_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   loom_username_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   namefield_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 LoomServer_InternalPB::~LoomServer_InternalPB() {
@@ -1976,7 +1983,8 @@ void LoomServer_InternalPB::Clear() {
       }
     }
   }
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 

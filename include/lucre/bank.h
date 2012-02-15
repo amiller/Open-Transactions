@@ -11,6 +11,7 @@ extern "C"
 #include <memory.h>
 #include <assert.h>
 
+
 #ifdef _WIN32
 #include <malloc.h>
 #endif
@@ -169,6 +170,7 @@ public:
 	  static_cast<unsigned char *>(alloca(bank.PrimeLength()));
 
 	// generate y=x|hash(x)
+	//std::fill_n(xplusd,nCoinLength+1,'\0');
 	memset(xplusd,'\0',nCoinLength);
 	BN_bn2bin(m_bnCoinID,xplusd);
 

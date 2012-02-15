@@ -449,7 +449,8 @@ void MarketData_InternalPB::SharedCtor() {
   volume_currency_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   recent_highest_bid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   recent_lowest_ask_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 MarketData_InternalPB::~MarketData_InternalPB() {
@@ -624,7 +625,8 @@ void MarketData_InternalPB::Clear() {
       }
     }
   }
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
@@ -1564,7 +1566,8 @@ MarketList_InternalPB::MarketList_InternalPB(const MarketList_InternalPB& from)
 
 void MarketList_InternalPB::SharedCtor() {
   _cached_size_ = 0;
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 MarketList_InternalPB::~MarketList_InternalPB() {
@@ -1598,7 +1601,8 @@ MarketList_InternalPB* MarketList_InternalPB::New() const {
 
 void MarketList_InternalPB::Clear() {
   market_data_.Clear();
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
@@ -1775,7 +1779,8 @@ void OfferDataMarket_InternalPB::SharedCtor() {
   price_per_scale_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   available_assets_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   minimum_increment_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 OfferDataMarket_InternalPB::~OfferDataMarket_InternalPB() {
@@ -1850,7 +1855,8 @@ void OfferDataMarket_InternalPB::Clear() {
       }
     }
   }
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
@@ -2219,7 +2225,8 @@ OfferListMarket_InternalPB::OfferListMarket_InternalPB(const OfferListMarket_Int
 
 void OfferListMarket_InternalPB::SharedCtor() {
   _cached_size_ = 0;
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 OfferListMarket_InternalPB::~OfferListMarket_InternalPB() {
@@ -2254,7 +2261,8 @@ OfferListMarket_InternalPB* OfferListMarket_InternalPB::New() const {
 void OfferListMarket_InternalPB::Clear() {
   bids_.Clear();
   asks_.Clear();
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
@@ -2469,7 +2477,8 @@ void TradeDataMarket_InternalPB::SharedCtor() {
   date_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   price_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   amount_sold_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 TradeDataMarket_InternalPB::~TradeDataMarket_InternalPB() {
@@ -2544,7 +2553,8 @@ void TradeDataMarket_InternalPB::Clear() {
       }
     }
   }
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
@@ -2912,7 +2922,8 @@ TradeListMarket_InternalPB::TradeListMarket_InternalPB(const TradeListMarket_Int
 
 void TradeListMarket_InternalPB::SharedCtor() {
   _cached_size_ = 0;
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 TradeListMarket_InternalPB::~TradeListMarket_InternalPB() {
@@ -2946,7 +2957,8 @@ TradeListMarket_InternalPB* TradeListMarket_InternalPB::New() const {
 
 void TradeListMarket_InternalPB::Clear() {
   trades_.Clear();
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
@@ -3147,7 +3159,8 @@ void OfferDataNym_InternalPB::SharedCtor() {
   minimum_increment_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   stop_sign_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   stop_price_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 OfferDataNym_InternalPB::~OfferDataNym_InternalPB() {
@@ -3315,7 +3328,8 @@ void OfferDataNym_InternalPB::Clear() {
       }
     }
   }
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
@@ -4243,7 +4257,8 @@ OfferListNym_InternalPB::OfferListNym_InternalPB(const OfferListNym_InternalPB& 
 
 void OfferListNym_InternalPB::SharedCtor() {
   _cached_size_ = 0;
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 OfferListNym_InternalPB::~OfferListNym_InternalPB() {
@@ -4277,7 +4292,8 @@ OfferListNym_InternalPB* OfferListNym_InternalPB::New() const {
 
 void OfferListNym_InternalPB::Clear() {
   offers_.Clear();
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
@@ -4456,7 +4472,8 @@ void TradeDataNym_InternalPB::SharedCtor() {
   price_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   amount_sold_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   transaction_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 TradeDataNym_InternalPB::~TradeDataNym_InternalPB() {
@@ -4539,7 +4556,8 @@ void TradeDataNym_InternalPB::Clear() {
       }
     }
   }
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
@@ -4954,7 +4972,8 @@ TradeListNym_InternalPB::TradeListNym_InternalPB(const TradeListNym_InternalPB& 
 
 void TradeListNym_InternalPB::SharedCtor() {
   _cached_size_ = 0;
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 TradeListNym_InternalPB::~TradeListNym_InternalPB() {
@@ -4988,7 +5007,8 @@ TradeListNym_InternalPB* TradeListNym_InternalPB::New() const {
 
 void TradeListNym_InternalPB::Clear() {
   trades_.Clear();
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  ::std::fill_n(_has_bits_,sizeof(_has_bits_),'\0');
+  //::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 

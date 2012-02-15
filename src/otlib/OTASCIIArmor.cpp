@@ -165,7 +165,8 @@ extern "C"
 #include "OTLog.h"
 
 
-
+#define FALSE 0
+#define TRUE 1
 
 
 ;
@@ -333,7 +334,8 @@ uint8_t* OT_base64_decode(const char *input, size_t* out_len, int bLineBreaks)
 	
 	OT_ASSERT(NULL != buf);
 	
-	memset(buf, 0, out_max_len);
+	std::fill_n(buf,out_max_len,'\0');
+	//memset(buf, 0, out_max_len);
 
 	b64 = BIO_new(BIO_f_base64());
 	
@@ -1405,7 +1407,8 @@ bool OTASCIIArmor::LoadFromString(OTString & theStr, bool bEscaped/*=false*/)
 {
 	char buffer1[2100];
 	
-	memset(buffer1, 0, 2100);
+	std::fill_n(buffer1,2100,'\0');
+	//memset(buffer1, 0, 2100);
 	
 	bool bContentMode = false;				// "currently in content mode"
 	bool bHaveEnteredContentMode = false;	// "have yet to enter content mode"
