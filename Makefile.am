@@ -2,11 +2,11 @@
 AUTOMAKE_OPTIONS = subdir-objects
 ACLOCAL_AMFLAGS = -I build-aux/m4
 EXTRA_DIST = docs/GETTING-STARTED.txt docs/INSTALL-Android.txt		\
-             docs/INSTALL-DebianStable.txt				\
-             docs/INSTALL-Mac-Linux-FreeBSD.txt				\
-             docs/INSTALL-Windows.txt docs/LICENSE-AND-CREDITS.txt	\
-             docs/PUBKEY-FellowTraveler.asc docs/README.md docs/VERSION	\
-             docs/SSL-NOTES.txt docs/WIPE-USERS-ACCOUNTS.txt
+             docs/INSTALL-Fedora.txt docs/INSTALL-Ubuntu.txt		\
+             docs/INSTALL-OSX-Homebrew.txt docs/INSTALL-Windows.txt	\
+             docs/LICENSE-AND-CREDITS.txt PUBKEY-FellowTraveler.asc	\
+             README.md docs/SSL-NOTES.txt docs/WIPE-USERS-ACCOUNTS.txt	\
+             VERSION
 otincdir = $(top_srcdir)/include
 common_includes = -I$(otincdir) -I$(otincdir)/otlib -I$(otincdir)/simpleini
 lib_LTLIBRARIES = libOTLib.la
@@ -33,7 +33,7 @@ endif
 
 if TRANSPORT_TESTCLIENT
 transport_client_api = src/otapi/testclient.cpp
-transport_server_api = src/otapi/testserver.cpp
+transport_server_api = src/otserver/testserver.cpp
 endif
 
 ot_SOURCES = src/otapi/OpenTransactions.cpp src/otapi/OTAPI.cpp		\
@@ -59,16 +59,8 @@ bigintsources = src/bigint/BigUnsigned.cc src/bigint/BigInteger.cc	\
                 src/bigint/BigUnsignedInABase.cc			\
                 src/bigint/BigIntegerUtils.cc
 
-bigintheaders = include/bigint/BigUnsigned.hh		\
-		include/bigint/BigInteger.hh		\
-		include/bigint/BigUnsignedInABase.hh	\
-		include/bigint/BigIntegerUtils.hh	\
-		include/bigint/BigIntegerLibrary.hh
-
 lucresources = src/lucre/bankimp.cpp
-lucreheaders = include/lucre/bank.h
 irrxmlsources = src/irrxml/irrXML.cpp
-irrxmlheaders = include/irrxml/irrXML.h
 
 libOTLib_la_SOURCES = $(bigintsources) $(lucresources) $(irrxmlsources)	\
                       src/otlib/OTData.cpp src/otlib/OTString.cpp		\
@@ -114,16 +106,14 @@ include_HEADERS = include/irrxml/CXMLReaderImpl.h			\
                   include/lucre/bank.h include/otapi/main.h		\
                   include/otapi/OpenTransactions.h			\
                   include/otapi/OTAPI_funcdef.h include/otapi/OTAPI.h	\
-                  swig/otapi/OTAPI_csharp.h 				\
-                  swig/otapi/OTAPI_java.h swig/otapi/OTAPI_php.h	\
-                  swig/otapi/OTAPI_python.h				\
-                  swig/otapi/OTAPI_ruby.h 				\
-                  include/otapi/OTAPI_Wrapper.h				\
+                  swig/otapi/OTAPI_csharp.h swig/otapi/OTAPI_java.h	\
+                  swig/otapi/OTAPI_php.h swig/otapi/OTAPI_python.h	\
+                  swig/otapi/OTAPI_ruby.h include/otapi/OTAPI_Wrapper.h	\
                   include/otapi/OTClient.h				\
                   include/otapi/OTServerConnection.h			\
-                  include/otlib/anyoption.h				\
-                  include/otlib/inttypes.h include/otlib/Bitcoin.pb.h	\
-                  include/otlib/easyzlib.h include/otlib/Generics.pb.h	\
+                  include/otlib/anyoption.h include/otlib/inttypes.h	\
+                  include/otlib/Bitcoin.pb.h include/otlib/easyzlib.h	\
+                  include/otlib/Generics.pb.h				\
                   include/otlib/Markets.pb.h				\
                   include/otlib/Moneychanger.pb.h			\
                   include/otlib/OTAccount.h include/otlib/OTAgreement.h	\
@@ -162,4 +152,18 @@ include_HEADERS = include/irrxml/CXMLReaderImpl.h			\
                   include/otserver/OTServer.h				\
                   include/simpleini/ConvertUTF.h			\
                   include/simpleini/SimpleIni.h				\
-                  include/ssl-example/SFSocket.h
+                  include/ssl-example/SFSocket.h			\
+                  include/bigint/BigUnsigned.h				\
+                  include/bigint/BigInteger.h				\
+                  include/bigint/BigUnsignedInABase.h			\
+                  include/bigint/BigIntegerUtils.h			\
+                  include/bigint/BigIntegerLibrary.h			\
+                  include/bigint/NumberlikeArray.h			\
+                  include/bigint/BigIntegerAlgorithms.h			\
+                  include/irrxml/irrXML.h include/lucre/bank.h          \
+                  include/containers/simple_ptr.hpp                     \
+                  include/containers/simple_ptr.tpp                     \
+                  include/containers/containers_fixes.hpp               \
+                  include/containers/exceptions.hpp                     \
+                  include/containers/copy_functors.hpp
+
