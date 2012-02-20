@@ -30,6 +30,10 @@ profile
 # emacs noise
 *~
 
+# autoreconf noise
+build-aux
+autom4te.cache
+
 # targets
 testwallet/testwallet.exe
 transaction/transaction.exe
@@ -135,4 +139,6 @@ lib/Release/*
 lib/
 obj/
 swig/project/ipch
+swig/OTAPI_*
+swig/otapi/otapi_wrap*
 include/google
